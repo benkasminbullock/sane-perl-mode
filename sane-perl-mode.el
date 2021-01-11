@@ -1,5 +1,7 @@
 ;;; sane-perl-mode.el --- Perl code editing commands   -*- lexical-binding:t -*-
 
+;; cperl-mode.el with various bits of insanity removed
+
 ;; Copyright (C) 1985-1987, 1991-2020 Free Software Foundation, Inc.
 
 ;; Author: Ilya Zakharevich
@@ -9078,114 +9080,6 @@ do extra unwind via `sane-perl-unwind-to-safe'."
     (string-match ":\\s *\\([0-9.]+\\)" v)
     (substring v (match-beginning 1) (match-end 1)))
   "Derived from version 6.2, the latest version supported by IZ.")
-
-
-;;; Extensions for non-core keyword sets
-;;
-;; Perl lives.  Modules and versions enable new keywords all the time.
-;; Here's a plan to make sane-perl-mode flexible enough.
-;; The core of adding new keyword sets is the function add-keyword-set.
-
-;;;; Specify a new keyword set: Moose
-(defvar sane-perl-moose-nonoverridable-keywords
-  '("accessor" "after" "around" "augment"
-    "before" "blessed" "clearer" "confess"
-    "extends" "has" "inner" "override"
-    "predicate" "super" "traits" "with")
-  "New keywords introduced by Moose, mostly good enough for Moo as well.")
-
-(defvar sane-perl-moose-keywords
-  (list ':functions sane-perl-moose-nonoverridable-keywords)
-  "At the moment, we call all Moose keywords nonoverridable.")
-
-(sane-perl-add-keyword-set 'Moose       sane-perl-moose-keywords)
-(sane-perl-add-keyword-set 'Moo         sane-perl-moose-keywords)
-(sane-perl-add-keyword-set 'Moose::Role sane-perl-moose-keywords)
-(sane-perl-add-keyword-set 'Moo::Role   sane-perl-moose-keywords)
-
-;;;; Specify a new keyword set: MooseX::Declare
-(sane-perl-add-keyword-set 'MooseX::Declare
-                       (append '(:namespace-declare ("class" "role"))
-                               '(:namespace-ref ("with" "extends"))
-                               '(:sub ("method" "multi method"))
-                               '(:sub-ref ("before" "after" "around"
-                                           "override" "augment"))
-                       sane-perl-moose-keywords))
-
-;;;; Specify a new keyword set: Plack::Builder
-(defvar sane-perl-plack-builder-keywords
-  '(:functions ("builder" "enable" "enable_if" "mount"))
-  "Plack::Builder exports three functions.")
-(sane-perl-add-keyword-set 'Plack::Builder
-                       sane-perl-plack-builder-keywords)
-
-;;;; Specify a new keyword set: Function::Parameters
-(defvar sane-perl-function-parameters-keywords-set
-  '(:sub ("fun" "method")
-         :sub-ref ("before" "after" "around" "augment" "override"))
-  "Declare keywords for Function::Parameters.")
-(sane-perl-add-keyword-set 'Function::Parameters
-                       sane-perl-function-parameters-keywords-set)
-
-;;;; Specify a new keyword set: Test::More
-(defvar sane-perl-test-more-keywords-set
-  '(:functions ("can_ok" "cmp_ok" "diag" "done_testing" "explain" "fail"
-                "is" "is_deeply" "isa_ok" "isnt" "like" "new_ok" "note"
-                "ok" "pass" "plan" "require_ok" "skip" "subtest"
-                "todo_skip""unlike" "use_ok" "BAIL_OUT"))
-  "Functions imported by Test::More")
-(sane-perl-add-keyword-set 'Test::More
-                       sane-perl-test-more-keywords-set)
-
-;;;; Specify a new keyword set: Syntax::Keyword::Try
-(defvar sane-perl-syntax-keyword-try-flow-control-keywords
-  '("try" "catch" "finally")
-  "The keywords try/catch/finally come in many flavors.  With
-  Syntax::Keyword::Try, their blocks don't require a semicolon at
-  the end, so they are not just \"plain\" keywords.")
-
-;;;; Specify a new keyword set: Zydeco
-(defvar sane-perl-zydeco-nonoverridable-keywords
-  '("begin" "end" "after_apply" "before_apply"
-    "type_name" "requires" "has"
-    "constant" "from" "coerce"
-    "before" "after" "around"
-    "overload" "authority" "version"  ; not part of the grammar
-    "true" "false" "rw" "rwp" "ro"    ; constants, also not part of
-    "lazy" "bare" "private")          ; the grammar
-  "New keywords for Zydeco - similar, but richer than Moo*")
-
-(defvar sane-perl-zydeco-flow-control-keywords
-  sane-perl-syntax-keyword-try-flow-control-keywords
-  "They're just the same.")
-
-(defvar sane-perl-zydeco-namespace-declare-keywords ; that's a mouthful
-  '("abstract class" "class" "role" "interface")
-  "Zydeco keywords which define a new namespace")
-
-(defvar sane-perl-zydeco-namespace-ref-keywords
-  '("include" "toolkit" "extends" "with")
-  "Zydeco keywords followed by a namespace declared elsewhere"
-)
-
-(defvar sane-perl-zydeco-sub-keywords
-  '("method" "multi method" "factory" "multi factory" "via")
-  "Zydeco keywords to define a new sub-like thing")
-
-(defvar sane-perl-zydeco-sub-ref-keywords
-  '("after" "before" "around")
-  "Zydeco keywords to refer to a sub defined elsewhere")
-
-(defvar sane-perl-zydeco-keywords
-  (list ':functions         sane-perl-zydeco-nonoverridable-keywords
-        ':flow-control      sane-perl-zydeco-flow-control-keywords
-        ':namespace-declare sane-perl-zydeco-namespace-declare-keywords
-        ':namespace-ref     sane-perl-zydeco-namespace-ref-keywords
-        ':sub               sane-perl-zydeco-sub-keywords
-        ':sub-ref           sane-perl-zydeco-sub-ref-keywords))
-
-(sane-perl-add-keyword-set 'Zydeco
-                       sane-perl-zydeco-keywords)
 
 (provide 'sane-perl-mode)
 
