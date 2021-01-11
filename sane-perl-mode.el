@@ -95,8 +95,6 @@
 
 (defvar msb-menu-cond)
 (defvar gud-perldb-history)
-(defvar vc-rcs-header)
-(defvar vc-sccs-header)
 
 (defun sane-perl-choose-color (&rest list)
   "Return the first color from LIST which is supported on the frame."
@@ -347,26 +345,6 @@ Affects: `sane-perl-font-lock', `sane-perl-electric-lbrace-space',
   "Non-nil means that comment started at column 0 should be indentable."
   :type 'boolean
   :group 'sane-perl-indentation-details)
-
-(defcustom sane-perl-vc-sccs-header '("($sccs) = ('%W\ %' =~ /(\\d+(\\.\\d+)+)/) ;")
-  "Special version of `vc-sccs-header' that is used in Sane-Perl mode buffers."
-  :type '(repeat string)
-  :group 'sane-perl)
-
-(defcustom sane-perl-vc-rcs-header '("($rcs) = (' $Id\ $ ' =~ /(\\d+(\\.\\d+)+)/);")
-  "Special version of `vc-rcs-header' that is used in Sane-Perl mode buffers."
-  :type '(repeat string)
-     :group 'sane-perl)
-
-;; (defcustom sane-perl-clobber-mode-lists
-;;   (not
-;;    (and
-;;     (boundp 'interpreter-mode-alist)
-;;     (assoc "miniperl" interpreter-mode-alist)
-;;     (assoc "\\.\\([pP][Llm]\\|al\\)$" auto-mode-alist)))
-;;   "Whether to install us into `interpreter-' and `extension' mode lists."
-;;   :type 'boolean
-;;   :group 'sane-perl)
 
 (defcustom sane-perl-info-on-command-no-prompt nil
   "Not-nil (and non-null) means not to prompt on \\[sane-perl-info-on-command].
