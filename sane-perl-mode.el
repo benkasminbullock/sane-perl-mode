@@ -324,7 +324,7 @@ that begin with \"sane-perl-electric\".
   :type '(choice (const null) boolean)
   :group 'sane-perl-affected-by-hairy)
 
-(defcustom sane-perl-electric-backspace-untabify t
+(defcustom sane-perl-electric-backspace-untabify nil
   "Not-nil means electric-backspace will untabify in Sane-Perl."
   :type 'boolean
   :group 'sane-perl-autoinsert-details)
@@ -2003,8 +2003,6 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
   (set (make-local-variable 'imenu-create-index-function)
        #'sane-perl-imenu--create-perl-index)
   (set (make-local-variable 'imenu-sort-function) nil)
-  (set (make-local-variable 'vc-rcs-header) sane-perl-vc-rcs-header)
-  (set (make-local-variable 'vc-sccs-header) sane-perl-vc-sccs-header)
   (cond ((boundp 'compilation-error-regexp-alist-alist);; xemacs 20.x
 	 (set (make-local-variable 'compilation-error-regexp-alist-alist)
 	      (cons (cons 'sane-perl (car sane-perl-compilation-error-regexp-alist))
@@ -9076,11 +9074,9 @@ do extra unwind via `sane-perl-unwind-to-safe'."
       (sane-perl-fontify-syntaxically to)))))
 
 (defvar sane-perl-version
-  (let ((v  "Revision: 7.0"))
+  (let ((v  "Revision: 1.0"))
     (string-match ":\\s *\\([0-9.]+\\)" v)
     (substring v (match-beginning 1) (match-end 1)))
-  "Derived from version 6.2, the latest version supported by IZ.")
+  "Fork of cperl-mode version 7.0")
 
 (provide 'sane-perl-mode)
-
-;;; sane-perl-mode.el ends here
