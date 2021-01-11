@@ -11,8 +11,7 @@
 ;; Maintainer: emacs-devel@gnu.org
 ;; Keywords: languages, Perl
 ;; Package-Requires: ((emacs "26.1"))
-;; Package-Version: 7.00
-;; Homepage: https://github.com/HaraldJoerg/sane-perl-mode
+;; Package-Version: 1.0
 
 ;; This file is based on the original which is part of GNU Emacs.
 ;; Modifications 2020 by Harald Joerg <haj@posteo.de>
@@ -30,16 +29,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; from the same repository where you found this file.  If not, see
 ;; <https://www.gnu.org/licenses/>.
-
-;; Corrections made by Ilya Zakharevich ilyaz@cpan.org
-
-;;; Commentary:
-
-;; This file contains experimental support for various non-core
-;; feature sets of Perl, including the not-yet-released Cor OO system.
-
-;; The latest version is available from
-;; http://github.com/HaraldJoerg/sane-perl-mode
 
 ;; You can either fine-tune the bells and whistles of this mode or
 ;; bulk enable them by putting
@@ -1793,16 +1782,16 @@ the last)."
 Expression and list commands understand all C brackets.
 Tab indents for Perl code.
 Paragraphs are separated by blank lines only.
-Delete converts tabs to spaces as it moves back.
+Delete does not convert tabs to spaces as it moves back.
 
 Various characters in Perl almost always come in pairs: {}, (), [],
-sometimes <>.  When the user types the first, she gets the second as
+sometimes <>.  When the user types the first, she does not get the second as
 well, with optional special formatting done on {}.  (Disabled by
 default.)  You can always quote (with \\[quoted-insert]) the left
 \"paren\" to avoid the expansion.  The processing of < is special,
 since most the time you mean \"less\".  Sane-Perl mode tries to guess
-whether you want to type pair <>, and inserts is if it
-appropriate.  You can set `sane-perl-electric-parens-string' to the string that
+whether you want to type a pair <>, and does not inserts it if it
+is appropriate.  You can set `sane-perl-electric-parens-string' to the string that
 contains the parens from the above list you want to be electrical.
 Electricity of parens is controlled by `sane-perl-electric-parens'.
 You may also set `sane-perl-electric-parens-mark' to have electric parens
