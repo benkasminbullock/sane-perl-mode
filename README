@@ -1,0 +1,16 @@
+I've been using Emacs Perl mode for over twelve years, and have yet to
+see anyone do anything about any of the bugs which have been there all
+the time I have been using it, many of them really extremely daft bugs
+like highlighting @ within '' strings.
+
+Not only that, but whoever is maintaining the cperl-mode.el seems to
+be adding more strange behaviours to the mode, to the point that
+HERE-docs are virtually unuseable, requiring me to restart perl mode
+again and again, or Emacs violently jerks the window due to a
+completely barmy error message every time I type an "m" or an "s", so
+I can't type "sub" or "my" in Emacs any more without this horrible
+jerk-scroll.
+
+Anyway, the jerk-scroll was the final straw, I can't stand any more of
+this insanity, so here is my fork, "sane-perl-mode.el".
+
