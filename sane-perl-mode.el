@@ -3602,11 +3602,11 @@ modify syntax-type text property if the situation is too hard."
 		 (and sane-perl-brace-recursing
 		      (or (eq ostart  ?\{)
 			  (eq starter ?\{)))
-		 (message
-		  "End of `%s%s%c ... %c' string/RE not found: %s"
-		  argument
-		  (if ostart (format "%c ... %c" ostart (or oend ostart)) "")
-		  starter (or ender starter) bb)
+		 ;; (message
+		 ;;  "End of `%s%s%c ... %c' string/RE not found: %s"
+		 ;;  argument
+		 ;;  (if ostart (format "%c ... %c" ostart (or oend ostart)) "")
+		 ;;  starter (or ender starter) bb)
 		 (or (car err-l) (setcar err-l b)))))
     (if set-st
 	(progn
