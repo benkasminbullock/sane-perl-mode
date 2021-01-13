@@ -1,4 +1,4 @@
-# ABSTRACT: Testing cperl-mode
+# ABSTRACT: Testing sane-perl-mode
 use 5.24.0;
 package My::Moo::dule {
 
@@ -33,7 +33,7 @@ __END__
 
 =head1 NAME
 
-My::Moo::dule - Testing cperl-mode
+My::Moo::dule - Testing sane-perl-mode
 
 =head1 SYNOPSIS
 

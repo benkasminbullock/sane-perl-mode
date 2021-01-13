@@ -1,4 +1,4 @@
-;;; cperl-mode-tests --- Test for cperl-mode  -*- lexical-binding: t -*-
+;;; sane-perl-mode-tests --- Test for sane-perl-mode  -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2020 Free Software Foundation, Inc.
 
@@ -28,30 +28,30 @@
 
 ;;; Code:
 
-(defvar cperl-test-mode #'cperl-mode)
+(defvar sane-perl-test-mode #'sane-perl-mode)
 
-(require 'cperl-mode)
+(require 'sane-perl-mode)
 (require 'ert)
 
-(defvar cperl-mode-tests-data-directory
-  (expand-file-name "lisp/progmodes/cperl-mode-resources"
+(defvar sane-perl-mode-tests-data-directory
+  (expand-file-name "lisp/progmodes/sane-perl-mode-resources"
                     (or (getenv "EMACS_TEST_DIRECTORY")
                         (expand-file-name "../../../"
                                           (or load-file-name
                                               buffer-file-name))))
-  "Directory containing cperl-mode test data.")
+  "Directory containing sane-perl-mode test data.")
 
-(defun cperl-test-ppss (text regexp)
+(defun sane-perl-test-ppss (text regexp)
   "Return the `syntax-ppss' of the first character matched by REGEXP in TEXT."
   (interactive)
   (with-temp-buffer
     (insert text)
-    (funcall cperl-test-mode)
+    (funcall sane-perl-test-mode)
     (goto-char (point-min))
     (re-search-forward regexp)
     (syntax-ppss)))
 
-(ert-deftest cperl-mode-test-bug-42168 ()
+(ert-deftest sane-perl-mode-test-bug-42168 ()
   "Verify that '/' is a division after ++ or --, not a regexp.
 Reported in https://github.com/jrockway/cperl-mode/issues/45.
 If seen as regular expression, then the slash is displayed using
@@ -61,25 +61,25 @@ have a face property."
   ;; The next two Perl expressions have divisions.  Perl "punctuation"
   ;; operators don't get a face.
   (let ((code "{ $a++ / $b }"))
-    (should (equal (nth 8 (cperl-test-ppss code "/")) nil)))
+    (should (equal (nth 8 (sane-perl-test-ppss code "/")) nil)))
   (let ((code "{ $a-- / $b }"))
-    (should (equal (nth 8 (cperl-test-ppss code "/")) nil)))
+    (should (equal (nth 8 (sane-perl-test-ppss code "/")) nil)))
   ;; The next two Perl expressions have regular expressions.  The
   ;; delimiter of a RE is fontified with font-lock-constant-face.
   (let ((code "{ $a+ / $b } # /"))
-    (should (equal (nth 8 (cperl-test-ppss code "/")) 7)))
+    (should (equal (nth 8 (sane-perl-test-ppss code "/")) 7)))
   (let ((code "{ $a- / $b } # /"))
-    (should (equal (nth 8 (cperl-test-ppss code "/")) 7))))
+    (should (equal (nth 8 (sane-perl-test-ppss code "/")) 7))))
 
-(ert-deftest cperl-mode-test-bug-16368 ()
-  "Verify that `cperl-forward-group-in-re' doesn't hide errors."
-  (skip-unless (eq cperl-test-mode #'cperl-mode))
+(ert-deftest sane-perl-mode-test-bug-16368 ()
+  "Verify that `sane-perl-forward-group-in-re' doesn't hide errors."
+  (skip-unless (eq sane-perl-test-mode #'sane-perl-mode))
   (let ((code "/(\\d{4})(?{2}/;")     ; the regex from the bug report
         (result))
     (with-temp-buffer
       (insert code)
       (goto-char 9)
-      (setq result (cperl-forward-group-in-re))
+      (setq result (sane-perl-forward-group-in-re))
       (should (equal (car result) 'scan-error))
       (should (equal (nth 1 result) "Unbalanced parentheses"))
       (should (= (point) 9))))        ; point remains unchanged on error
@@ -88,28 +88,28 @@ have a face property."
     (with-temp-buffer
       (insert code)
       (goto-char 9)
-      (setq result (cperl-forward-group-in-re))
+      (setq result (sane-perl-forward-group-in-re))
       (should (equal result nil))
       (should (= (point) 15)))))      ; point has skipped the group
 
-(defun cperl-mode-test--run-bug-10483 ()
+(defun sane-perl-mode-test--run-bug-10483 ()
   "Runs a short program, intended to be under timer scrutiny.
 This function is intended to be used by an Emacs subprocess in
 batch mode.  The message buffer is used to report the result of
-running `cperl-indent-exp' for a very simple input.  The result
+running `sane-perl-indent-exp' for a very simple input.  The result
 is expected to be different from the input, to verify that
 indentation actually takes place.."
   (let ((code "poop ('foo', \n'bar')")) ; see the bug report
     (message "Test Bug#10483 started")
     (with-temp-buffer
       (insert code)
-      (funcall cperl-test-mode)
+      (funcall sane-perl-test-mode)
       (goto-char (point-min))
       (search-forward "poop")
-      (cperl-indent-exp)
+      (sane-perl-indent-exp)
       (message "%s" (buffer-string)))))
 
-(ert-deftest cperl-mode-test-bug-10483 ()
+(ert-deftest sane-perl-mode-test-bug-10483 ()
   "Check that indenting certain perl code does not loop forever.
 This verifies that indenting a piece of code that ends in a paren
 without a statement terminator on the same line does not loop
@@ -118,7 +118,7 @@ under timeout control."
   (interactive)
   (skip-unless (not (getenv "EMACS_HYDRA_CI"))) ; FIXME times out
   (let* ((emacs (concat invocation-directory invocation-name))
-         (test-function 'cperl-mode-test--run-bug-10483)
+         (test-function 'sane-perl-mode-test--run-bug-10483)
          (test-function-name (symbol-name test-function))
          (test-file (symbol-file test-function 'defun))
          (ran-out-of-time nil)
@@ -143,13 +143,13 @@ under timeout control."
       (should (string-match
                "poop ('foo', \n      'bar')" (buffer-string))))))
 
-(ert-deftest cperl-mode-test-indent-exp ()
-  "Run various tests for `cperl-indent-exp' edge cases.
+(ert-deftest sane-perl-mode-test-indent-exp ()
+  "Run various tests for `sane-perl-indent-exp' edge cases.
 These exercise some standard blocks and also the special
 treatment for Perl expressions where a closing paren isn't the
 end of the statement."
-  (let ((file (expand-file-name "cperl-indent-exp.pl"
-                                cperl-mode-tests-data-directory)))
+  (let ((file (expand-file-name "sane-perl-indent-exp.pl"
+                                sane-perl-mode-tests-data-directory)))
     (with-temp-buffer
       (insert-file-contents file)
       (goto-char (point-min))
@@ -167,20 +167,20 @@ end of the statement."
           (with-temp-buffer
             (insert code)
             (goto-char (point-min))
-            (cperl-indent-exp) ; here we go!
+            (sane-perl-indent-exp) ; here we go!
             (setq expected (concat "test case " name ":\n" expected))
             (setq got (concat "test case " name ":\n" (buffer-string)))
             (should (equal got expected))))))))
 
-(ert-deftest cperl-mode-test-indent-styles ()
+(ert-deftest sane-perl-mode-test-indent-styles ()
   "Verify correct indentation by style \"PBP\".
 Perl Best Practices sets some indentation values different from
   the defaults, and also wants an \"else\" or \"elsif\" keyword
   to align with the \"if\"."
-  (let ((file (expand-file-name "cperl-indent-styles.pl"
-                                cperl-mode-tests-data-directory)))
+  (let ((file (expand-file-name "sane-perl-indent-styles.pl"
+                                sane-perl-mode-tests-data-directory)))
     (with-temp-buffer
-      (cperl-set-style "PBP")
+      (sane-perl-set-style "PBP")
       (insert-file-contents file)
       (goto-char (point-min))
       (while (re-search-forward
@@ -196,11 +196,11 @@ Perl Best Practices sets some indentation values different from
               got)
           (with-temp-buffer
             (insert code)
-	    (cperl-mode)
+	    (sane-perl-mode)
 	    (indent-region (point-min) (point-max)) ; here we go!
             (setq expected (concat "test case " name ":\n" expected))
             (setq got (concat "test case " name ":\n" (buffer-string)))
             (should (equal got expected)))))
-      (cperl-set-style "CPerl"))))
+      (sane-perl-set-style "CPerl"))))
 
-;;; cperl-mode-tests.el ends here
+;;; sane-perl-mode-tests.el ends here

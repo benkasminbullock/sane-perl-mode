@@ -1,4 +1,4 @@
-;;; cperl-indexing-test.el --- Test indexing in cperl-mode -*- lexical-binding: t -*-
+;;; sane-perl-indexing-test.el --- Test indexing in sane-perl-mode -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2020-2020 ...to be decided ...
 
@@ -18,30 +18,30 @@
 
 
 ;; Adapted from flymake
-(defvar cperl-mode-tests-data-directory
-  (expand-file-name "lisp/progmodes/cperl-mode-resources"
+(defvar sane-perl-mode-tests-data-directory
+  (expand-file-name "lisp/progmodes/sane-perl-mode-resources"
                     (or (getenv "EMACS_TEST_DIRECTORY")
                         (expand-file-name "../../../.."
                                           (or load-file-name
                                               buffer-file-name))))
-  "Directory containing cperl-mode test data.")
+  "Directory containing sane-perl-mode test data.")
 
-(ert-deftest cperl-test-zydeco-indenting ()
+(ert-deftest sane-perl-test-zydeco-indenting ()
   "Rudimentary verify that Zydeco sources are indented properly."
   (let ((file (expand-file-name "zydeco.pl"
-                                cperl-mode-tests-data-directory))
+                                sane-perl-mode-tests-data-directory))
 	(expect (expand-file-name "zydeco_expected.pl"
-				  cperl-mode-tests-data-directory)))
+				  sane-perl-mode-tests-data-directory)))
     (with-temp-buffer
       (insert-file file)
-      (cperl-mode)
-      (cperl-set-style "PBP")
+      (sane-perl-mode)
+      (sane-perl-set-style "PBP")
       (indent-region (point-min) (point-max))
-      (cperl-set-style-back)
+      (sane-perl-set-style-back)
       (let ((result (buffer-substring-no-properties
 		     (point-min) (point-max))))
 	(find-file-existing expect)
-	(cperl-mode)
+	(sane-perl-mode)
 	(should (equal result (buffer-substring-no-properties
 		     (point-min) (point-max))))
 	(kill-buffer)))))
