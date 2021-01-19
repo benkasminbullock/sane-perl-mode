@@ -1,5 +1,5 @@
-This is an experimental fork of cperl-mode.el which I made to fix some
-long-term problems with the mode which didn't seem to be being
+This is an experimental fork of cperl-mode.el which we made to fix
+some long-term problems with the mode which didn't seem to be being
 addressed by the various maintainers of cperl-mode.el.
 
 Fixes so far:
@@ -56,3 +56,5 @@ my @array = qw!
   the level of bonkers-ness of the documentation (ALL CAPS YOU MUST DO
   THIS type of statements).
 
+* Untabifying by delete was switched off. We might switch this back on
+  again, depending on whether users expect this behaviour.
