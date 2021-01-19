@@ -82,14 +82,22 @@ sub run
 
     my $command = "emacs -batch $textfn --load=$modeel --load=$elfn -f save-buffer";
 
-    system ("$command 2> $errfn") == 0 or die "'$command' failed: $!";
-    if (-s $errfn) {
-	# This hasn't happened yet, probably need to do this better.
-	print "Errors: ";
-	my $errors = read_text ($errfn);
-	print $errors;
+    my $output;
+    my $status = system ("$command 2> $errfn");
+    if ($status == 0) {
+	if (-s $errfn) {
+	    # This hasn't happened yet, probably need to do this better.
+	    print "Errors: ";
+	    my $errors = read_text ($errfn);
+	    print $errors;
+	}
+	else {
+	    $output = read_text ($textfn);
+	}
     }
-    my $output = read_text ($textfn);
+    else {
+	warn "'$command' failed: $!";
+    }
     # To do: have an option where the user can keep the files, for
     # debugging.
     unlink ($textfn, $errfn, $elfn) or warn "Error unlinking temp files: $!";
@@ -116,6 +124,12 @@ sub run_expect
     my ($el, $in, $ex, $note) = @_;
     my $out = run ($el, $in);
     is ($out, $ex, $note);
+}
+
+sub run_font_lock
+{
+    my ($el, $in) = @_;
+
 }
 
 1;

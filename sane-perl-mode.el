@@ -232,12 +232,12 @@ Versions 5.2 ... 5.20 behaved as if this were nil."
   :group 'sane-perl-indentation-details)
 
 (defcustom sane-perl-auto-newline nil
-  "If true, insert newlines automatically where apprporiate.
-Non-nil means automatically newline before and after braces,
-and after colons and semicolons, inserted in Sane-Perl code.  The following
-\\[sane-perl-electric-backspace] will remove the inserted whitespace.
-Insertion after colons requires both this variable and
-`sane-perl-auto-newline-after-colon' set."
+  "If true, insert newlines automatically where appropriate.
+Non-nil means automatically newline before and after braces, and
+after colons and semicolons, inserted in Sane-Perl code.  The
+following \\[sane-perl-electric-backspace] will remove the
+inserted whitespace.  Insertion after colons requires both this
+variable and `sane-perl-auto-newline-after-colon' to be set."
   :type 'boolean
   :group 'sane-perl-autoinsert-details)
 
@@ -3183,9 +3183,15 @@ and closing parentheses and brackets."
 	     ;; to determine whether we are in top-level decls
 	     ;; or function's arg decls.  Set basic-indent accordingly.
 	     ;; Now add a little if this is a continuation line.
-	     (if (elt i 3)		; state (XXX What is the semantic???)
-		 0
-	       sane-perl-continued-statement-offset)))
+
+; Commenting out the following three lines fixed the "indent bug", but
+; it's not clear yet if commenting these out will cause other
+; failures. 2021-01-19 23:08:29
+
+;	     (if (elt i 3)		; state (XXX What is the semantic???)
+;		 0
+;	       sane-perl-continued-statement-offset)
+	     ))
 	 ;;
 	 ;; Indenter for stuff in "parentheses" (or brackets, braces-as-hash)
 	 ;;

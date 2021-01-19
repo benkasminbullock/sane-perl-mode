@@ -1,0 +1,104 @@
+=pod
+
+This is an experimental fork of cperl-mode.el which we made to fix
+some long-term problems with the mode which didn't seem to be being
+addressed by the various maintainers of cperl-mode.el.
+
+=head2 No error messages each time the m or s key is pressed
+
+Emacs no longer produces an error message every time the "m" or "s"
+key is pressed in a perl buffer.
+
+=head2 Far-right indentation of qw and qr
+
+The "far-right" indentation of qw and qr!!x can now be altered. The
+default remains the far right option, switching that off requires
+setting the option C<sane-perl-indentable-indent> to C<nil>.
+
+With this set, the "far right" indentation
+
+    my @array = qw!
+                      far
+                      right
+                      indentation
+                  !;
+
+can be indented as
+
+    my @array = qw!
+        normal
+        indentation
+    !;
+
+This fix comes from the L<jrockway fork of
+cperl-mode|https://github.com/jrockway/cperl-mode/pull/54>
+
+Although the fix predates the fork of sane-perl-mode, this fix hadn't
+been applied in the HaraldJoerg fork which sane-perl-mode originates
+from. Further to the jrockway fork fix, sane-perl-mode also puts the
+indentation of the !; at the end on the left rather than under the
+final line, as shown above. The jrockway fork currently does the
+following:
+
+    my @array = qw!
+        normal
+        indentation
+        !;
+
+=head2 Testing
+
+Tests of the C<qw!!> and C<qr!!x> behaviours have been added in the
+F<t/> directory. These run Emacs in batch mode and then compare the
+results using Perl's L<Test::More> framework.
+
+=head2 Removal of Moose and other non-core module support
+
+The Moose and other module-specific additions to the mode, and the
+editorial comments about the future of Perl development ("Perl lives!"
+etc.) have been removed.
+
+=head2 Removal of commented out and obsolete code
+
+Commented-out code and clearly obsolete code referring to versions of
+Perl from the 1990s have been removed.
+
+=head2 Documentation improvements
+
+Spelling mistakes have been fixed and some attempt made to tone down
+the level of bonkers-ness of the documentation (ALL CAPS YOU MUST DO
+THIS type of statements), as well as some editing of the many
+statements which seem designed to deliberately confuse users, or give
+opinions rather than facts.
+
+=head2 Untabifying by delete is off
+
+Untabifying by delete (turning tabs into spaces) was switched off. We
+might switch this back on again, if this mode is used by people
+other than the people who've made the mode, depending on whether
+users expect this behaviour.
+
+=head2 Indent brace bug
+
+Provisionally, the long-standing "indent brace bug" has been
+fixed. This bug happened when cperl-continued-statement-offset was set
+to a non-zero value. It caused the opening brace of a subroutine to be
+indented four spaces:
+
+    sub xyz
+        {
+
+where normally one would expect
+
+    sub xyz
+    {
+
+The behaviour of indenting the opening brace like this wasn't
+documented, and the variable name C<continued-statement-offset> was
+certainly a misnomer if it was actually intended to do the above, so
+presumably this was a bug, although this oddity has been there for the
+entire fourteen years that we've been using this module, so we're not
+at all sure what has been happening.
+
+However, this was fixed by commenting out some suspicious "mystery
+code", so the fix may cause some other bugs to occur.
+
