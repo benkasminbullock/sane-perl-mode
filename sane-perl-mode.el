@@ -850,8 +850,8 @@ In regular expressions (including character classes):
 				Mismatched closing delimiters, parens
 				we couldn't match, misplaced quantifiers,
 				unrecognized escape sequences
-  `sane-perl-nonoverridable-face'	Modifiers, as gism in m/REx/gism
-  `font-lock-type-face'		escape sequences with arguments (\\x \\23 \\p \\N)
+  `sane-perl-nonoverridable-face'	Modifiers, as in gism in m/REx/gism
+  `font-lock-type-face'		Escape sequences with arguments (\\x \\23 \\p \\N)
 				and others match-a-char escape sequences
   `font-lock-keyword-face'	Capturing parens, and |
   `font-lock-function-name-face' Special symbols: $ ^ . [ ] [^ ] (?{ }) (??{ })

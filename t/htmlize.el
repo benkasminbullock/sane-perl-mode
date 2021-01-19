@@ -1572,28 +1572,29 @@ it's called with the same value of KEY.  All other times, the cached
             ;; Initialize HTMLBUF and insert the HTML prolog.
             (with-current-buffer htmlbuf
               (buffer-disable-undo)
-              (insert (htmlize-method doctype) ?\n
-                      (format "<!-- Created by htmlize-%s in %s mode. -->\n"
-                              htmlize-version htmlize-output-type)
-                      "<html>\n  ")
-              (put places 'head-start (point-marker))
-              (insert "<head>\n"
-                      "    <title>" (htmlize-protect-string title) "</title>\n"
-                      (if htmlize-html-charset
-                          (format (concat "    <meta http-equiv=\"Content-Type\" "
-                                          "content=\"text/html; charset=%s\">\n")
-                                  htmlize-html-charset)
-                        "")
-                      htmlize-head-tags)
-              (htmlize-method insert-head buffer-faces face-map)
-              (insert "  </head>")
-              (put places 'head-end (point-marker))
-              (insert "\n  ")
-              (put places 'body-start (point-marker))
-              (insert (htmlize-method body-tag face-map)
-                      "\n    ")
-              (put places 'content-start (point-marker))
-              (insert (htmlize-method pre-tag face-map) "\n"))
+              ;; (insert (htmlize-method doctype) ?\n
+              ;;         (format "<!-- Created by htmlize-%s in %s mode. -->\n"
+              ;;                 htmlize-version htmlize-output-type)
+              ;;         "<html>\n  ")
+              ;; (put places 'head-start (point-marker))
+              ;; (insert "<head>\n"
+              ;;         "    <title>" (htmlize-protect-string title) "</title>\n"
+              ;;         (if htmlize-html-charset
+              ;;             (format (concat "    <meta http-equiv=\"Content-Type\" "
+              ;;                             "content=\"text/html; charset=%s\">\n")
+              ;;                     htmlize-html-charset)
+              ;;           "")
+              ;;         htmlize-head-tags)
+              ;; (htmlize-method insert-head buffer-faces face-map)
+              ;; (insert "  </head>")
+              ;; (put places 'head-end (point-marker))
+              ;; (insert "\n  ")
+              ;; (put places 'body-start (point-marker))
+              ;; (insert (htmlize-method body-tag face-map)
+              ;;         "\n    ")
+              ;; (put places 'content-start (point-marker))
+              ;; (insert (htmlize-method pre-tag face-map) "\n")
+	      )
             (let ((text-markup
                    ;; Get the inserter method, so we can funcall it inside
                    ;; the loop.  Not calling `htmlize-method' in the loop
@@ -1640,11 +1641,11 @@ it's called with the same value of KEY.  All other times, the cached
 
             ;; Insert the epilog and post-process the buffer.
             (with-current-buffer htmlbuf
-              (insert "</pre>")
-              (put places 'content-end (point-marker))
-              (insert "\n  </body>")
-              (put places 'body-end (point-marker))
-              (insert "\n</html>\n")
+              ;; (insert "</pre>")
+              ;; (put places 'content-end (point-marker))
+              ;; (insert "\n  </body>")
+              ;; (put places 'body-end (point-marker))
+              ;; (insert "\n</html>\n")
               (htmlize-defang-local-variables)
               (goto-char (point-min))
               (when htmlize-html-major-mode
