@@ -4,6 +4,10 @@ This is an experimental fork of cperl-mode.el which we made to fix
 some long-term problems with the mode which didn't seem to be being
 addressed by the various maintainers of cperl-mode.el.
 
+=head1 CHANGES FROM CPERL-MODE
+
+So far we've made the following changes from cperl-mode:
+
 =head2 No error messages each time the m or s key is pressed
 
 Emacs no longer produces an error message every time the "m" or "s"

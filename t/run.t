@@ -21,6 +21,11 @@ my $input = "qw/monkeys on a plane/";
 my $output = run ('(insert "#!perl")', $input);
 is ($output, "#!perl$input", "Was able to run script");
 
+my $html = run_font_lock ("#!perl\nuse Funky::Module;\n");
+
+ok ($html, "Got html back");
+like ($html, qr!<span!, "Looks like HTML");
+
 # Test that the wacky default behaviour remains intact unless the user
 # switches it off.
 

@@ -20,6 +20,7 @@ our @ISA = qw(Exporter);
 our @EXPORT = qw/
     run
     run_expect
+    run_font_lock
 /;
 use Carp;
 use Test::More;
@@ -91,13 +92,11 @@ sub run
 	    my $errors = read_text ($errfn);
 	    print $errors;
 	}
-	else {
-	    $output = read_text ($textfn);
-	}
     }
     else {
 	warn "'$command' failed: $!";
     }
+    $output = read_text ($textfn);
     # To do: have an option where the user can keep the files, for
     # debugging.
     unlink ($textfn, $errfn, $elfn) or warn "Error unlinking temp files: $!";
@@ -126,10 +125,57 @@ sub run_expect
     is ($out, $ex, $note);
 }
 
+=head2 run_font_lock
+
+    my ($out, $html) = run_font_lock ($el, $in)
+
+Run the included lisp, then run a hacked version of F<htmlize.el> on
+the buffer to retrieve the output of fontification (the colouring of
+the code on the Emacs window).
+
+=cut
+
 sub run_font_lock
 {
-    my ($el, $in) = @_;
+    my ($in) = @_;
+    my ($hfh, $hfn) = tempfile ("html.XXXXX", DIR => $dir);
+    my $fontify = <<EOF;
+(add-to-list 'load-path "$dir")
+(add-to-list 'load-path "$dir/..")
+(setq htmlize-use-rgb-map 'force)
+(require 'htmlize)
+(require 'sane-perl-mode)
 
+(find-file (pop command-line-args-left))
+(sane-perl-mode)
+(font-lock-fontify-buffer)
+(with-current-buffer (htmlize-buffer)
+  (princ (buffer-string)))
+EOF
+#    print $fontify;
+    my ($inh, $inf) = tempfile ("in.XXXXX", DIR => $dir);
+    print $inh $in;
+    close $inh or die $!;
+    my ($outh, $outf) = tempfile ("out.XXXXX", DIR => $dir);
+    close $outh or die $!;
+    my ($elh, $elf) = tempfile ("el.XXXXX", DIR => $dir);
+    print $elh $fontify;
+    close $elh or die $!;
+    my ($errh, $errf) = tempfile ("err.XXXXX", DIR => $dir);
+    close $errh or die $!;
+    system ("emacs -batch -l $elf $inf > $outf 2> $errf");
+    my $out = read_text ($outf);
+    my $errors = read_text ($errf);
+    # It doesn't run in batch mode without (require 'cl), the error we
+    # get is "Symbol’s function definition is void: lexical-let", so
+    # I've added the (require 'cl) as a quick fix. 2021-01-20 00:48:52
+    $errors =~ s/Package cl is deprecated\s*//;
+    if ($errors) {
+	print "Errors: $errors\n";
+    }
+#    print $out;
+    unlink ($inf, $outf, $elf) or warn "Error unlinking temp files: $!";
+    return $out;
 }
 
 1;

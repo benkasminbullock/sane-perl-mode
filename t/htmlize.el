@@ -1,3 +1,6 @@
+;; This version of htmlize.el has been hacked for use in testing
+;; sane-perl-mode.el.
+
 ;;; htmlize.el --- Convert buffer text and decorations to HTML. -*- lexical-binding: t -*-
 
 ;; Copyright (C) 1997-2003,2005,2006,2009,2011,2012,2014,2017,2018 Hrvoje Niksic
@@ -81,7 +84,7 @@
 
 
 ;;; Code:
-
+(require 'cl)
 (require 'cl-lib)
 (eval-when-compile
   (defvar font-lock-auto-fontify)
