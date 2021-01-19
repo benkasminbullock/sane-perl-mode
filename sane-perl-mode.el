@@ -9,7 +9,7 @@
 ;;	    Bob Olson
 ;;	    Jonathan Rockway <jon@jrock.us>
 ;;          Harald Jörg <haj@posteo.de>
-;; Maintainer: benkasminbullock@gmail.com
+;; Maintainer: Ben Bullock <benkasminbullock@gmail.com>
 ;; Keywords: languages, Perl
 ;; Package-Requires: ((emacs "26.1"))
 ;; Package-Version: 1.0
@@ -268,13 +268,13 @@ of the construct (on a previous line)"
   :group 'sane-perl-indentation-details)
 
 (defcustom sane-perl-font-lock nil
-  "If non-nil (and non-null), Sane-Perl buffers will use the command `font-lock-mode'.
+  "If non-nil, Sane-Perl buffers will use the command `font-lock-mode'.
 Can be overwritten by `sane-perl-hairy' if nil."
   :type '(choice (const null) boolean)
   :group 'sane-perl-affected-by-hairy)
 
 (defcustom sane-perl-electric-lbrace-space nil
-  "Non-nil (and non-null) means { after $ should be preceded by ` '.
+  "Non-nil means { after $ should be preceded by ` '.
 Can be overwritten by `sane-perl-hairy' if nil."
   :type '(choice (const null) boolean)
   :group 'sane-perl-affected-by-hairy)
@@ -286,7 +286,7 @@ Closing ones are electric only if the region is highlighted."
   :group 'sane-perl-affected-by-hairy)
 
 (defcustom sane-perl-electric-parens nil
-  "Non-nil (and non-null) means parentheses should be electric in Sane-Perl.
+  "Non-nil means parentheses should be electric in Sane-Perl.
 Can be overwritten by `sane-perl-hairy' if nil."
   :type '(choice (const null) boolean)
   :group 'sane-perl-affected-by-hairy)
@@ -305,7 +305,7 @@ Can be overwritten by `sane-perl-hairy' if nil."
   :group 'sane-perl-affected-by-hairy)
 
 (defcustom sane-perl-electric-keywords nil
-  "Not-nil (and non-null) means keywords are electric in Sane-Perl.
+  "Not-nil means keywords are electric in Sane-Perl.
 Can be overwritten by `sane-perl-hairy' if nil.
 
 Uses the function `abbrev-mode' to do the expansion.  If you want
@@ -1390,7 +1390,7 @@ Example:  (sane-perl-add-keyword-set \"use MooseX::Declare;\"
                                    :sub (\"method\")
                                    :functions (\"has\" \"extends\")))
 
-In this (simplified and incomplete) example, for a Perl module
+In this example, for a Perl module
 which uses MooseX::Declare: \"class\" introduces a namespace,
 \"method\" is treated as starting a subroutine, and \"has\" and
 extends are shown like builtin functions."
