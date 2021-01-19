@@ -928,14 +928,6 @@ versions of Emacs."
 		      (put-text-property (point) (match-end 0)
 					 'syntax-type prop)))))))
 
-;; Probably it is too late to set these guys already, but it can help later:
-
-;;(and sane-perl-clobber-mode-lists
-;;(setq auto-mode-alist
-;;      (append '(("\\.\\([pP][Llm]\\|al\\)$" . perl-mode))  auto-mode-alist ))
-;;(and (boundp 'interpreter-mode-alist)
-;;     (setq interpreter-mode-alist (append interpreter-mode-alist
-;;					  '(("miniperl" . perl-mode))))))
 (eval-when-compile
   (mapc #'require '(imenu easymenu etags timer man info)))
 
@@ -1017,21 +1009,16 @@ versions of Emacs."
     (if (sane-perl-val 'sane-perl-clobber-lisp-bindings)
         (progn
 	  (define-key map [(control ?h) ?f]
-	    ;;(concat (char-to-string help-char) "f") ; does not work
 	    'sane-perl-info-on-command)
 	  (define-key map [(control ?h) ?v]
-	    ;;(concat (char-to-string help-char) "v") ; does not work
 	    'sane-perl-get-help)
 	  (define-key map [(control ?c) (control ?h) ?f]
-	    ;;(concat (char-to-string help-char) "f") ; does not work
 	    (key-binding "\C-hf"))
 	  (define-key map [(control ?c) (control ?h) ?v]
-	    ;;(concat (char-to-string help-char) "v") ; does not work
 	    (key-binding "\C-hv")))
       (define-key map [(control ?c) (control ?h) ?f]
         'sane-perl-info-on-current-command)
       (define-key map [(control ?c) (control ?h) ?v]
-	;;(concat (char-to-string help-char) "v") ; does not work
 	'sane-perl-get-help))
     (substitute-key-definition
      'indent-sexp 'sane-perl-indent-exp
@@ -1253,20 +1240,26 @@ when it finds the modules which export them in the buffer's file."
     "cmp" "connect" "continue" "cos" "crypt"
     "dbmclose" "dbmopen" "die" "dump"
     "endgrent" "endhostent" "endnetent" "endprotoent" "endpwent"
-    "endservent" "eof" "eq" "exec" "exit" "exp"        "fc" "fcntl"
-    "fileno" "flock" "fork" "formline"
+    "endservent" "eof" "eq" "exec" "exit" "exp"
+    "fc" "fcntl" "fileno" "flock" "fork" "formline"
     "ge" "getc" "getgrent" "getgrgid" "getgrnam" "gethostbyaddr"
     "gethostbyname" "gethostent" "getlogin" "getnetbyaddr" "getnetbyname"
     "getnetent" "getpeername" "getpgrp" "getppid" "getpriority"
     "getprotobyname" "getprotobynumber" "getprotoent"
     "getpwent" "getpwnam" "getpwuid" "getservbyname"
     "getservbyport" "getservent" "getsockname"
-    "getsockopt" "glob" "gmtime" "gt"        "hex"
-    "index" "int" "ioctl"        "join"        "kill"
+    "getsockopt" "glob" "gmtime" "gt"
+    "hex"
+    "index" "int" "ioctl"
+    "join"
+    "kill"
     "lc" "lcfirst" "le" "length" "link" "listen" "localtime" "lock" "log"
     "lstat" "lt"
-    "mkdir" "msgctl" "msgget" "msgrcv" "msgsnd"        "ne" "not"
-    "oct" "open" "opendir" "or" "ord"        "pack" "pipe"        "quotemeta"
+    "mkdir" "msgctl" "msgget" "msgrcv" "msgsnd"
+    "ne" "not"
+    "oct" "open" "opendir" "or" "ord"
+    "pack" "pipe"
+    "quotemeta"
     "rand" "read" "readdir" "readline" "readlink" "readpipe" "recv" "ref"
     "rename" "require" "reset" "reverse" "rewinddir" "rindex" "rmdir"
     "seek" "seekdir" "select" "semctl" "semget" "semop" "send" "setgrent"
@@ -1276,8 +1269,10 @@ when it finds the modules which export them in the buffer's file."
     "sqrt" "srand" "stat" "substr" "symlink" "syscall" "sysopen" "sysread"
     "sysseek" "system" "syswrite"
     "tell" "telldir" "time" "times" "truncate"
-    "uc" "ucfirst" "umask" "unlink" "unpack" "utime"        "values" "vec"
-    "wait" "waitpid" "wantarray" "warn" "write"        "x" "xor")
+    "uc" "ucfirst" "umask" "unlink" "unpack" "utime"
+    "values" "vec"
+    "wait" "waitpid" "wantarray" "warn" "write"
+    "x" "xor")
   "The list of functions to be font-locked")
 
 (defvar sane-perl-core-sub-keywords
