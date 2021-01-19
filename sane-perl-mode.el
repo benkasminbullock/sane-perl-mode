@@ -135,7 +135,7 @@
 
 (defgroup sane-perl-keyword-sets nil
   "Add keywords coming from Perl modules"
-  :prefix "sane-perl-" ;; how is this used? -- haj 2020-06-20
+  :prefix "sane-perl-"
   :group 'sane-perl)
 
 
@@ -1948,7 +1948,6 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
        #'sane-perl-fill-paragraph)
   (set (make-local-variable 'parse-sexp-ignore-comments) t)
   (set (make-local-variable 'indent-region-function) #'sane-perl-indent-region)
-  ;;(setq auto-fill-function #'sane-perl-do-auto-fill) ; Need to switch on and off!
   (set (make-local-variable 'imenu-create-index-function)
        #'sane-perl-imenu--create-perl-index)
   (set (make-local-variable 'imenu-sort-function) nil)
@@ -1987,10 +1986,6 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
                    (sane-perl-fontify-syntaxically end))))
 	;; Do not introduce variable if not needed, we check it!
 	(set (make-local-variable 'parse-sexp-lookup-properties) t)
-	;; Fix broken font-lock:
-	(or (boundp 'font-lock-unfontify-region-function)
-	    (setq font-lock-unfontify-region-function
-		 #'font-lock-default-unfontify-region))
 	;; Our: just a plug for wrong font-lock
 	(set (make-local-variable 'font-lock-unfontify-region-function)
              ;; not present with old Emacs
@@ -2009,7 +2004,6 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
        ;; not present with old Emacs
        #'sane-perl-font-lock-fontify-region-function)
   (set (make-local-variable 'font-lock-fontify-region-function)
-       ;; 2020-06-18 (haj) Smell: This is now duplicate
        #'sane-perl-font-lock-fontify-region-function)
   (make-local-variable 'sane-perl-old-style)
   (set (make-local-variable 'normal-auto-fill-function)
@@ -2018,7 +2012,7 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
       (progn (or sane-perl-faces-init (sane-perl-init-faces))
 	     (font-lock-mode 1)))
   (set (make-local-variable 'facemenu-add-face-function)
-       #'sane-perl-facemenu-add-face-function) ; XXXX What this guy is for???
+       #'sane-perl-facemenu-add-face-function)
   (and (boundp 'msb-menu-cond)
        (not sane-perl-msb-fixed)
        (sane-perl-msb-fix))
@@ -2104,25 +2098,6 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
 	  (setq sane-perl-wrong-comment t)
 	  (sane-perl-make-indent comment-column 1) ; Indent min 1
 	  c)))))
-
-;;(defun sane-perl-comment-indent-fallback ()
-;;  "Is called if the standard comment-search procedure fails.
-;;Point is at start of real comment."
-;;  (let ((c (current-column)) target cnt prevc)
-;;    (if (= c comment-column) nil
-;;      (setq cnt (skip-chars-backward " \t"))
-;;      (setq target (max (1+ (setq prevc
-;;			     (current-column))) ; Else indent at comment column
-;;		   comment-column))
-;;      (if (= c comment-column) nil
-;;	(delete-backward-char cnt)
-;;	(while (< prevc target)
-;;	  (insert "\t")
-;;	  (setq prevc (current-column)))
-;;	(if (> prevc target) (progn (delete-char -1) (setq prevc (current-column))))
-;;	(while (< prevc target)
-;;	  (insert " ")
-;;	  (setq prevc (current-column)))))))
 
 (defun sane-perl-indent-for-comment ()
   "Substitute for `indent-for-comment' in Sane-Perl."
@@ -2370,7 +2345,6 @@ to nil."
 			(memq this-command '(self-insert-command newline)))))
 	   (and dollar (insert " $"))
 	   (sane-perl-indent-line)
-	   ;;(insert " () {\n}")
  	   (cond
  	    (sane-perl-extra-newline-before-brace
  	     (insert (if do "\n" " ()\n"))
@@ -2492,7 +2466,6 @@ to nil."
 					   'pod)))))
 	 (progn
 	   (sane-perl-indent-line)
-	   ;;(insert " {\n\n}")
  	   (cond
  	    (sane-perl-extra-newline-before-brace
  	     (insert "\n")
@@ -2653,9 +2626,7 @@ If in POD, insert appropriate lines."
 			 (or (nth 3 pps) (nth 4 pps) (nth 5 pps))))))))
 	(progn
 	  (self-insert-command (prefix-numeric-value arg))
-	  ;;(forward-char -1)
 	  (if auto (setq insertpos (point-marker)))
-	  ;;(forward-char 1)
 	  (sane-perl-indent-line)
 	  (if auto
 	      (progn
@@ -2837,17 +2808,8 @@ PRESTART is the position basing on which START was found."
 (defun sane-perl-beginning-of-property (p prop &optional lim)
   "Given that P has a property PROP, find where the property starts.
 Will not look before LIM."
-;;; XXXX What to do at point-max???
   (or (previous-single-property-change (sane-perl-1+ p) prop lim)
       (point-min))
-  ;; (cond ((eq p (point-min))
-  ;;        p)
-  ;;       ((and lim (<= p lim))
-  ;;        p)
-  ;;       ((not (get-text-property (1- p) prop))
-  ;;        p)
-  ;;       (t (or (previous-single-property-change p look-prop lim)
-  ;;              (point-min))))
   )
 
 (defun sane-perl-sniff-for-indent (&optional parse-data) ; was parse-start
@@ -3151,8 +3113,6 @@ and closing parentheses and brackets."
   (save-excursion
     (let ((i (sane-perl-sniff-for-indent parse-data)) what p)
       (cond
-       ;;((or (null i) (eq i t) (numberp i))
-       ;;  i)
        ((vectorp i)
 	(setq what (assoc (elt i 0) sane-perl-indent-rules-alist))
 	(cond
@@ -5809,7 +5769,6 @@ indentation and initial hashes.  Behaves usually outside of comment."
 (defun sane-perl-init-faces ()
   (condition-case errs
       (progn
-	(require 'font-lock)
 	(let (t-font-lock-keywords t-font-lock-keywords-1)
 	  (setq
 	   t-font-lock-keywords
@@ -6697,7 +6656,6 @@ Does not move point."
 	  (setcar index name)
 	  (push index index-alist))
 	 (t				; BOOT: section
-	  ;; (beginning-of-line)
 	  (setq index (sane-perl-imenu-name-and-position))
 	  (setcar index (concat package "::BOOT:"))
 	  (push index index-alist)))))
@@ -7231,10 +7189,6 @@ Currently it is tuned to C and Perl syntax."
   (re-search-backward "[-a-zA-Z0-9_:!&*+,./<=>?\\^|~$%@]"
 		      (point-at-bol)
 		      'to-beg)
-  ;;  (cond
-  ;;   ((or (eobp) (looking-at "[][ \t\n{}();,]")) ; Not at a symbol
-  ;;    (skip-chars-backward " \n\t\r({[]});,")
-  ;;    (or (bobp) (backward-char 1))))
   ;; Try to backtrace
   (cond
    ((looking-at "[a-zA-Z0-9_:]")	; symbol
@@ -7293,8 +7247,6 @@ Currently it is tuned to C and Perl syntax."
 	  (if sane-perl-message-on-help-error
 	      (message "Nothing found for %s..."
 		       (buffer-substring (point) (min (+ 5 (point)) (point-max))))))))))
-
-;; Stolen from perl-descr.el by Johan Vromans:
 
 (defvar sane-perl-doc-buffer " *perl-doc*"
   "Where the documentation can be found.")
@@ -7733,10 +7685,10 @@ abs [ EXPR ]	absolute value
 ... and ...		Low-precedence synonym for &&.
 bless REFERENCE [, PACKAGE]	Makes reference into an object of a package.
 chomp [LIST]	Strips $/ off LIST/$_.  Returns count.  Special if $/ eq \\='\\='!
-chr		Converts a number to char with the same ordinal.
+chr		Converts a number to a character with the same ordinal.
 else		Part of if/unless {BLOCK} elsif {BLOCK} else {BLOCK}.
 elsif		Part of if/unless {BLOCK} elsif {BLOCK} else {BLOCK}.
-exists $HASH{KEY}	True if the key exists.
+exists $HASH{KEY}	True if the key exists, even if not defined.
 fc EXPR    Returns the casefolded version of EXPR.
 format [NAME] =	 Start of output format.  Ended by a single dot (.) on a line.
 formline PICTURE, LIST	Backdoor into \"format\" processing.
@@ -7748,10 +7700,10 @@ map EXPR, LIST	or map {BLOCK} LIST	Applies EXPR/BLOCK to elts of LIST.
 no PACKAGE [SYMBOL1, ...]  Partial reverse for `use'.  Runs `unimport' method.
 not ...		Low-precedence synonym for ! - negation.
 ... or ...		Low-precedence synonym for ||.
-pos STRING    Set/Get end-position of the last match over this string, see \\G.
+pos STRING    Set/get end-position of the last match over this string, see \\G.
 prototype FUNC   Returns the prototype of a function as a string, or undef.
 quotemeta [ EXPR ]	Quote regexp metacharacters.
-qw/WORD1 .../		Synonym of split(\\='\\=', \\='WORD1 ...\\=')
+qw/WORD1 .../		Whitespace separated list
 readline FH	Synonym of <FH>.
 readpipe CMD	Synonym of \\=`CMD\\=`.
 ref [ EXPR ]	Type of EXPR when dereferenced.
@@ -7982,7 +7934,6 @@ prototype \\&SUB	Returns prototype of the function given a reference.
 
 (defun sane-perl-make-regexp-x ()
   ;; Returns position of the start
-  ;; XXX this is called too often!  Need to cache the result!
   (save-excursion
     (or sane-perl-use-syntax-table-text-property
 	(error "I need to have a regexp marked!"))
@@ -7994,7 +7945,6 @@ prototype \\&SUB	Returns prototype of the function given a reference.
 		   (looking-at "\\(r\\)\\s|")))
 	  (goto-char (match-end 1))
 	(re-search-backward "\\s|")))	; Assume it is scanned already.
-    ;;(forward-char 1)
     (let ((b (point)) (e (make-marker)) have-x delim
 	  (sub-p (eq (preceding-char) ?s)))
       (forward-sexp 1)
@@ -8009,7 +7959,7 @@ prototype \\&SUB	Returns prototype of the function given a reference.
       ;; Protect fragile " ", "#"
       (if have-x nil
 	(goto-char (1+ b))
-	(while (re-search-forward "\\(\\=\\|[^\\]\\)\\(\\\\\\\\\\)*[ \t\n#]" e t) ; Need to include (?#) too?
+	(while (re-search-forward "\\(\\=\\|[^\\]\\)\\(\\\\\\\\\\)*[ \t\n#]" e t) 
 	  (forward-char -1)
 	  (insert "\\")
 	  (forward-char 1)))
