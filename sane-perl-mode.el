@@ -692,12 +692,12 @@ up yet.  You may get slightly different colors basing on the order of
 fontification and syntaxification.  Say, the initial faces is correct,
 but editing the buffer breaks this.
 
-Even with older Emacsen Sane-Perl mode tries to corrects some Emacs
-misunderstandings, however, for efficiency reasons the degree of
-correction is different for different operations.  The partially
-corrected problems are: POD sections, here-documents, regexps.  The
-operations are: highlighting, indentation, electric keywords, electric
-braces.
+Even with older Emacsen Sane-Perl mode tries to correct some
+Emacs misunderstandings, however, for efficiency reasons the
+degree of correction is different for different operations.  The
+partially corrected problems are: POD sections, here-documents,
+regexps.  The operations are: highlighting, indentation, electric
+keywords, electric braces.
 
 This may be confusing, since the regexp s#//#/#; may be highlighted
 as a comment, but it will be recognized as a regexp by the indentation

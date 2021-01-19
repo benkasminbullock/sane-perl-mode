@@ -1,16 +1,32 @@
-I've been using Emacs Perl mode for over twelve years, and have yet to
-see anyone do anything about any of the bugs which have been there all
-the time I have been using it, many of them really extremely daft bugs
-like highlighting @ within '' strings.
+This is an experimental fork of cperl-mode.el which I made to fix some
+long-term problems with the mode which didn't seem to be being
+addressed by the various maintainers of cperl-mode.el.
 
-Not only that, but whoever is maintaining the cperl-mode.el seems to
-be adding more strange behaviours to the mode, to the point that
-HERE-docs are virtually unuseable, requiring me to restart perl mode
-again and again, or Emacs violently jerks the window due to a
-completely barmy error message every time I type an "m" or an "s", so
-I can't type "sub" or "my" in Emacs any more without this horrible
-jerk-scroll.
+Fixes so far:
 
-Anyway, the jerk-scroll was the final straw, I can't stand any more of
-this insanity, so here is my fork, "sane-perl-mode.el".
+* Emacs no longer produces an error message every time the "m" or "s"
+  key is pressed in perl mode.
 
+* The "far-right" indentation of qw and qr!!x has been fixed (requires
+  setting sane-perl-indentable-indent nil)
+
+No longer
+
+my @array = qw!
+                  far
+                  right
+                  indentation
+!;
+
+Now indents as
+
+my @array = qw!
+    normal
+    indentation
+!;
+
+* The moose and other module-specific additions to the mode, and the
+  editorial comments about the future of Perl development have been
+  removed.
+
+So far I don't have tests of the new behaviours.
