@@ -17,11 +17,17 @@ use strict;
 use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw/run/;
+our @EXPORT = qw/
+    run
+    run_expect
+/;
 use Carp;
 use Test::More;
 use File::Temp 'tempfile';
-use File::Slurper qw!read_text write_text!;
+use File::Slurper qw!
+    read_text
+    write_text
+!;
 
 # Find the lisp file we are testing.
 
@@ -88,6 +94,28 @@ sub run
     # debugging.
     unlink ($textfn, $errfn, $elfn) or warn "Error unlinking temp files: $!";
     return $output;
+}
+
+=head2 run_expect
+
+    run_expect ($el, $in, $ex);
+
+Run the Emacs lisp in C<$el> on the Perl input C<$in> and see if one
+gets the expected output C<$ex> or not. Runs L<Test::More/is> on the
+output of L</run> and compares the outputs. A fourth, optional,
+argument may contain a short description of the test:
+
+    run_expect ($el, $in, $ex, "Got correct indentation");
+
+There is no return value.
+
+=cut
+
+sub run_expect
+{
+    my ($el, $in, $ex, $note) = @_;
+    my $out = run ($el, $in);
+    is ($out, $ex, $note);
 }
 
 1;

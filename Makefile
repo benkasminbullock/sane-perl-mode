@@ -6,3 +6,4 @@ $(IDIR)/sane-perl-mode.el $(IDIR)/sane-perl-mode.elc: sane-perl-mode.el install.
 	./install.pl
 
 test:
+	prove t/*.t
