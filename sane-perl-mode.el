@@ -1718,10 +1718,10 @@ the last)."
 (defvar sane-perl-use-major-mode 'sane-perl-mode)
 (defvar sane-perl-font-locking nil)
 
-;; NB as it stands the code in sane-perl-mode assumes this only has one
-;; element. Since XEmacs 19 support has been dropped, this could all be simplified.
+;; NB as it stands the code in sane-perl-mode assumes this only has
+;; one element. Since XEmacs 19 support has been dropped, this could
+;; all be simplified.
 (defvar sane-perl-compilation-error-regexp-alist
-  ;; This look like a paranoiac regexp: could anybody find a better one? (which WORKS).
   '(("^[^\n]* \\(file\\|at\\) \\([^ \t\n]+\\) [^\n]*line \\([0-9]+\\)[\\., \n]"
      2 3))
   "Alist that specifies how to match errors in perl output.")
@@ -1737,25 +1737,27 @@ Tab indents for Perl code.
 Paragraphs are separated by blank lines only.
 Delete does not convert tabs to spaces as it moves back.
 
-Various characters in Perl almost always come in pairs: {}, (), [],
-sometimes <>.  When the user types the first, she does not get the second as
-well, with optional special formatting done on {}.  (Disabled by
-default.)  You can always quote (with \\[quoted-insert]) the left
-\"paren\" to avoid the expansion.  The processing of < is special,
-since most the time you mean \"less\".  Sane-Perl mode tries to guess
-whether you want to type a pair <>, and does not inserts it if it
-is appropriate.  You can set `sane-perl-electric-parens-string' to the string that
-contains the parens from the above list you want to be electrical.
-Electricity of parens is controlled by `sane-perl-electric-parens'.
-You may also set `sane-perl-electric-parens-mark' to have electric parens
-look for active mark and \"embrace\" a region if possible.'
+Various characters in Perl almost always come in pairs: {}, (),
+[], sometimes <>.  When the user types the first, she does not
+get the second as well, with optional special formatting done on
+{}.  (Disabled by default.)  You can always quote (with
+\\[quoted-insert]) the left \"paren\" to avoid the expansion.
+The processing of < is special, since most the time you mean
+\"less\".  Sane-Perl mode tries to guess whether you want to type
+a pair <>, and does not inserts it if it is appropriate.  You can
+set `sane-perl-electric-parens-string' to the string that
+contains the parens from the above list you want to be
+electrical.  Electricity of parens is controlled by
+`sane-perl-electric-parens'.  You may also set
+`sane-perl-electric-parens-mark' to have electric parens look for
+active mark and \"embrace\" a region if possible.'
 
 Sane-Perl mode provides expansion of the Perl control constructs:
 
    if, else, elsif, unless, while, until, continue, do,
    for, foreach, formy and foreachmy.
 
-and POD directives (Disabled by default, see `sane-perl-electric-keywords'.)
+and POD directives (disabled by default, see `sane-perl-electric-keywords'.)
 
 The user types the keyword immediately followed by a space, which
 causes the construct to be expanded, and the point is positioned where
@@ -1772,9 +1774,9 @@ If Sane-Perl decides that you want to insert \"English\" style construct like
             bite if angry;
 
 it will not do any expansion.  See also help on variable
-`sane-perl-extra-newline-before-brace'.  (Note that one can switch the
-help message on expansion by setting `sane-perl-message-electric-keyword'
-to nil.)
+`sane-perl-extra-newline-before-brace'.  Switch the help message
+on expansion by setting `sane-perl-message-electric-keyword' to
+nil.
 
 \\[sane-perl-linefeed] is a convenience replacement for typing carriage
 return.  It places you in the next line with proper indentation, or if
@@ -1798,30 +1800,35 @@ into
 
 \\{sane-perl-mode-map}
 
-Setting the variable `sane-perl-font-lock' to t switches on font-lock-mode
-\(even with older Emacsen), `sane-perl-electric-lbrace-space' to t switches
-on electric space between $ and {, `sane-perl-electric-parens-string' is
-the string that contains parentheses that should be electric in Sane-Perl
-\(see also `sane-perl-electric-parens-mark' and `sane-perl-electric-parens'),
-setting `sane-perl-electric-keywords' enables electric expansion of
-control structures in Sane-Perl.  `sane-perl-electric-linefeed' governs which
-one of two linefeed behavior is preferable.  You can enable all these
-options simultaneously (recommended mode of use) by setting
-`sane-perl-hairy' to t.  In this case you can switch separate options off
-by setting them to `null'.  Note that one may undo the extra
-whitespace inserted by semis and braces in `auto-newline'-mode by
-consequent \\[sane-perl-electric-backspace].
+Setting the variable `sane-perl-font-lock' to t switches on
+font-lock-mode \(even with older Emacsen),
+`sane-perl-electric-lbrace-space' to t switches on electric space
+between $ and {, `sane-perl-electric-parens-string' is the string
+that contains parentheses that should be electric in Sane-Perl
+\(see also `sane-perl-electric-parens-mark' and
+`sane-perl-electric-parens'), setting
+`sane-perl-electric-keywords' enables electric expansion of
+control structures in Sane-Perl.  `sane-perl-electric-linefeed'
+governs which one of two linefeed behavior is preferable.  You
+can enable all these options simultaneously (recommended mode of
+use) by setting `sane-perl-hairy' to t.  In this case you can
+switch separate options off by setting them to `null'.  Note that
+one may undo the extra whitespace inserted by semis and braces in
+`auto-newline'-mode by consequent
+\\[sane-perl-electric-backspace].
 
-If your site has perl5 documentation in info format, you can use commands
-\\[sane-perl-info-on-current-command] and \\[sane-perl-info-on-command] to access it.
-These keys run commands `sane-perl-info-on-current-command' and
-`sane-perl-info-on-command', which one is which is controlled by variable
-`sane-perl-info-on-command-no-prompt' and `sane-perl-clobber-lisp-bindings'
-\(in turn affected by `sane-perl-hairy').
+If you have perl5 documentation in info format, you can use
+commands \\[sane-perl-info-on-current-command] and
+\\[sane-perl-info-on-command] to access it.  These keys run
+commands `sane-perl-info-on-current-command' and
+`sane-perl-info-on-command', which one is which is controlled by
+variable `sane-perl-info-on-command-no-prompt' and
+`sane-perl-clobber-lisp-bindings' \(in turn affected by
+`sane-perl-hairy').
 
-Even if you have no info-format documentation, short one-liner-style
-help is available on \\[sane-perl-get-help], and one can run perldoc or
-man via menu.
+Even if you have no info-format documentation, short one-line
+help is available on \\[sane-perl-get-help], and one can run
+perldoc or man via menu.
 
 It is possible to show this help automatically after some idle time.
 This is regulated by variable `sane-perl-lazy-help-time'.  Default with
@@ -1897,8 +1904,8 @@ If `sane-perl-indent-level' is 0, the statement after opening brace in
 column 0 is indented on
 `sane-perl-brace-offset'+`sane-perl-continued-statement-offset'.
 
-Turning on Sane-Perl mode calls the hooks in the variable `sane-perl-mode-hook'
-with no args.
+Turning on Sane-Perl mode calls the hooks in the variable
+`sane-perl-mode-hook' with no args.
 
 Do not forget to read micro-docs (available from `Perl' menu)
 or as help on variables `sane-perl-tips', `sane-perl-problems',
@@ -5800,9 +5807,6 @@ indentation and initial hashes.  Behaves usually outside of comment."
   sane-perl-font-lock-keywords-2)
 
 (defun sane-perl-init-faces ()
-  ;; TODO: when to collect the keywords needs to be reviewed if we
-  ;; want to allow different keyword sets in different sane-perl-mode
-  ;; buffers (like, e.g. a Moose class and a test file).
   (condition-case errs
       (progn
 	(require 'font-lock)
@@ -5999,39 +6003,6 @@ Style of printout regulated by the variable `sane-perl-ps-print-face-properties'
     (ps-extend-face-list sane-perl-ps-print-face-properties)
     (ps-print-buffer-with-faces file)))
 
-;; (defun sane-perl-ps-print-init ()
-;;   "Initialization of `ps-print' components for faces used in Sane-Perl."
-;;   ;; Guard against old versions
-;;   (defvar ps-underlined-faces nil)
-;;   (defvar ps-bold-faces nil)
-;;   (defvar ps-italic-faces nil)
-;;   (setq ps-bold-faces
-;; 	(append '(font-lock-emphasized-face
-;; 		  sane-perl-array-face
-;; 		  font-lock-keyword-face
-;; 		  font-lock-variable-name-face
-;; 		  font-lock-constant-face
-;; 		  font-lock-reference-face
-;; 		  font-lock-other-emphasized-face
-;; 		  sane-perl-hash-face)
-;; 		ps-bold-faces))
-;;   (setq ps-italic-faces
-;; 	(append '(sane-perl-nonoverridable-face
-;; 		  font-lock-constant-face
-;; 		  font-lock-reference-face
-;; 		  font-lock-other-emphasized-face
-;; 		  sane-perl-hash-face)
-;; 		ps-italic-faces))
-;;   (setq ps-underlined-faces
-;; 	(append '(font-lock-emphasized-face
-;; 		  sane-perl-array-face
-;; 		  font-lock-other-emphasized-face
-;; 		  sane-perl-hash-face
-;; 		  sane-perl-nonoverridable-face font-lock-type-face)
-;; 		ps-underlined-faces))
-;;   (cons 'font-lock-type-face ps-underlined-faces))
-
-;;;; (2020-07-10 haj) What does this do?
 (sane-perl-windowed-init)
 
 (defconst sane-perl-styles-entries
@@ -6214,8 +6185,6 @@ else
      (sane-perl-continued-brace-offset     . -5)
      (sane-perl-label-offset               . -5)
      (sane-perl-continued-statement-offset .  5)
-     ;;(sane-perl-extra-newline-before-brace .  nil) ; ???
-     ;;(sane-perl-extra-newline-before-brace-multiline .  nil)
      (sane-perl-merge-trailing-else	       .  nil))
 
     ("BSD"
@@ -6224,9 +6193,6 @@ else
      (sane-perl-continued-brace-offset     . -4)
      (sane-perl-label-offset               . -4)
      (sane-perl-continued-statement-offset .  4)
-     ;;(sane-perl-extra-newline-before-brace .  nil) ; ???
-     ;;(sane-perl-extra-newline-before-brace-multiline .  nil)
-     ;;(sane-perl-merge-trailing-else	       .  nil) ; ???
      )
 
     ("C++"
@@ -6245,9 +6211,6 @@ else
      (sane-perl-continued-brace-offset     .  0)
      (sane-perl-label-offset               . -4)
      (sane-perl-continued-statement-offset .  4)
-     ;;(sane-perl-extra-newline-before-brace .  nil) ; ???
-     ;;(sane-perl-extra-newline-before-brace-multiline .  nil)
-     ;;(sane-perl-merge-trailing-else	       .  nil) ; ???
      )
     ("Current"))
   "List of variables to set to get a particular indentation style.
@@ -6795,8 +6758,6 @@ Does not move point."
 	      (progn
 		(insert (elt elt 3)
 			127
-			;; FIXME (2020-07-10 haj): Does the next line
-			;; need to consider class as well?
 			(if (string-match "^package " (car elt))
 			    (substring (car elt) 8)
 			  (car elt) )
@@ -6959,9 +6920,8 @@ Use as
 		       ","
 		       "\\([0-9]+\\)"))
 	  (progn
-	    (setq ;;str (buffer-substring (match-beginning 1) (match-end 1))
+	    (setq
 		  name (buffer-substring (match-beginning 2) (match-end 2))
-		  ;;pos (buffer-substring (match-beginning 3) (match-end 3))
 		  line (buffer-substring (match-beginning 3) (match-end 3))
 		  ord (if pack 1 0)
 		  file (file-of-tag)  ;; <-- a function in etags.el
@@ -7001,7 +6961,6 @@ One may build such TAGS files from Sane-Perl mode menu."
 				     ;; Only in one file
 				     (setcdr elt (cdr (nth 1 elt)))))))
 	    to l1 l2 l3)
-	;; (setq sane-perl-hierarchy '(() () ())) ; Would write into '() later!
 	(setq sane-perl-hierarchy (list l1 l2 l3))
 	(or tags-table-list
 	    (call-interactively 'visit-tags-table))
@@ -7021,12 +6980,10 @@ One may build such TAGS files from Sane-Perl mode menu."
 	(setcar (nthcdr 2 sane-perl-hierarchy)
 		(sane-perl-menu-to-keymap (cons '("+++UPDATE+++" . -999) (cdr to))))
 	(message "Updating list of classes: done, requesting display...")
-	;;(sane-perl-imenu-addback (nth 2 sane-perl-hierarchy))
 	))
   (or (nth 2 sane-perl-hierarchy)
       (error "No items found"))
   (setq update
-        ;; (imenu-choose-buffer-index "Packages: " (nth 2 sane-perl-hierarchy))
 	(if (if (fboundp 'display-popup-menus-p)
 		(display-popup-menus-p)
 	      window-system)
@@ -7110,13 +7067,6 @@ One may build such TAGS files from Sane-Perl mode menu."
 	      (nreverse
 	       (sort root-packages (default-value 'imenu-sort-function)))
 	    root-packages))))
-
-;;(x-popup-menu t
-;;   '(keymap "Name1"
-;;	    ("Ret1" "aa")
-;;	    ("Head1" "ab"
-;;	     keymap "Name2"
-;;	     ("Tail1" "x") ("Tail2" "y"))))
 
 (defun sane-perl-list-fold (list name limit)
   (let (list1 list2 elt1 (num 0))
@@ -7326,9 +7276,7 @@ Currently it is tuned to C and Perl syntax."
       (buffer-substring (match-beginning 0) (match-end 0))))
 
 (defun sane-perl-get-help ()
-  "Get one-line docs on the symbol at the point.
-The data for these docs is a little bit obsolete and may be in fact longer
-than a line.  Your contribution to update/shorten it is appreciated."
+  "Get one-line docs on the symbol at the point."
   (interactive)
   (save-match-data			; May be called "inside" query-replace
     (save-excursion
@@ -7394,7 +7342,6 @@ than a line.  Your contribution to update/shorten it is appreciated."
 	     (message "No definition for %s" val)))))))
 
 (defvar sane-perl-short-docs 'please-ignore-this-line
-  ;; Perl4 version was written by Johan Vromans (jvromans@squirrel.nl)
   "# based on \\='@(#)@ perl-descr.el 1.9 - describe-perl-symbol\\=' [Perl 5]
 ...	Range (list context); flip/flop [no flop when flip] (scalar context).
 ! ...	Logical negation.
@@ -7819,14 +7766,17 @@ use PACKAGE [SYMBOL1, ...]  Compile-time `require' with consequent `import'.
 prototype \\&SUB	Returns prototype of the function given a reference.
 =head1		Top-level heading.
 =head2		Second-level heading.
-=head3		Third-level heading (is there such?).
+=head3		Third-level heading.
+=head4          Fourth-level heading.
 =over [ NUMBER ]	Start list.
 =item [ TITLE ]		Start new item in the list.
 =back		End list.
 =cut		Switch from POD to Perl.
 =pod		Switch from Perl to POD.
-=begin		Switch from Perl6 to POD.
-=end		Switch from POD to Perl6.
+=begin [ FORMAT ]	 Switch from POD to FORMAT (e.g. HTML).
+=end [ FORMAT ]	         Switch from FORMAT to POD.
+=for [ FORMAT ]	STMT     Put STMT into FORMAT.
+=encoding [ ENC ]   Set the encoding of the POD.
 ")
 
 (defun sane-perl-switch-to-doc-buffer (&optional interactive)
@@ -8327,10 +8277,8 @@ the appropriate statement modifier."
 			  (indent-for-comment)
 			  (goto-char (marker-position pre-A)))))
 		(error "`%s' (EXPR) not with an {BLOCK}" if-string)))
-	  ;; (error "`%s' not with an (EXPR)" if-string)
 	  (forward-sexp -1)
 	  (sane-perl-invert-if-unless-modifiers)))
-    ;;(error "Not at `if', `unless', `while', `until', `for' or `foreach'")
     (sane-perl-invert-if-unless-modifiers)))
 
 (declare-function Man-getpage-in-background "man" (topic))
@@ -8426,7 +8374,6 @@ which seem to work, at least, with some formatters."
   ;; (because we've seen such things in the wild), but only with
   ;; single <> delimiters.  For the link element as a whole,
   ;; L<<< stuff >>> is supported.
-  ;; By the way: Are you tired of backslasheritis?  Well, I am.
   (let* (({  "\\(?:")
 	 ({1 "\\(?1:")
 	 ({2 "\\(?2:")
@@ -8446,12 +8393,6 @@ which seem to work, at least, with some formatters."
 	 (markup    (concat { m2 or "[A-Z]<"
 			    { m2 or m0 or nomarkup or "[^|/>]" }
 			    "+?>" } ))
-	 ;; (markup    (concat {
-	 ;;		    { "[A-Z]<[^<]"
-	 ;;		    { "[A-Z]<[^<][^>|/]*>" or "[^|/>]" } "*"
-	 ;;		    ">" } }
-	 ;;		    or
-	 ;;		    { "[A-Z]<<" ws "[^|/]+?" ws ">>" }))
 	 (component (concat { plain or markup or nomarkup } ))
 	 (name      (concat {2 { "[^ \"\t|/<>]" or markup } "*" } ))
 	 (url       (concat {2 "\\w+:/[^ |<>]+" } ))
@@ -8545,14 +8486,7 @@ which seem to work, at least, with some formatters."
 	  ;; L<Some text|page> -> L<Some text|perldoc://page>
 	  (goto-char (match-beginning 2))
 	  (insert "perldoc://"))
-	 ;; ((match-string 3)
-	 ;;  ;; L<page/section> -> L<page/section|perldoc://page/section>
-	 ;;  ;; Work around a bug in pod2html as of 2020-07-27, see above
-	 ;;  (goto-char (match-beginning 2))
-	 ;;  (insert (concat (match-string 3) " in " (match-string 2)
-	 ;;		  "|" "perldoc://")))
 	 (t
-	  ;; L<page> -> L<page|perldoc://page>
 	  (goto-char (match-beginning 2))
 	  (insert (concat (match-string 2) "|" "perldoc://"))))
 	(goto-char (marker-position end-marker))))))
@@ -8625,7 +8559,6 @@ which seem to work, at least, with some formatters."
   :type 'file
   :group 'sane-perl)
 
-;; By Nick Roberts <Nick.Roberts@src.bae.co.uk> (with changes)
 (defun sane-perl-pod-to-manpage ()
   "Create a virtual manpage in Emacs from the Perl Online Documentation."
   (interactive)
@@ -8642,7 +8575,6 @@ which seem to work, at least, with some formatters."
 			(format (sane-perl-pod2man-build-command) pod2man-args))
 	 'Man-bgproc-sentinel)))))
 
-;; Updated version by him too
 (defun sane-perl-build-manpage ()
   "Create a virtual manpage in Emacs from the POD in the file."
   (interactive)
@@ -8874,7 +8806,6 @@ may be used to debug problems with delayed incremental fontification."
 (defvar sane-perl-lazy-installed nil
   "Non-nil means that the lazy-help handlers are installed now.")
 
-;; FIXME: Use eldoc?
 (defun sane-perl-lazy-install ()
   "Switch on Auto-Help on Perl constructs (put in the message area).
 Delay of auto-help controlled by `sane-perl-lazy-help-time'."
@@ -8947,8 +8878,6 @@ do extra unwind via `sane-perl-unwind-to-safe'."
 (defvar sane-perl-d-l nil)
 (defvar edebug-backtrace-buffer)        ;FIXME: Why?
 (defun sane-perl-fontify-syntaxically (end)
-  ;; Some vars for debugging only
-  ;; (message "Syntaxifying...")
   (let ((dbg (point)) (iend end) (idone sane-perl-syntax-done-to)
 	(istate (car sane-perl-syntax-state))
 	start from-start edebug-backtrace-buffer)
@@ -9028,7 +8957,5 @@ do extra unwind via `sane-perl-unwind-to-safe'."
     (string-match ":\\s *\\([0-9.]+\\)" v)
     (substring v (match-beginning 1) (match-end 1)))
   "Fork of cperl-mode version 7.0")
-
-
 
 (provide 'sane-perl-mode)
