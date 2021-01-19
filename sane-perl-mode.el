@@ -35,10 +35,9 @@
 
 ;; (setq sane-perl-hairy t)
 
-;; in your .emacs file.  (Emacs rulers do not consider it politically
-;; correct to make whistles enabled by default.)
+;; in your .emacs file.
 
-;; DO NOT FORGET to read micro-docs (available from `Perl' menu)   <<<<<<
+;; Do not forget to read micro-docs (available from `Perl' menu)   <<<<<<
 ;; or as help on variables `sane-perl-tips', `sane-perl-problems',         <<<<<<
 ;; `sane-perl-praise', `sane-perl-speed'.				   <<<<<<
 
@@ -259,6 +258,14 @@ Subject to `sane-perl-auto-newline' setting."
 (defcustom sane-perl-tab-always-indent t
   "Non-nil means TAB in Sane-Perl mode should always reindent the current line.
 This is regardless of where in the line point is when the TAB command is used."
+  :type 'boolean
+  :group 'sane-perl-indentation-details)
+
+(defcustom sane-perl-indentable-indent t
+  "*Indentation used for quote-like constructs.
+If nil, the value of `sane-perl-indent-level' will be used, else
+indentation will be relative to the starting column of the separator
+of the construct (on a previous line)"
   :type 'boolean
   :group 'sane-perl-indentation-details)
 
@@ -1947,7 +1954,7 @@ column 0 is indented on
 Turning on Sane-Perl mode calls the hooks in the variable `sane-perl-mode-hook'
 with no args.
 
-DO NOT FORGET to read micro-docs (available from `Perl' menu)
+Do not forget to read micro-docs (available from `Perl' menu)
 or as help on variables `sane-perl-tips', `sane-perl-problems',
 `sane-perl-praise', `sane-perl-speed'."
   (if (sane-perl-val 'sane-perl-electric-linefeed)
@@ -3213,12 +3220,13 @@ and closing parentheses and brackets."
 	  (cond		       ;;; [indentable terminator start-pos is-block]
 	   ((eq 'terminator (elt i 1)) ; Lone terminator of "indentable string"
 	    (goto-char (elt i 2))	; After opening parens
-	    (1- (current-column)))
+	    (if sane-perl-indentable-indent
+                (progn (message "funky") (1- (current-column)))
+              (+ sane-perl-indent-level (sane-perl-calculate-indent))))
 	   ((eq 'first-line (elt i 1)); [indentable first-line start-pos]
 	    (goto-char (elt i 2))
 	    (+ (or sane-perl-regexp-indent-step sane-perl-indent-level)
-	       -1
-	       (current-column)))
+	       (if sane-perl-indentable-indent (current-column) (sane-perl-calculate-indent))))
 	   ((eq 'cont-line (elt i 1)); [indentable cont-line pos prev-pos first-char start-pos]
 	    ;; Indent as the level after closing parens
 	    (goto-char (elt i 2))	; indent line
@@ -9067,5 +9075,7 @@ do extra unwind via `sane-perl-unwind-to-safe'."
     (string-match ":\\s *\\([0-9.]+\\)" v)
     (substring v (match-beginning 1) (match-end 1)))
   "Fork of cperl-mode version 7.0")
+
+
 
 (provide 'sane-perl-mode)
