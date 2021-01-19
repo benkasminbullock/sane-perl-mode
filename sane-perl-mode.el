@@ -3216,13 +3216,20 @@ and closing parentheses and brackets."
 	  (condition-case nil	; Use indentation of the 1st part
 	      (forward-sexp -1))
 	  (current-column))
-	 ((eq 'indentable (elt i 0))	; Indenter for REGEXP qw() etc
+	 ((eq 'indentable (elt i 0))	; Indenter for REGEXP, qw(), etc.
 	  (cond		       ;;; [indentable terminator start-pos is-block]
 	   ((eq 'terminator (elt i 1)) ; Lone terminator of "indentable string"
 	    (goto-char (elt i 2))	; After opening parens
 	    (if sane-perl-indentable-indent
-                (progn (message "funky") (1- (current-column)))
-              (+ sane-perl-indent-level (sane-perl-calculate-indent))))
+                (1- (current-column))
+              (+ (+ sane-perl-indent-level (sane-perl-calculate-indent)))
+	      (cond ((eq what ?\) )
+		     (- sane-perl-close-paren-offset)) ; compensate
+		    ((eq what ?\| )
+		     (- (or sane-perl-regexp-indent-step sane-perl-indent-level)))
+		    (t 0))
+	      )
+	    )
 	   ((eq 'first-line (elt i 1)); [indentable first-line start-pos]
 	    (goto-char (elt i 2))
 	    (+ (or sane-perl-regexp-indent-step sane-perl-indent-level)

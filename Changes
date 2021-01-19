@@ -1,0 +1,5 @@
+* 2021-01-19 11:15:26
+
+Added this change so that qw!! almost works:
+
+https://github.com/jrockway/cperl-mode/pull/54/commits/fc43a22fbfad6230a838262cc85d0e02f393cd8d
