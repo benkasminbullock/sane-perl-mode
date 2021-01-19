@@ -5,7 +5,8 @@ addressed by the various maintainers of cperl-mode.el.
 Fixes so far:
 
 * Emacs no longer produces an error message every time the "m" or "s"
-  key is pressed in perl mode.
+  key is pressed in perl mode. This was a new bug introduced into
+  recent versions of the mode and/or Emacs.
 
 * The "far-right" indentation of qw and qr!!x has been fixed (requires
   setting sane-perl-indentable-indent nil)
@@ -16,7 +17,7 @@ my @array = qw!
                   far
                   right
                   indentation
-!;
+              !;
 
 Now indents as
 
@@ -25,8 +26,33 @@ my @array = qw!
     indentation
 !;
 
-* The moose and other module-specific additions to the mode, and the
+(This fix comes from the jrockway fork of cperl-mode:
+
+https://github.com/jrockway/cperl-mode/pull/54
+
+Although the fix predates the fork of sane-perl-mode, this fix hadn't
+been applied in the HaraldJoerg fork which sane-perl-mode originates
+from. Further to the jrockway fork fix, sane-perl-mode also puts the
+indentation of the !; at the end on the left rather than under the
+final line, as shown above. The jrockway fork currently does the
+following:
+
+my @array = qw!
+    normal
+    indentation
+    !;
+
+)
+
+* Tests of the qw!! and qr!!x behaviours have been added in the t/
+  directory. These run Emacs in batch mode and then compare the
+  results using Perl's Test::More framework.
+
+* The Moose and other module-specific additions to the mode, and the
   editorial comments about the future of Perl development have been
   removed.
 
-So far I don't have tests of the new behaviours.
+* Spelling mistakes have been fixed and some attempt made to tone down
+  the level of bonkers-ness of the documentation (ALL CAPS YOU MUST DO
+  THIS type of statements).
+

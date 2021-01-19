@@ -91,3 +91,13 @@ sub run
 }
 
 1;
+
+=head1 EXPORTS
+
+This is a module for local testing, so all the functions are exported.
+
+=head1 AUTHOR
+
+Ben Bullock <benkasminbullock@gmail.com>, <bkb@cpan.org>.
+
+=cut
