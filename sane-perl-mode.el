@@ -1407,7 +1407,11 @@ extends are shown like builtin functions."
         sane-perl--tags-sub-regexp
         (regexp-opt (sane-perl-tags-keywords ':sub)))
   ;; etags setup
-  (setq sane-perl-tags-hier-regexp-list
+
+  ;; Changed from setq to defvar
+  ;; https://emacs.stackexchange.com/questions/21245/dealing-with-warning-assignment-to-free-variable-when-certain-libraries-can-b
+
+  (defvar sane-perl-tags-hier-regexp-list
         (concat
          "^[ \t]*\\("
          "\\("
@@ -1609,7 +1613,10 @@ expressions which depend on these."
 ;; Details of groups in this may be used in several functions; see comments
 ;; near mentioned above variable(s)...
 ;; sub($$):lvalue{}  sub:lvalue{} Both allowed...
-(defsubst sane-perl-after-sub-regexp (named attr) ; 9 groups without attr...
+
+;; Changed from defsubst to defun
+;; https://emacs.stackexchange.com/questions/32038/eval-when-compile-defsubst-vs-defmacro-vs-define-inline
+(defun sane-perl-after-sub-regexp (named attr) ; 9 groups without attr...
   "Match the text after `sub' in a subroutine declaration.
 If NAMED is nil, allows anonymous subroutines.  Matches up to the first \":\"
 of attributes (if present), or end of the name or prototype (whatever is
@@ -3135,7 +3142,6 @@ and closing parentheses and brackets."
 	    (goto-char (elt i 2))	; After opening parens
 	    (if sane-perl-indentable-indent
                 (1- (current-column))
-              (+ (+ sane-perl-indent-level (sane-perl-calculate-indent)))
 	      (cond ((eq what ?\) )
 		     (- sane-perl-close-paren-offset)) ; compensate
 		    ((eq what ?\| )
@@ -3415,7 +3421,7 @@ is quoting."
     st))
 
 (defun sane-perl-forward-re (lim end is-2arg st-l err-l argument
-			     &optional ostart oend)
+			     &optional ostart)
 "Find the end of a regular expression or a stringish construct (q[] etc).
 The point should be before the starting delimiter.
 
@@ -3425,7 +3431,7 @@ message if needed.  If SET-ST is non-nil, will use (or generate) a
 cached syntax table in ST-L.  If ERR-L is non-nil, will store the
 error message in its CAR (unless it already contains some error
 message).  ARGUMENT should be the name of the construct (used in error
-messages).  OSTART, OEND may be set in recursive calls when processing
+messages).  OSTART may be set in recursive calls when processing
 the second argument of 2ARG construct.
 
 Works *before* syntax recognition is done.  In IS-2ARG situation may
@@ -3446,7 +3452,7 @@ modify syntax-type text property if the situation is too hard."
 	(modify-syntax-entry starter "$" st)
       (modify-syntax-entry starter (concat "(" (list ender)) st)
       (modify-syntax-entry ender  (concat ")" (list starter)) st))
-    (condition-case bb
+    (condition-case nil
 	(progn
 	  ;; We use `$' syntax class to find matching stuff, but $$
 	  ;; is recognized the same as $, so we need to check this manually.
@@ -3503,11 +3509,6 @@ modify syntax-type text property if the situation is too hard."
 		 (and sane-perl-brace-recursing
 		      (or (eq ostart  ?\{)
 			  (eq starter ?\{)))
-		 ;; (message
-		 ;;  "End of `%s%s%c ... %c' string/RE not found: %s"
-		 ;;  argument
-		 ;;  (if ostart (format "%c ... %c" ostart (or oend ostart)) "")
-		 ;;  starter (or ender starter) bb)
 		 (or (car err-l) (setcar err-l b)))))
     (if set-st
 	(progn
@@ -8497,7 +8498,7 @@ which seem to work, at least, with some formatters."
 			 'keymap sane-perl-perldoc-shr-map)
       (when is-func
 	(make-local-variable 'sane-perl-perldoc-base)
-	(setq sane-perl-perldoc-base "perlfunc"))
+	(defvar sane-perl-perldoc-base "perlfunc"))
       (set-buffer-modified-p nil)
       (read-only-mode))
     (when section
