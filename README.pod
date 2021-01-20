@@ -1,3 +1,5 @@
+=encoding UTF-8
+
 =pod
 
 =head1 NAME
@@ -171,7 +173,8 @@ differ.
 Commented-out code and clearly obsolete code referring to versions of
 Emacs from the 1990s have been removed. See also L<Don’t share
 commented-out
-code|https://www.nayuki.io/page/dont-share-commented-out-code>.
+code|https://www.nayuki.io/page/dont-share-commented-out-code> by
+Nayuki.
 
 =head1 TESTING
 

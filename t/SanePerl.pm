@@ -100,6 +100,7 @@ sub run
     # To do: have an option where the user can keep the files, for
     # debugging.
     unlink ($textfn, $errfn, $elfn) or warn "Error unlinking temp files: $!";
+    cleanup ();
     return $output;
 }
 
@@ -138,7 +139,6 @@ the code on the Emacs window).
 sub run_font_lock
 {
     my ($in, $el) = @_;
-    my ($hfh, $hfn) = tempfile ("html.XXXXX", DIR => $dir);
     my $fontify = <<EOF;
 (add-to-list 'load-path "$dir")
 (add-to-list 'load-path "$dir/..")
@@ -179,8 +179,17 @@ EOF
 	print "Errors: $errors\n";
     }
 #    print $out;
-    unlink ($inf, $outf, $elf) or warn "Error unlinking temp files: $!";
+    unlink ($inf, $outf, $elf, $errf) or warn "Error unlinking temp files: $!";
+    cleanup ();
     return $out;
+}
+
+sub cleanup
+{
+    my @backups = <$dir/*.*.~*~>;
+    for (@backups) {
+	unlink $_ or warn "Can't remove $_: $!";
+    }
 }
 
 1;
