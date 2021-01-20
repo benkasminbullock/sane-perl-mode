@@ -80,32 +80,6 @@ the following:
         indentation
         !;
 
-=head2 Removal of Moose and other non-core module support
-
-The Moose and other module-specific additions to the mode, and the
-editorial comments about the future of Perl development ("Perl lives!"
-etc.) have been removed.
-
-=head2 Removal of commented out and obsolete code
-
-Commented-out code and clearly obsolete code referring to versions of
-Emacs from the 1990s have been removed.
-
-=head2 Documentation improvements
-
-Spelling mistakes have been fixed and some attempt made to tone down
-the level of bonkers-ness of the documentation (ALL CAPS YOU MUST DO
-THIS type of statements), as well as some editing of the many
-statements which seem designed to deliberately confuse users, or give
-opinions rather than facts.
-
-=head2 Untabifying by delete is off
-
-Untabifying by delete (turning tabs into spaces) was switched off. We
-might switch this back on again, if this mode is used by people
-other than the people who've made the mode, depending on whether
-users expect this behaviour.
-
 =head2 Indent brace bug
 
 Provisionally, the long-standing "indent brace bug" has been
@@ -130,6 +104,45 @@ not at all sure what has been happening.
 
 However, this was fixed by commenting out some suspicious "mystery
 code", so the fix may cause some other bugs to occur.
+
+=head2 Documentation improvements
+
+Spelling mistakes have been fixed and some attempt made to tone down
+the level of bonkers-ness of the documentation (ALL CAPS YOU MUST DO
+THIS type of statements), as well as some editing of the many
+statements which seem designed to deliberately confuse users, or give
+opinions rather than facts.
+
+=head2 Untabifying by delete is off
+
+Untabifying by delete (turning tabs into spaces) was switched off. We
+might switch this back on again, if this mode is used by people
+other than the people who've made the mode, depending on whether
+users expect this behaviour.
+
+=head2 Removal of obsolete and non-core support
+
+=head3 Version control systems
+
+Support for the RCS and SCCS version control systems has been removed.
+
+=head3 Moose and other non-core modules
+
+The Moose and other module-specific additions to the mode have been removed.
+
+=head3 Opinion-comments removed
+
+Editorial comments about the future of Perl development and other
+things have been removed from the module. Since these are a single
+person's opinions, and it's not really clear who the person was, it
+doesn't really make sense to keep them in a module maintained by other
+people who may not share the opinions. Your opinion about this may
+differ.
+
+=head3 Removal of commented out and obsolete code
+
+Commented-out code and clearly obsolete code referring to versions of
+Emacs from the 1990s have been removed.
 
 =head1 TESTING
 
