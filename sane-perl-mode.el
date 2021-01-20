@@ -378,7 +378,7 @@ Font for POD headers."
   :type 'face
   :group 'sane-perl-faces)
 
-(defcustom sane-perl-invalid-face 'underline
+(defcustom sane-perl-invalid-face nil
   "Face for highlighting trailing whitespace."
   :type 'face
   :version "21.1"

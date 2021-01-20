@@ -127,7 +127,7 @@ sub run_expect
 
 =head2 run_font_lock
 
-    my ($out, $html) = run_font_lock ($el, $in)
+    my $html = run_font_lock ($in)
 
 Run the included lisp, then run a hacked version of F<htmlize.el> on
 the buffer to retrieve the output of fontification (the colouring of
@@ -137,7 +137,7 @@ the code on the Emacs window).
 
 sub run_font_lock
 {
-    my ($in) = @_;
+    my ($in, $el) = @_;
     my ($hfh, $hfn) = tempfile ("html.XXXXX", DIR => $dir);
     my $fontify = <<EOF;
 (add-to-list 'load-path "$dir")
@@ -153,6 +153,10 @@ sub run_font_lock
   (princ (buffer-string)))
 EOF
 #    print $fontify;
+    # If the caller specifies lisp, add it before.
+    if ($el) {
+	$fontify = $el . $fontify;
+    }
     my ($inh, $inf) = tempfile ("in.XXXXX", DIR => $dir);
     print $inh $in;
     close $inh or die $!;
@@ -168,7 +172,8 @@ EOF
     my $errors = read_text ($errf);
     # It doesn't run in batch mode without (require 'cl), the error we
     # get is "Symbol’s function definition is void: lexical-let", so
-    # I've added the (require 'cl) as a quick fix. 2021-01-20 00:48:52
+    # I've added the (require 'cl) as a quick fix, but that ends up
+    # getting the following error message. 2021-01-20 00:48:52
     $errors =~ s/Package cl is deprecated\s*//;
     if ($errors) {
 	print "Errors: $errors\n";

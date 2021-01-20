@@ -107,18 +107,44 @@ code", so the fix may cause some other bugs to occur.
 
 =head2 Documentation improvements
 
-Spelling mistakes have been fixed and some attempt made to tone down
-the level of bonkers-ness of the documentation (ALL CAPS YOU MUST DO
-THIS type of statements), as well as some editing of the many
-statements which seem designed to deliberately confuse users, or give
-opinions rather than facts.
+Spelling and grammar mistakes have been fixed. Some attempt has been
+made to tone down the level of bonkers-ness of the documentation (ALL
+CAPS YOU MUST DO THIS type of statements), as well as some editing of
+the many statements which seem designed to deliberately confuse users,
+or give opinions rather than facts.
 
-=head2 Untabifying by delete is off
+We've also done some work on the one-line documentation which comes
+with cperl-mode.
 
-Untabifying by delete (turning tabs into spaces) was switched off. We
-might switch this back on again, if this mode is used by people
-other than the people who've made the mode, depending on whether
-users expect this behaviour.
+=head2 Changes to defaults
+
+Some of the default behaviours of cperl-mode have been changed.
+
+=head3 Underlining of trailing whitespace
+
+The cperl-mode default of using of underscores for displaying trailing
+whitespace has been switched off. 
+
+cperl-mode requires a setting
+
+    (setq cperl-invalid-face nil)
+
+to stop it from adding underscores to trailing whitespace. This is
+switched off by default in sane-perl-mode. To restore it, add
+
+    (setq sane-perl-invalid-face 'underline)
+
+to F<.emacs>. The reason for this change is that it is terribly
+annoying and somewhat misleading. Trailing whitespace is completely
+harmless in Perl, and hardly merits being highlighted in an
+exaggerated way, and the underscores were not only ugly but also
+misleading. For example after a dollar the underscore would appear as
+C<$_> (the default variable) when in fact there was no C<_> there.
+
+=head3 Untabifying by delete is off
+
+Untabifying by delete (turning a tab character into spaces) was
+switched off. It's still in the module as a user option.
 
 =head2 Removal of obsolete and non-core support
 
@@ -128,7 +154,8 @@ Support for the RCS and SCCS version control systems has been removed.
 
 =head3 Moose and other non-core modules
 
-The Moose and other module-specific additions to the mode have been removed.
+The Moose and other module-specific additions to the mode have been
+removed.
 
 =head3 Opinion-comments removed
 
@@ -142,7 +169,9 @@ differ.
 =head3 Removal of commented out and obsolete code
 
 Commented-out code and clearly obsolete code referring to versions of
-Emacs from the 1990s have been removed.
+Emacs from the 1990s have been removed. See also L<Don’t share
+commented-out
+code|https://www.nayuki.io/page/dont-share-commented-out-code>.
 
 =head1 TESTING
 
@@ -198,6 +227,13 @@ working at the moment.
 
 The provisional fix of the L</Indent brace bug> is tested in
 F<t/indent-bug.t>
+
+=item Trailing whitespace
+
+Underlining of trailing whitespace is no longer the default but it is
+supported as an option. See L</Underlining of trailing
+whitespace>. Tests of its functioning, if the user chooses to switch
+it back on, is in F<t/trailing.t>.
 
 =back
 
