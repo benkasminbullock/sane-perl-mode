@@ -1,8 +1,16 @@
 =pod
 
+=head1 NAME
+
+sane-perl-mode - a fork of cperl-mode to fix long-standing bugs
+
+=head1 DESCRIPTION
+
 This is an experimental fork of cperl-mode.el which we made to fix
 some long-term problems with the mode which didn't seem to be being
 addressed by the various maintainers of cperl-mode.el.
+
+At the moment we're documenting using this README.
 
 =head1 CHANGES FROM CPERL-MODE
 
@@ -11,15 +19,34 @@ So far we've made the following changes from cperl-mode:
 =head2 No error messages each time the m or s key is pressed
 
 Emacs no longer produces an error message every time the "m" or "s"
-key is pressed in a perl buffer.
+key is pressed in a cperl-mode buffer. This is the origin of the word
+"sane" in the name of this fork.
+
+Whilst labelling cperl-mode and its maintainers as "insane" might be
+excessive, it's very difficult for us to imagine what the people who
+made Emacs produce an error message each time the keys m or s are
+pressed were thinking about. With Emacs 27, the screen would actually
+scroll when the error messages were produced, so typing "m" or "s", as
+one tends to do when one needs to input Perl keywords like C<my> or
+C<sub>, would cause the Emacs window to suddenly scroll. What is
+worse, this bug has been reported over and over. BKB pointed the
+problem out to Ilya Zakharevich on comp.lang.perl.misc in about 2007
+or so, so it's been there for at least fourteen years.
+
+Anyway the bug is fixed here. We hope it helps you restore your
+sanity.
 
 =head2 Far-right indentation of qw and qr
 
-The "far-right" indentation of qw and qr!!x can now be altered. The
-default remains the far right option, switching that off requires
-setting the option C<sane-perl-indentable-indent> to C<nil>.
+The "far-right" indentation of qw and qr!!x can now be altered. To
+make it possible for people to transition, the default is currently
+still "far-right" indentation. To switch it off, set the option
+C<sane-perl-indentable-indent> to C<nil> in F<.emacs> or its
+equivalent with
 
-With this set, the "far right" indentation
+    (setq sane-perl-indentable-indent nil)
+
+Once this option is set, the "far right" indentation
 
     my @array = qw!
                       far
@@ -27,12 +54,14 @@ With this set, the "far right" indentation
                       indentation
                   !;
 
-can be indented as
+will be indented as
 
     my @array = qw!
         normal
         indentation
     !;
+
+Similarly for regular expressions using the C</x> format.
 
 This fix comes from the L<jrockway fork of
 cperl-mode|https://github.com/jrockway/cperl-mode/pull/54>
@@ -49,12 +78,6 @@ following:
         indentation
         !;
 
-=head2 Testing
-
-Tests of the C<qw!!> and C<qr!!x> behaviours have been added in the
-F<t/> directory. These run Emacs in batch mode and then compare the
-results using Perl's L<Test::More> framework.
-
 =head2 Removal of Moose and other non-core module support
 
 The Moose and other module-specific additions to the mode, and the
@@ -64,7 +87,7 @@ etc.) have been removed.
 =head2 Removal of commented out and obsolete code
 
 Commented-out code and clearly obsolete code referring to versions of
-Perl from the 1990s have been removed.
+Emacs from the 1990s have been removed.
 
 =head2 Documentation improvements
 
@@ -84,9 +107,9 @@ users expect this behaviour.
 =head2 Indent brace bug
 
 Provisionally, the long-standing "indent brace bug" has been
-fixed. This bug happened when cperl-continued-statement-offset was set
-to a non-zero value. It caused the opening brace of a subroutine to be
-indented four spaces:
+fixed. This bug happened when C<cperl-continued-statement-offset> was
+set to a non-zero value. It caused the opening brace of a subroutine
+to be indented four spaces:
 
     sub xyz
         {
@@ -97,12 +120,126 @@ where normally one would expect
     {
 
 The behaviour of indenting the opening brace like this wasn't
-documented, and the variable name C<continued-statement-offset> was
-certainly a misnomer if it was actually intended to do the above, so
-presumably this was a bug, although this oddity has been there for the
-entire fourteen years that we've been using this module, so we're not
-at all sure what has been happening.
+documented, and the variable name C<cperl-continued-statement-offset>
+was certainly a misnomer if it was actually intended to do the above,
+so presumably this was a bug, although this oddity has been there for
+the entire fourteen years that we've been using this module, so we're
+not at all sure what has been happening.
 
 However, this was fixed by commenting out some suspicious "mystery
 code", so the fix may cause some other bugs to occur.
+
+=head1 TESTING
+
+The tests for the mode run Emacs in batch mode and then compare the
+results to expected outputs using Perl's L<Test::More> framework. They
+can be run using the Perl utility L<prove> as
+
+    prove t/*.t
+
+from the top directory.
+
+Currently the following tests exist:
+
+=over
+
+=item Non far-right indentation
+
+Tests of the C<qw!!> and C<qr!!x> non-far-right indentation have been
+added in F<t/run.t> and F<t/test-regex.t>
+
+=item Invert-if
+
+CPerl mode contains a facility to switch between trailing if and
+leading if, as in
+
+     if (condition) {
+         something;
+     }
+
+and
+
+     something if condition;
+
+Testing of these in Sane Perl mode, renamed
+C<sane-perl-invert-if-unless> and
+C<sane-perl-invert-if-unless-modifiers>, is in F<t/invert.t>
+
+=item Staircase indentation
+
+The staircase indentation bug is a bug where cperl-mode would indent
+as follows:
+
+    use constant {
+      ONE => 1,
+        TWO => 2
+    };
+
+Testing of the "staircase indentation" bug is in F<t/staircase.t>. The
+indentation of the cperl-mode we originally forked from seems to be
+working at the moment.
+
+=item Indentation of braces
+
+The provisional fix of the L</Indent brace bug> is tested in
+F<t/indent-bug.t>
+
+=back
+
+=head1 SEE ALSO
+
+=head2 cperl-mode
+
+Other significant forks of cperl-mode are as follows:
+
+=over 
+
+=item emacs-mirror
+
+L<https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/cperl-mode.el>
+
+This is actively being improved for modern versions of Emacs in the
+original Emacs trunk.
+
+=item HaraldJoerg
+
+L<https://github.com/HaraldJoerg/cperl-mode>
+
+This is a fork of jrockway's cperl-mode fork. The author is also
+contributing to the original Emacs cperl-mode.el.
+
+=item jrockway
+
+L<https://github.com/jrockway/cperl-mode>
+
+This was a fork of Ilya Zakharevich's cperl-mode which was originally
+about adding Moose keywords, but then graduated to being some kind of
+default for a few years as Ilya Z. was not active.
+
+=back
+
+=head2 CPAN modules
+
+=over
+
+=item L<Emacs::PDE>
+
+This contains Emacs lisp scripts to run L<perltidy> and other
+facilities.
+
+=back
+
+=head2 Other information
+
+=over
+
+=item L<PerlLanguage at EmacsWiki|https://www.emacswiki.org/emacs/PerlLanguage>
+
+=item L<CPerlMode at EmacsWiki|https://www.emacswiki.org/emacs/CPerlMode>
+
+=back
+
+=head1 AUTHORS
+
+Ben Bullock, <benkasminbullock@gmail.com>, <bkb@cpan.org>
 
