@@ -18,9 +18,10 @@ So far we've made the following changes from cperl-mode:
 
 =head2 No error messages each time the m or s key is pressed
 
-Emacs no longer produces an error message every time the "m" or "s"
-key is pressed in a cperl-mode buffer. This is the origin of the word
-"sane" in the name of this fork.
+Emacs no longer produces an error message about matching parentheses
+not being found every time the "m" or "s" key is pressed in a
+cperl-mode buffer. This is the origin of the word "sane" in the name
+of this fork.
 
 Whilst labelling cperl-mode and its maintainers as "insane" might be
 excessive, it's very difficult for us to imagine what the people who
@@ -36,11 +37,12 @@ or so, so it's been there for at least fourteen years.
 Anyway the bug is fixed here. We hope it helps you restore your
 sanity.
 
-=head2 Far-right indentation of qw and qr
+=head2 Far-right indentation
 
-The "far-right" indentation of qw and qr!!x can now be altered. To
-make it possible for people to transition, the default is currently
-still "far-right" indentation. To switch it off, set the option
+The "far-right" indentation of C<qw> and C<qr!!x> can now be altered
+to indent the contents using normal indentation. To make it possible
+for people to transition, the default is currently still "far-right"
+indentation. To switch off the far-right indentation, set the option
 C<sane-perl-indentable-indent> to C<nil> in F<.emacs> or its
 equivalent with
 
@@ -67,11 +69,11 @@ This fix comes from the L<jrockway fork of
 cperl-mode|https://github.com/jrockway/cperl-mode/pull/54>
 
 Although the fix predates the fork of sane-perl-mode, this fix hadn't
-been applied in the HaraldJoerg fork which sane-perl-mode originates
-from. Further to the jrockway fork fix, sane-perl-mode also puts the
-indentation of the !; at the end on the left rather than under the
-final line, as shown above. The jrockway fork currently does the
-following:
+been applied in the L</HaraldJoerg> fork which sane-perl-mode
+originates from. Further to the jrockway fork fix, sane-perl-mode also
+puts the indentation of the !; at the end on the left rather than
+under the final line, as shown above. The jrockway fork currently does
+the following:
 
     my @array = qw!
         normal
@@ -198,15 +200,15 @@ Other significant forks of cperl-mode are as follows:
 
 L<https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/cperl-mode.el>
 
-This is actively being improved for modern versions of Emacs in the
-original Emacs trunk.
+The original cperl-mode.el is actively being improved for modern
+versions of Emacs in the original Emacs trunk.
 
 =item HaraldJoerg
 
 L<https://github.com/HaraldJoerg/cperl-mode>
 
-This is a fork of jrockway's cperl-mode fork. The author is also
-contributing to the original Emacs cperl-mode.el.
+This is a fork of jrockway's cperl-mode fork. The author also
+contributes to the original Emacs cperl-mode.el at L</emacs-mirror>.
 
 =item jrockway
 
@@ -219,6 +221,10 @@ default for a few years as Ilya Z. was not active.
 =back
 
 =head2 CPAN modules
+
+(We have assumed that CPAN modules related to Emacs which haven't had
+a release for over ten years are defunct and have not included them
+here.)
 
 =over
 

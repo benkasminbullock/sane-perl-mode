@@ -26,10 +26,6 @@ my $invertel =<<EOF;
 (sane-perl-invert-if-unless)
 EOF
 
-=for html "monkey business"
-
-=cut
-
 my $invertif = "B if A;\n";
 
 my $out = run ($invertel, $if);
