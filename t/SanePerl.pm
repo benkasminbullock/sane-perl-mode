@@ -30,6 +30,31 @@ use File::Slurper qw!
     write_text
 !;
 
+sub import
+{
+    my ($class) = @_;
+
+    strict->import ();
+    utf8->import ();
+    warnings->import ();
+
+    File::Slurper->import (qw!read_text write_text!);
+#    FindBin->import ('$Bin');
+# Doesn't work
+#    Test::More->import ();
+
+    SanePerl->export_to_level (1);
+}
+
+# Put the Test::More encoding adjustments here.
+
+my $builder = Test::More->builder;
+binmode $builder->output,         ":encoding(utf8)";
+binmode $builder->failure_output, ":encoding(utf8)";
+binmode $builder->todo_output,    ":encoding(utf8)";
+binmode STDOUT, ":encoding(utf8)";
+binmode STDERR, ":encoding(utf8)";
+
 # Find the lisp file we are testing.
 
 my $dir = __FILE__;

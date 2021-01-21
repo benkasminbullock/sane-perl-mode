@@ -3413,7 +3413,7 @@ is quoting."
     st))
 
 (defun sane-perl-forward-re (lim end is-2arg st-l err-l argument
-			     &optional ostart)
+			     &optional ostart oend)
 "Find the end of a regular expression or a stringish construct (q[] etc).
 The point should be before the starting delimiter.
 
