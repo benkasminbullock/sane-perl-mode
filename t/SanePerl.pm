@@ -12,16 +12,11 @@ test and getting the results back.
 =cut
 
 package SanePerl;
+
 use warnings;
 use strict;
 use utf8;
-require Exporter;
-our @ISA = qw(Exporter);
-our @EXPORT = qw/
-    run
-    run_expect
-    run_font_lock
-/;
+
 use Carp;
 use Test::More;
 use File::Temp 'tempfile';
@@ -29,6 +24,18 @@ use File::Slurper qw!
     read_text
     write_text
 !;
+
+require Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT = (qw/
+    run
+    run_expect
+    run_font_lock
+    run_indent
+    read_text
+    write_text
+/, @Test::More::EXPORT);
+
 
 sub import
 {
@@ -39,9 +46,9 @@ sub import
     warnings->import ();
 
     File::Slurper->import (qw!read_text write_text!);
+# We already had to do this to use this module.
 #    FindBin->import ('$Bin');
-# Doesn't work
-#    Test::More->import ();
+    Test::More->import ();
 
     SanePerl->export_to_level (1);
 }
@@ -214,6 +221,37 @@ sub cleanup
     my @backups = <$dir/*.*.~*~>;
     for (@backups) {
 	unlink $_ or warn "Can't remove $_: $!";
+    }
+}
+
+=head2 run_indent
+
+    run_indent ($in, $el, $expect);
+
+Indent C<$in> using C<sane-perl-mode> with C<$el> specifying
+additional Emacs lisp to run. The expected output can be supplied as a
+third argument. If C<$expect> is not supplied, it returns the
+output. If it is supplied, it tests the output of C<sane-perl-mode>
+using L<Test::More/is>:
+
+    is ($output, $expect);
+
+=cut
+
+sub run_indent
+{
+    my ($in, $el, $expect, $note) = @_;
+    my $default_el = <<EOF;
+(sane-perl-mode)
+(indent-region (point-min) (point-max) nil)
+EOF
+    my $pel = $el . $default_el;
+    my $output = run ($pel, $in);
+    if ($expect) {
+	is ($output, $expect, $note);
+    }
+    else {
+	return $output;
     }
 }
 

@@ -207,8 +207,7 @@ This is in addition to `sane-perl-continued-statement-offset'."
   :group 'sane-perl-indentation-details)
 
 (defcustom sane-perl-indent-wrt-brace t
-  "Non-nil means indent statements in if/etc block relative brace, not if/etc.
-Versions 5.2 ... 5.20 behaved as if this were nil."
+  "Non-nil means indent statements in if/etc block relative brace, not if/etc."
   :type 'boolean
   :group 'sane-perl-indentation-details)
 
@@ -447,7 +446,7 @@ Older version of this page was called `perl5', newer `perl'."
   :group 'sane-perl)
 
 (defcustom sane-perl-noscan-files-regexp
-  "/\\(\\.\\.?\\|SCCS\\|RCS\\|CVS\\|blib\\)$"
+  "/\\(\\.\\.?\\|\\.git|blib\\)$"
   "Regexp to match files/dirs to skip when generating TAGS."
   :type 'regexp
   :group 'sane-perl)
@@ -1125,17 +1124,7 @@ versions of Emacs."
 	   (sane-perl-toggle-set-debug-unwind nil t) t]
 	  "----"
 	  ["Class Hierarchy from TAGS" sane-perl-tags-hier-init t]
-	  ;;["Update classes" (sane-perl-tags-hier-init t) tags-table-list]
 	  ("Tags"
-	   ;; ["Create tags for current file" sane-perl-etags t]
-	   ;; ["Add tags for current file" (sane-perl-etags t) t]
-	   ;; ["Create tags for Perl files in directory" (sane-perl-etags nil t) t]
-	   ;; ["Add tags for Perl files in directory" (sane-perl-etags t t) t]
-	   ;; ["Create tags for Perl files in (sub)directories"
-	   ;;  (sane-perl-etags nil 'recursive) t]
-	   ;; ["Add tags for Perl files in (sub)directories"
-	   ;;  (sane-perl-etags t 'recursive) t])
-	   ;; ;;? sane-perl-write-tags (&optional file erase recurse dir inbuffer)
 	   ["Create tags for current file" (sane-perl-write-tags nil t) t]
 	   ["Add tags for current file" (sane-perl-write-tags) t]
 	   ["Create tags for Perl files in directory"
@@ -1642,26 +1631,6 @@ the last)."
    "\\)?"				; END n+6=proto-group
    ))
 
-;; ;; Details of groups in this are used in `sane-perl-imenu--create-perl-index'
-;; ;;  and `sane-perl-outline-level'.
-;; ;; Was: 2=sub|package; now 2=package-group, 5=package-name 8=sub-name (+3)
-;; (defvar sane-perl-imenu--function-name-regexp-perl
-;;   (concat
-;;    "^\\("                               ; 1 = all
-;;        "\\([ \t]*package"               ; 2 = package-group
-;;           "\\("                                 ; 3 = package-name-group
-;;             sane-perl-white-and-comment-rex ; 4 = pre-package-name
-;;                "\\([a-zA-Z_0-9:']+\\)\\)?\\)" ; 5 = package-name
-;;        "\\|"
-;;           "[ \t]*"
-;;           sane-perl--sub-regexp
-;;           (sane-perl-after-sub-regexp 'named nil) ; 8=name 11=proto 14=attr-start
-;;           sane-perl-maybe-white-and-comment-rex     ; 15=pre-block
-;;    "\\|"
-;;      "=head\\([1-4]\\)[ \t]+"           ; 16=level
-;;      "\\([^\n]+\\)$"                    ; 17=text
-;;    "\\)"))
-
 ;; (defvar sane-perl-outline-regexp
 ;;   (concat sane-perl-imenu--function-name-regexp-perl "\\|" "\\`"))
 
@@ -1732,9 +1701,8 @@ the last)."
 (define-derived-mode sane-perl-mode prog-mode "Sane-Perl"
   "Major mode for editing Perl code.
 Expression and list commands understand all C brackets.
-Tab indents for Perl code.
-Paragraphs are separated by blank lines only.
-Delete does not convert tabs to spaces as it moves back.
+Press the tab key to indent the current line.
+Use M-x indent-region to indent several lines.
 
 Various characters in Perl almost always come in pairs: {}, (),
 [], sometimes <>.  When the user types the first, she does not
@@ -1743,7 +1711,7 @@ get the second as well, with optional special formatting done on
 \\[quoted-insert]) the left \"paren\" to avoid the expansion.
 The processing of < is special, since most the time you mean
 \"less\".  Sane-Perl mode tries to guess whether you want to type
-a pair <>, and does not inserts it if it is appropriate.  You can
+a pair <>, and does not insert it if it is appropriate.  You can
 set `sane-perl-electric-parens-string' to the string that
 contains the parens from the above list you want to be
 electrical.  Electricity of parens is controlled by
@@ -8431,7 +8399,7 @@ which seem to work, at least, with some formatters."
   (interactive
    (let* ((default (sane-perl-word-at-point))
 	 (read (read-string
-		(sane-perl--format-prompt "Find doc for Perl function" default))))
+		(sane-perl--format-prompt "Find doc for function or module" default))))
      (list (if (equal read "")
 	      default
 	    read))))
@@ -8574,7 +8542,6 @@ a result of qr//, this is not a performance hit), t for the rest."
     (if pp (goto-char pp)
       (message "No more interpolated REx"))))
 
-;; Initial version contributed by Trey Belew
 (defun sane-perl-here-doc-spell ()
   "Spell-check HERE-documents in the Perl buffer.
 If a region is highlighted, restricts to the region."
@@ -8623,7 +8590,6 @@ function returns nil."
 	     (setq cont (funcall func pos posend prop)))
 	(setq pos posend)))))
 
-;; Based on code by Masatake YAMATO:
 (defun sane-perl-get-here-doc-region (&optional pos pod)
   "Return HERE document region around the point.
 Return nil if the point is not in a HERE document region.  If POD is non-nil,

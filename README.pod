@@ -114,8 +114,8 @@ Some of the default behaviours of cperl-mode have been changed.
 
 =head3 Underlining of trailing whitespace
 
-The cperl-mode default of using of underscores for displaying trailing
-whitespace has been switched off. 
+The cperl-mode default of using underscores for displaying trailing
+whitespace has been switched off.
 
 cperl-mode requires a setting
 
@@ -127,8 +127,9 @@ switched off by default in sane-perl-mode. To restore it, add
     (setq sane-perl-invalid-face 'underline)
 
 to F<.emacs>. Trailing whitespace is harmless in Perl, and hardly
-merits being highlighted in an exaggerated way, and the underscores
-were also misleading. For example, after a dollar the underscore would
+merits being highlighted in an exaggerated way, especially since even
+whitespace in comments was highlighted. Further, the underscores were
+also misleading. For example, after a dollar the underscore would
 appear as C<$_> (the default variable) when in fact there was no C<_>
 there.
 
@@ -141,7 +142,7 @@ switched off. It's still in the mode as a user option.
 
 =head3 Version control systems
 
-Support for the RCS and SCCS version control systems has been removed.
+Support for the CSV, RCS and SCCS version control systems has been removed.
 
 =head3 Moose and other non-core modules
 
@@ -227,7 +228,23 @@ supported as an option. See L</Underlining of trailing
 whitespace>. Tests of its functioning, if the user chooses to switch
 it back on, is in F<t/trailing.t>.
 
+=item Tests of CPerl-Mode features
+
+We have added some tests of CPerl-Mode features such as its documented
+indentation options in F<t/indent.t> and F<t/brace-option.t>, as
+regression tests to make sure that this mode doesn't start misbehaving
+in unexpected ways. All of the C<cperl-mode-> options need to use
+C<sane-perl-> as the prefix but otherwise should work the same way,
+unless otherwise documented. See L</Changes to defaults> for what
+options have been changed so far.
+
 =back
+
+=head1 BUGS
+
+Please report bugs at the github issue tracker. There is also a
+"discussions" option if you're not sure whether to report a bug or
+just ask a question.
 
 =head1 SEE ALSO
 
