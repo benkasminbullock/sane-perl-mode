@@ -8,9 +8,8 @@ sane-perl-mode - a fork of cperl-mode to fix long-standing bugs
 
 =head1 DESCRIPTION
 
-This is an experimental fork of cperl-mode.el which we made to fix
-some long-term problems with the mode which didn't seem to be being
-addressed by the various maintainers of cperl-mode.el.
+This is a fork of the Emacs Perl-editing mode cperl-mode.el. We made
+this to fix some very long-term problems with cperl-mode.
 
 At the moment we're documenting using this README.
 
@@ -20,30 +19,33 @@ So far we've made the following changes from cperl-mode:
 
 =head2 No error messages each time the m or s key is pressed
 
-Emacs no longer produces an error message about matching parentheses
-not being found every time the "m" or "s" key is pressed in a
-cperl-mode buffer. This is the origin of the word "sane" in the name
-of this fork.
+In cperl-mode, Emacs produces an error message about matching
+parentheses not being found every time the "m" or "s" key is
+pressed. In sane-perl-mode, these error messages have been
+eliminated. This is the origin of the word "sane" in the name of this
+fork.
 
 Whilst labelling cperl-mode and its maintainers as "insane" might be
-excessive, it's very difficult for us to imagine what the people who
-made Emacs produce an error message each time the keys m or s are
-pressed were thinking about. With Emacs 27, the screen would actually
-scroll when the error messages were produced, so typing "m" or "s", as
-one tends to do when one needs to input Perl keywords like C<my> or
-C<sub>, would cause the Emacs window to suddenly scroll. What is
-worse, this bug has been reported over and over. BKB pointed the
-problem out to Ilya Zakharevich on comp.lang.perl.misc in about 2007
-or so, so it's been there for at least fourteen years.
+excessive, it's very difficult to imagine what the people who made
+Emacs produce an error message each time the keys m or s are pressed
+were thinking about. With Emacs 27, the screen would scroll when the
+error messages were produced, so typing "m" or "s" when entering
+keywords like C<my> or C<sub> would cause the Emacs window to suddenly
+scroll. 
+
+This bug has been reported over and over by many people to the
+cperl-mode maintainers. BKB pointed the problem out to Ilya
+Zakharevich on the usenet newsgroup comp.lang.perl.misc in about 2007
+or so, so it's been there for at least fourteen years. However, they
+have not taken any action.
 
 Anyway the bug is fixed here. We hope it helps you restore your
 sanity.
 
 =head2 Far-right indentation
 
-The "far-right" indentation of C<qw> and C<qr!!x> can now be altered
-to indent the contents using normal indentation. To make it possible
-for people to transition, the default is currently still "far-right"
+Indenting the contents of C<qw> and C<qr!!x> far to the right of the
+page can now be altered to indent the contents using the normal
 indentation. To switch off the far-right indentation, set the option
 C<sane-perl-indentable-indent> to C<nil> in F<.emacs> or its
 equivalent with
@@ -68,14 +70,12 @@ will be indented as
 Similarly for regular expressions using the C</x> format.
 
 This fix comes from the L<jrockway fork of
-cperl-mode|https://github.com/jrockway/cperl-mode/pull/54>
-
-Although the fix predates the fork of sane-perl-mode, this fix hadn't
-been applied in the L</HaraldJoerg> fork which sane-perl-mode
-originates from. Further to the jrockway fork fix, sane-perl-mode also
-puts the indentation of the !; at the end on the left rather than
-under the final line, as shown above. The jrockway fork currently does
-the following:
+cperl-mode|https://github.com/jrockway/cperl-mode/pull/54>, but it
+hadn't been applied in the L</HaraldJoerg> fork which sane-perl-mode
+originates from, so it's been added on here. Further to the jrockway
+fork fix, sane-perl-mode also puts the indentation of the !; at the
+end on the left rather than under the final line, as shown above. The
+jrockway fork currently does the following:
 
     my @array = qw!
         normal
@@ -84,36 +84,26 @@ the following:
 
 =head2 Indent brace bug
 
-Provisionally, the long-standing "indent brace bug" has been
-fixed. This bug happened when C<cperl-continued-statement-offset> was
-set to a non-zero value. It caused the opening brace of a subroutine
-to be indented four spaces:
+The "indent brace bug" happens in cperl-mode when
+C<cperl-continued-statement-offset> is set to a non-zero value. It
+causes the opening brace of a subroutine to be indented four spaces:
 
     sub xyz
         {
 
-where normally one would expect
+instead of
 
     sub xyz
     {
 
-The behaviour of indenting the opening brace like this wasn't
-documented, and the variable name C<cperl-continued-statement-offset>
-was certainly a misnomer if it was actually intended to do the above,
-so presumably this was a bug, although this oddity has been there for
-the entire fourteen years that we've been using this module, so we're
-not at all sure what has been happening.
-
-However, this was fixed by commenting out some suspicious "mystery
-code", so the fix may cause some other bugs to occur.
+This is fixed in sane-perl-mode.
 
 =head2 Documentation improvements
 
 Spelling and grammar mistakes have been fixed. Some attempt has been
-made to tone down the level of bonkers-ness of the documentation (ALL
-CAPS YOU MUST DO THIS type of statements), as well as some editing of
-the many statements which seem designed to deliberately confuse users,
-or give opinions rather than facts.
+made to make the tone of the documentation more professional. Much of
+the cperl-mode documentation seemed to be designed to deliberately
+confuse users, or give opinions rather than facts.
 
 We've also done some work on the one-line documentation which comes
 with cperl-mode.
@@ -136,12 +126,11 @@ switched off by default in sane-perl-mode. To restore it, add
 
     (setq sane-perl-invalid-face 'underline)
 
-to F<.emacs>. The reason for this change is that it is terribly
-annoying and somewhat misleading. Trailing whitespace is completely
-harmless in Perl, and hardly merits being highlighted in an
-exaggerated way, and the underscores were not only ugly but also
-misleading. For example after a dollar the underscore would appear as
-C<$_> (the default variable) when in fact there was no C<_> there.
+to F<.emacs>. Trailing whitespace is harmless in Perl, and hardly
+merits being highlighted in an exaggerated way, and the underscores
+were also misleading. For example, after a dollar the underscore would
+appear as C<$_> (the default variable) when in fact there was no C<_>
+there.
 
 =head3 Untabifying by delete is off
 
@@ -156,17 +145,17 @@ Support for the RCS and SCCS version control systems has been removed.
 
 =head3 Moose and other non-core modules
 
-The Moose and other module-specific additions to the mode have been
+Support for Moose, Zydeco, and other module-specific keywords has been
 removed.
 
 =head3 Opinion-comments removed
 
 Editorial comments about the future of Perl development and other
 things have been removed from the module. Since these are a single
-person's opinions, and it's not really clear who the person was, it
-doesn't really make sense to keep them in a module maintained by other
-people who may not share the opinions. Your opinion about this may
-differ.
+person's opinions, and there have been at least five maintainers of
+the Emacs lisp of this module so far, it's not clear who the opinions
+belonged to, and it doesn't make sense to keep them in a module
+maintained by other people who may not share the opinions.
 
 =head3 Removal of commented out and obsolete code
 

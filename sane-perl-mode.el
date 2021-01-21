@@ -1,6 +1,6 @@
 ;;; sane-perl-mode.el --- Perl code editing commands   -*- lexical-binding:t -*-
 
-;; This is a fork of cperl-mode.el. See the file README for more
+;; This is a fork of cperl-mode.el. See the file README.pod for more
 ;; information.
 
 ;; Copyright (C) 1985-1987, 1991-2020 Free Software Foundation, Inc.
@@ -40,8 +40,6 @@
 ;; `sane-perl-praise', `sane-perl-speed'.				   <<<<<<
 
 ;; The mode information (on C-h m) provides some customization help.
-;; If you use font-lock feature of this mode, it is advisable to use
-;; either lazy-lock-mode or fast-lock-mode.
 
 ;; Faces used now: three faces for first-class and second-class keywords
 ;; and control flow words, one for each: comments, string, labels,
@@ -551,11 +549,11 @@ This way enabling/disabling of menu items is more correct."
     (font-lock-variable-name-face	nil nil		bold)
     (font-lock-function-name-face	nil nil		bold italic box)
     (font-lock-constant-face		nil "LightGray"	bold)
-    (sane-perl-array-face			nil "LightGray"	bold underline)
-    (sane-perl-hash-face			nil "LightGray"	bold italic underline)
+    (sane-perl-array-face		nil "LightGray"	bold underline)
+    (sane-perl-hash-face		nil "LightGray"	bold italic underline)
     (font-lock-comment-face		nil "LightGray"	italic)
     (font-lock-string-face		nil nil		italic underline)
-    (sane-perl-nonoverridable-face		nil nil		italic underline)
+    (sane-perl-nonoverridable-face	nil nil		italic underline)
     (font-lock-type-face		nil nil		underline)
     (font-lock-warning-face		nil "LightGray"	bold italic box)
     (underline				nil "LightGray"	strikeout))
@@ -630,8 +628,8 @@ This way enabling/disabling of menu items is more correct."
   "Note that to enable Compile choices in the menu you need to install
 mode-compile.el.
 
-If your Emacs does not default to `sane-perl-mode' on Perl files, and you
-want it to: put the following into your .emacs file:
+To make Emacs default to `sane-perl-mode' on Perl files, put the
+following into .emacs:
 
   (defalias \\='perl-mode \\='sane-perl-mode)
 
@@ -953,10 +951,16 @@ versions of Emacs."
             ("=over" sane-perl-electric-pod)
             ("=head1" sane-perl-electric-pod)
             ("=head2" sane-perl-electric-pod)
+            ("=head3" sane-perl-electric-pod)
+            ("=head4" sane-perl-electric-pod)
+            ("=for" sane-perl-electric-pod)
+            ("=encoding" sane-perl-electric-pod)
             ("pod" sane-perl-electric-pod)
             ("over" sane-perl-electric-pod)
             ("head1" sane-perl-electric-pod)
-            ("head2" sane-perl-electric-pod)))
+            ("head2" sane-perl-electric-pod)
+            ("head3" sane-perl-electric-pod)
+            ("head4" sane-perl-electric-pod)))
   "Abbrev table for electric keywords.  Controlled by `sane-perl-electric-keywords'."
   :case-fixed t
   :enable-function (lambda () (sane-perl-val 'sane-perl-electric-keywords)))
