@@ -135,7 +135,7 @@ there.
 =head3 Untabifying by delete is off
 
 Untabifying by delete (turning a tab character into spaces) was
-switched off. It's still in the module as a user option.
+switched off. It's still in the mode as a user option.
 
 =head2 Removal of obsolete and non-core support
 
@@ -151,11 +151,11 @@ removed.
 =head3 Opinion-comments removed
 
 Editorial comments about the future of Perl development and other
-things have been removed from the module. Since these are a single
+things have been removed from the mode. Since these are a single
 person's opinions, and there have been at least five maintainers of
-the Emacs lisp of this module so far, it's not clear who the opinions
-belonged to, and it doesn't make sense to keep them in a module
-maintained by other people who may not share the opinions.
+this mode so far, it's not clear who the opinions belonged to, and it
+doesn't make sense to keep them in a mode maintained by other people
+who may not share the opinions.
 
 =head3 Removal of commented out and obsolete code
 
