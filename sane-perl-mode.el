@@ -3,13 +3,17 @@
 ;; This is a fork of cperl-mode.el. See the file README.pod for more
 ;; information.
 
+;; Repository:
+;;     https://github.com/benkasminbullock/sane-perl-mode
+;; Maintainer:
+;;     Ben Bullock <benkasminbullock@gmail.com>, <bkb@cpan.org>
+
 ;; Copyright (C) 1985-1987, 1991-2020 Free Software Foundation, Inc.
 
 ;; Authors: Ilya Zakharevich
 ;;	    Bob Olson
 ;;	    Jonathan Rockway <jon@jrock.us>
 ;;          Harald Jörg <haj@posteo.de>
-;; Maintainer: Ben Bullock <benkasminbullock@gmail.com>
 ;; Keywords: languages, Perl
 ;; Package-Requires: ((emacs "26.1"))
 ;; Package-Version: 1.0
@@ -39,24 +43,8 @@
 ;; or as help on variables `sane-perl-tips', `sane-perl-problems',         <<<<<<
 ;; `sane-perl-praise', `sane-perl-speed'.				   <<<<<<
 
-;; The mode information (on C-h m) provides some customization help.
+;; The mode information (C-h m) provides customization help.
 
-;; Faces used now: three faces for first-class and second-class keywords
-;; and control flow words, one for each: comments, string, labels,
-;; functions definitions and packages, arrays, hashes, and variable
-;; definitions.  If you do not see all these faces, your font-lock does
-;; not define them, so you need to define them manually.
-
-;; This mode supports font-lock, imenu and mode-compile.  In the
-;; hairy version font-lock is on, but you should activate imenu
-;; yourself (note that mode-compile is not standard yet).  Well, you
-;; can use imenu from keyboard anyway (M-x imenu), but it is better
-;; to bind it like that:
-
-;; (define-key global-map [M-S-down-mouse-3] 'imenu)
-
-;;; Code:
-
 ;;; Compatibility with older versions (for publishing on ELPA)
 ;; The following helpers allow sane-perl-mode.el to work with older
 ;; versions of Emacs.
@@ -5840,11 +5828,6 @@ indentation and initial hashes.  Behaves usually outside of comment."
 	    (list (concat "\\<" sane-perl--before-label-regexp
 			  "\\>[ \t]+\\([a-zA-Z0-9_:]+\\)")
 		  1 font-lock-constant-face) ; labels as targets
-	    ;; Uncomment to get perl-mode-like vars
-	    ;;; '("[$*]{?\\(\\sw+\\)" 1 font-lock-variable-name-face)
-	    ;;; '("\\([@%]\\|\\$#\\)\\(\\sw+\\)"
-	    ;;;  (2 (cons font-lock-variable-name-face '(underline))))
-	    ;; 1=white? 2=(+white? 3=white? 4=var
 	    `(,(concat "\\<" sane-perl--declaring-regexp
 		       sane-perl-maybe-white-and-comment-rex
 		       "\\(("
@@ -5900,13 +5883,6 @@ indentation and initial hashes.  Behaves usually outside of comment."
 	     ("\\(%\\)\\(\\$+\\([a-zA-Z_:][a-zA-Z0-9_:]*\\|[^ \t\n]\\)\\)"
 	      (1 'sane-perl-hash-face)
 	      (2 font-lock-variable-name-face))
-	     ;;("\\([smy]\\|tr\\)\\([^a-z_A-Z0-9]\\)\\(\\([^\n\\]*||\\)\\)\\2")
-	     ;; Too much noise from \s* @s[ and friends
-	     ;;("\\(\\<\\([msy]\\|tr\\)[ \t]*\\([^ \t\na-zA-Z0-9_]\\)\\|\\(/\\)\\)"
-	     ;;(3 font-lock-function-name-face t t)
-	     ;;(4
-	     ;; (if (sane-perl-slash-is-regexp)
-	     ;;    font-lock-function-name-face 'default) nil t))
 	     ))
 	  (if sane-perl-highlight-variables-indiscriminately
 	      (setq t-font-lock-keywords-1
@@ -6318,7 +6294,7 @@ Customized by setting variables `sane-perl-shrink-wrap-info-frame',
 	      (pop-to-buffer buf)
 	    (special-display-popup-frame buf) ; Make it visible
 	    (select-window win))
-	  (goto-char pos)		; Needed (?!).
+	  (goto-char pos)
 	  ;; Resize
 	  (setq iniheight (window-height)
 		frheight (frame-height)
@@ -6341,13 +6317,11 @@ Customized by setting variables `sane-perl-shrink-wrap-info-frame',
 			 ;; Title, menubar, + 2 for slack
 			 (- (/ (display-pixel-height) char-height) 4)))
 		 (if (> height max-height) (setq height max-height))
-		 ;;(message "was %s doing %s" iniheight height)
 		 (if not-loner
 		     (enlarge-window (- height iniheight))
 		   (set-frame-height (window-frame win) (1+ height)))))
 	  (set-window-start (selected-window) pos))
       (message "No entry for %s found." command))
-    ;;(pop-to-buffer buffer)
     (select-window iniwin)))
 
 (defun sane-perl-info-on-current-command ()
@@ -6518,7 +6492,6 @@ in subdirectories too."
     (or files (setq files (list buffer-file-name)))
     (cond
      ((eq all 'recursive)
-      ;;(error "Not implemented: recursive")
       (setq args (append (list "-e"
 			       "sub wanted {push @ARGV, $File::Find::name if /\\.[pP][Llm]$/}
 				use File::Find;
@@ -6527,7 +6500,6 @@ in subdirectories too."
 			       cmd) args)
 	    cmd "perl"))
      (all
-      ;;(error "Not implemented: all")
       (setq args (append (list "-e"
 			       "push @ARGV, <*.PL *.pl *.pm>;
 				exec @ARGV;"
