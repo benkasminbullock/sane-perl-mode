@@ -142,7 +142,8 @@ switched off. It's still in the mode as a user option.
 
 =head3 Version control systems
 
-Support for the CSV, RCS and SCCS version control systems has been removed.
+Support for the CVS, RCS, and SCCS version control systems has been
+removed.
 
 =head3 Moose and other non-core modules
 
@@ -242,9 +243,11 @@ options have been changed so far.
 
 =head1 BUGS
 
-Please report bugs at the github issue tracker. There is also a
-"discussions" option if you're not sure whether to report a bug or
-just ask a question.
+Please report bugs at L<the github issue
+tracker|https://github.com/benkasminbullock/sane-perl-mode/issues>. There
+is also L<a "discussions"
+option|https://github.com/benkasminbullock/sane-perl-mode/discussions>
+if you're not sure whether to report a bug or just ask a question.
 
 =head1 SEE ALSO
 
