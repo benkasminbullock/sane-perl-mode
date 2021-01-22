@@ -28,11 +28,14 @@ use File::Slurper qw!
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = (qw/
+    $dir
+    $modeel
     run
     run_expect
     run_font_lock
     run_indent
     read_text
+    tempfile
     write_text
 /, @Test::More::EXPORT);
 
@@ -46,6 +49,7 @@ sub import
     warnings->import ();
 
     File::Slurper->import (qw!read_text write_text!);
+    File::Temp->import (qw!tempfile!);
 # We already had to do this to use this module.
 #    FindBin->import ('$Bin');
     Test::More->import ();
@@ -64,13 +68,13 @@ binmode STDERR, ":encoding(utf8)";
 
 # Find the lisp file we are testing.
 
-my $dir = __FILE__;
+our $dir = __FILE__;
 $dir =~ s!/SanePerl\.pm!!;
 if (! -d $dir) {
     die "Directory '$dir' not found";
 }
 
-my $modeel = "$dir/../sane-perl-mode.el";
+our $modeel = "$dir/../sane-perl-mode.el";
 if (! -f $modeel) {
     die "Lisp file '$modeel' not found";
 }

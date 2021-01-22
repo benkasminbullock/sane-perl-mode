@@ -1,17 +1,7 @@
 # This tests sane-perl-mode.el's ability to invert if (A) {B} into a
 # "trailing if" format B if A.
 
-use warnings;
-use strict;
-use utf8;
 use FindBin '$Bin';
-use Test::More;
-my $builder = Test::More->builder;
-binmode $builder->output,         ":utf8";
-binmode $builder->failure_output, ":utf8";
-binmode $builder->todo_output,    ":utf8";
-binmode STDOUT, ":encoding(utf8)";
-binmode STDERR, ":encoding(utf8)";
 use lib "$Bin";
 use SanePerl;
 
@@ -38,5 +28,15 @@ EOF
 
 my $revert = run ($restoreel, $out);
 is ($revert, $if, "Convert trailing to leading if");
+
+TODO: {
+    # http://mikan/bugs/bug/2163
+    local $TODO = "Don't add parentheses if not necessary";
+    my $trailing = <<'EOF';
+	last if ($m == $b || $m == $t);
+EOF
+    my $leading = run ($restoreel, $trailing);
+    unlike ($leading, qr!\(\(\$m!, "Don't add parentheses unless necessary");
+};
 
 done_testing ();

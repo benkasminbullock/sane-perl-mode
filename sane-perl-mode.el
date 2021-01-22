@@ -957,7 +957,6 @@ versions of Emacs."
   :parents (list sane-perl-mode-electric-keywords-abbrev-table))
 
 (when (boundp 'edit-var-mode-alist)
-  ;; FIXME: What package uses this?
   (add-to-list 'edit-var-mode-alist '(perl-mode (regexp . "^sane-perl-"))))
 
 (defvar sane-perl-mode-map
@@ -991,8 +990,6 @@ versions of Emacs."
     (define-key map "\C-c\C-hP" 'sane-perl-perldoc-at-point)
     (define-key map "\e\C-q" 'sane-perl-indent-exp) ; Usually not bound
     (define-key map [(control meta ?|)] 'sane-perl-lineup)
-    ;;(define-key map "\M-q" 'sane-perl-fill-paragraph)
-    ;;(define-key map "\e;" 'sane-perl-indent-for-comment)
     (define-key map "\177" 'sane-perl-electric-backspace)
     (define-key map "\t" 'sane-perl-indent-command)
     ;; don't clobber the backspace binding:
@@ -1389,7 +1386,7 @@ extends are shown like builtin functions."
         (regexp-opt (sane-perl-tags-keywords ':sub)))
   ;; etags setup
 
-  ;; Changed from setq to defvar
+  ;; Changed from setq to defvar due to warnings from the byte compiler.
   ;; https://emacs.stackexchange.com/questions/21245/dealing-with-warning-assignment-to-free-variable-when-certain-libraries-can-b
 
   (defvar sane-perl-tags-hier-regexp-list
@@ -1595,7 +1592,7 @@ expressions which depend on these."
 ;; near mentioned above variable(s)...
 ;; sub($$):lvalue{}  sub:lvalue{} Both allowed...
 
-;; Changed from defsubst to defun
+;; Changed from defsubst to defun due to warnings from the byte compiler.
 ;; https://emacs.stackexchange.com/questions/32038/eval-when-compile-defsubst-vs-defmacro-vs-define-inline
 (defun sane-perl-after-sub-regexp (named attr) ; 9 groups without attr...
   "Match the text after `sub' in a subroutine declaration.
@@ -7414,13 +7411,13 @@ INIT { ... }	Pseudo-subroutine executed before the script starts running.
 DATA	Input filehandle for what follows after __END__	or __DATA__.
 accept(NEWSOCKET,GENERICSOCKET)
 alarm(SECONDS)
-atan2(X,Y)
+atan2(X,Y)   Arctangent of y/x in the range [-pi, +pi]
 bind(SOCKET,NAME)
-binmode(FILEHANDLE)
+binmode FILEHANDLE [, LAYER]   Set binary or text mode; LAYER for directives
 break	Break out of a given/when statement
 caller[(LEVEL)]
-chdir(EXPR)
-chmod(LIST)
+chdir(EXPR)  Change the working directory
+chmod(LIST)  Change the permissions of a list of files
 chop[(LIST|VAR)]
 chown(LIST)
 chroot(FILENAME)
@@ -7519,7 +7516,7 @@ my VAR or my (VAR1,...)	Introduces a lexical variable ($VAR, @ARR, or %HASH).
 our VAR or our (VAR1,...) Lexically enable a global variable ($V, @A, or %H).
 ... ne ...	String inequality.
 next [LABEL]
-oct(EXPR)
+oct(EXPR)   Interpret EXPR as an octal string
 open(FILEHANDLE[,EXPR])
 opendir(DIRHANDLE,EXPR)
 ord(EXPR)	ASCII value of the first char of the string.
@@ -7539,17 +7536,17 @@ readdir(DIRHANDLE)
 readlink(EXPR)
 recv(SOCKET,SCALAR,LEN,FLAGS)
 redo [LABEL]
-rename(OLDNAME,NEWNAME)
+rename(OLDNAME,NEWNAME)  Change a file's name
 require [FILENAME | PERL_VERSION]
 reset[(EXPR)]
-return(LIST)
-reverse(LIST)
+return(LIST)    Return from a subroutine
+reverse(LIST)    Returns the list in reverse order
 rewinddir(DIRHANDLE)
 rindex(STR,SUBSTR[,OFFSET])
-rmdir(FILENAME)
-s/PATTERN/REPLACEMENT/gieoxsm
+rmdir(FILENAME)    Remove a directory
+s/PATTERN/REPLACEMENT/gieoxsm   Substitute PATTERN with REPLACEMENT
 say [FILEHANDLE] [(LIST)]
-scalar(EXPR)
+scalar(EXPR)    Convert an array or hash into a scalar
 seek(FILEHANDLE,POSITION,WHENCE)
 seekdir(DIRHANDLE,POS)
 select(FILEHANDLE | RBITS,WBITS,EBITS,TIMEOUT)
@@ -7572,7 +7569,7 @@ shmget(KEY,SIZE,FLAGS)
 shmread(ID,VAR,POS,SIZE)
 shmwrite(ID,STRING,POS,SIZE)
 shutdown(SOCKET,HOW)
-sin(EXPR)
+sin(EXPR)    Sine
 sleep[(EXPR)]
 socket(SOCKET,DOMAIN,TYPE,PROTOCOL)
 socketpair(SOCKET1,SOCKET2,DOMAIN,TYPE,PROTOCOL)
@@ -7581,7 +7578,7 @@ splice(ARRAY,OFFSET[,LENGTH[,LIST]])
 split[(/PATTERN/[,EXPR[,LIMIT]])]
 sprintf(FORMAT,LIST)
 sqrt(EXPR)
-srand(EXPR)
+srand(EXPR)  Seed random number generator
 stat(EXPR|FILEHANDLE|VAR)
 state VAR or state (VAR1,...)	Introduces a static lexical variable
 study[(SCALAR)]
