@@ -139,7 +139,9 @@ sub run
     if ($options{want_errors}) {
 	return ($output, $errors);
     }
-    warn "Errors from Emacs as follows: $errors";
+    if ($errors) {
+	warn "Errors from Emacs as follows: $errors";
+    }
     return $output;
 }
 
