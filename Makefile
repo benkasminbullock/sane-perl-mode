@@ -7,3 +7,6 @@ $(IDIR)/sane-perl-mode.el $(IDIR)/sane-perl-mode.elc: sane-perl-mode.el install.
 
 test:
 	prove t/*.t
+
+clean:
+	purge -r

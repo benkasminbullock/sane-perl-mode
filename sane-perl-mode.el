@@ -3380,7 +3380,7 @@ is quoting."
     st))
 
 (defun sane-perl-forward-re (lim end is-2arg st-l err-l argument
-			     &optional ostart oend)
+			     &optional ostart)
 "Find the end of a regular expression or a stringish construct (q[] etc).
 The point should be before the starting delimiter.
 
@@ -3458,7 +3458,7 @@ modify syntax-type text property if the situation is too hard."
 		(if ender (modify-syntax-entry ender "." st))
 		(setq set-st nil)
 		(setq ender (sane-perl-forward-re lim end nil st-l err-l
-					      argument starter ender)
+					      argument starter)
 		      ender (nth 2 ender)))))
       (error (goto-char lim)
 	     (setq set-st nil)
