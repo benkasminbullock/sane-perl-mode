@@ -8,6 +8,8 @@
 ;; Maintainer:
 ;;     Ben Bullock <benkasminbullock@gmail.com>, <bkb@cpan.org>
 
+;; The following is the comment header of cperl-mode.el:
+
 ;; Copyright (C) 1985-1987, 1991-2020 Free Software Foundation, Inc.
 
 ;; Authors: Ilya Zakharevich
@@ -8252,11 +8254,9 @@ browse-url."
   "A keymap to allow following links in perldoc buffers.")
 
 (defun sane-perl--pod-process-links ()
-  "Find the next link in a POD section, and process it.
-The L<...> syntax is the most complex markup in the POD family of
-strange things.  Also, quite a lot of modules on CPAN and
-elsewhere found ways to violate the spec in interesting ways
-which seem to work, at least, with some formatters."
+  "This converts the links in the pod document so that they work
+as part of the Emacs help buffer. Find the next link in a POD
+section, and process it."
   ;; Note: Processing links can't be done with syntax tables by using
   ;; <> as a bracket pair because links can contain unbalanced < or >
   ;; symbols.  So do it the hard way....
