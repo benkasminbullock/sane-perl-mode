@@ -2,10 +2,10 @@ use FindBin '$Bin';
 use lib "$Bin";
 use SanePerl;
 use Deploy 'do_system';
-#plan skip_all => "Can't reproduce the bug yet";
+plan skip_all => "Can't reproduce the bug yet";
 my $in = read_text ("$Bin/replace.pl");
 my $el = read_text ("$Bin/replace.el");
-do_system ("emacs --batch replace.pl --load replace.el");
+#do_system ("emacs --batch replace.pl --load replace.el");
 ok (1);
 done_testing ();
 
