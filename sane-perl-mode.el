@@ -254,7 +254,7 @@ of the construct (on a previous line)"
   :type 'boolean
   :group 'sane-perl-indentation-details)
 
-(defcustom sane-perl-font-lock nil
+(defcustom sane-perl-font-lock t
   "If non-nil, Sane-Perl buffers will use the command `font-lock-mode'.
 Can be overwritten by `sane-perl-hairy' if nil."
   :type '(choice (const null) boolean)
@@ -1976,7 +1976,8 @@ or as help on variables `sane-perl-tips', `sane-perl-problems',
        #'sane-perl-do-auto-fill)
   (if (sane-perl-val 'sane-perl-font-lock)
       (progn (or sane-perl-faces-init (sane-perl-init-faces))
-	     (font-lock-mode 1)))
+	     (font-lock-mode 1))
+    (font-lock-mode -1))
   (set (make-local-variable 'facemenu-add-face-function)
        #'sane-perl-facemenu-add-face-function)
   (and (boundp 'msb-menu-cond)
@@ -5866,9 +5867,6 @@ indentation and initial hashes.  Behaves usually outside of comment."
 					   t-font-lock-keywords-1
 					   sane-perl-font-lock-keywords-1)))
 	(if (fboundp 'ps-print-buffer) (sane-perl-ps-print-init))
-	;; Do it the dull way, without choose-color
-	;; In fact, _always_ do it the dull way, since choose-color
-	;; is no longer available (nor is font-lock-extra) -- haj 2020-06-19
         (setq sane-perl-faces-init t))
     (error (message "sane-perl-init-faces (ignored): %s" errs))))
 

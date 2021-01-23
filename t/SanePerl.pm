@@ -185,20 +185,22 @@ the code on the Emacs window).
 sub run_font_lock
 {
     my ($in, $el) = @_;
+    if (! $el) {
+	$el = '';
+    }
     my $fontify = <<EOF;
 (add-to-list 'load-path "$dir")
 (add-to-list 'load-path "$dir/..")
 (setq htmlize-use-rgb-map 'force)
 (require 'htmlize)
 (require 'sane-perl-mode)
-
 (find-file (pop command-line-args-left))
 (sane-perl-mode)
-(font-lock-fontify-buffer)
+(let ((noninteractive nil))
+  (font-lock-mode 1))
 (with-current-buffer (htmlize-buffer)
   (princ (buffer-string)))
 EOF
-#    print $fontify;
     # If the caller specifies lisp, add it before.
     if ($el) {
 	$fontify = $el . $fontify;
@@ -210,6 +212,7 @@ EOF
     close $outh or die $!;
     my ($elh, $elf) = tempfile ("el.XXXXX", DIR => $dir);
     print $elh $fontify;
+    print $fontify;
     close $elh or die $!;
     my ($errh, $errf) = tempfile ("err.XXXXX", DIR => $dir);
     close $errh or die $!;
