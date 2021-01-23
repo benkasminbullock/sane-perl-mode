@@ -31,6 +31,7 @@ our @EXPORT = (qw/
     $dir
     $modeel
     run
+    run_err
     run_expect
     run_font_lock
     run_indent
@@ -94,7 +95,7 @@ at the end of processing.
 
 sub run
 {
-    my ($el, $text) = @_;
+    my ($el, $text, %options) = @_;
 
     # Write the emacs lisp into a temporary file
     my ($elfh, $elfn) = tempfile ("el.XXXXXX", DIR => $dir);
@@ -121,12 +122,10 @@ sub run
 
     my $output;
     my $status = system ("$command 2> $errfn");
+    my $errors;
     if ($status == 0) {
 	if (-s $errfn) {
-	    # This hasn't happened yet, probably need to do this better.
-	    print "Errors: ";
-	    my $errors = read_text ($errfn);
-	    print $errors;
+	    $errors = read_text ($errfn);
 	}
     }
     else {
@@ -137,7 +136,16 @@ sub run
     # debugging.
     unlink ($textfn, $errfn, $elfn) or warn "Error unlinking temp files: $!";
     cleanup ();
+    if ($options{want_errors}) {
+	return ($output, $errors);
+    }
+    warn "Errors from Emacs as follows: $errors";
     return $output;
+}
+
+sub run_err
+{
+    return run(@_, want_errors => 1);
 }
 
 =head2 run_expect

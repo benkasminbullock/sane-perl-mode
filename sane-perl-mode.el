@@ -8282,7 +8282,8 @@ section, and process it."
 	 (q  "\"")
 	 (ws	(concat { "[[:blank:]]" or "\n" } ))
 	 (quoted    (concat { q { bs bs or bs q or "[^\"]" } "*" q } ))
-	 (plain     (concat { "[^|/<>]" } ))
+	 (ang-expr "[BCEFISXZ]<+[^>]*>+")
+	 (plain     (concat { "[^|/<>]" or ang-expr } ))
 	 (extended  (concat { "[^|/]" } ))
 	 (nomarkup  (concat { "[^A-Z]<" } ))
 	 (no-del    (concat { bs "|" or bs "/" or "[^|/]" } ))
@@ -8323,6 +8324,7 @@ section, and process it."
 				}))
 	     (re	(concat link-re terminator))
 	     (end-marker (make-marker)))
+	
 	(re-search-forward re nil t)
 	(set-marker end-marker (match-end 0))
 	(cond
