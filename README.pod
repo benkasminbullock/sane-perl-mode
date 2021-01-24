@@ -142,8 +142,8 @@ C<indent-region> is as follows:
 
 Because it looks like changes to the defaults of the mode caused this,
 we are not sure whether to modify the indentation styles or the
-examples. Generally we are using the examples, but K&R style, for
-example, is given as
+examples. Generally we have followed the examples and modified the
+indentation styles to look more like them, but K&R style is given as
 
      if (foo)
      {
