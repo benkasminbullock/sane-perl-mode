@@ -377,7 +377,7 @@ Font for POD headers."
   :group 'sane-perl-faces)
 
 (defcustom sane-perl-fontify-m-as-s t
-  "Not-nil means highlight 1arg regular expressions operators same as 2arg."
+  "Not-nil means highlight 1arg regular expression operators same as 2arg."
   :type 'boolean
   :group 'sane-perl-faces)
 
@@ -463,12 +463,6 @@ If nil, the value of `sane-perl-indent-level' will be used."
   "Non-nil means that the comment starting in leftmost column should indent."
   :type 'boolean
   :group 'sane-perl-indentation-details)
-
-(defcustom sane-perl-under-as-char nil
-  "Non-nil means that the _ (underline) should be treated as word char."
-  :type 'boolean
-  :group 'sane-perl)
-(make-obsolete-variable 'sane-perl-under-as-char 'superword-mode "24.4")
 
 (defcustom sane-perl-extra-perl-args ""
   "Extra arguments to use when starting Perl.
