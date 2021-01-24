@@ -154,17 +154,15 @@ indentation styles to look more like them, but K&R style is given as
 in the cperl-mode documentation, which is definitely wrong, see L<this
 Wikipedia
 article|https://en.wikipedia.org/wiki/Indentation_style#K&R_style>.
-In fact cperl mode actually produces
 
-     if (foo) {
-
-anyway. 
-
-The styles affected are C<BSD>, C<K&R>, C<GNU>, and C<Whitesmith>.
-C<C++>, C<PBP>, and C<PerlStyle>, and the default C<Sane-Perl> were
-already indenting as per the documentation. At the time of writing the
-C<Whitesmith> style is the only one where the documentation and
-results disagree, on only one line.
+The styles where the example did not match the output are C<BSD>,
+C<K&R>, C<GNU>, and C<Whitesmith>.  C<C++>, C<PBP>, and C<PerlStyle>,
+and the default C<Sane-Perl> were already indenting as per the
+documentation. We have altered either the settings or the example to
+bring them into agreement, with the exception of the C<Whitesmith>
+style, where the documentation and results disagree, on only one line,
+since we don't know how to reproduce that indentation using the
+options.
 
 =head2 Documentation improvements
 
