@@ -141,12 +141,9 @@ C<indent-region> is as follows:
     }
 
 Because it looks like changes to the defaults of the mode caused this,
-we are not sure whether to modify the indentation styles so that they
-produce the examples, or modify the examples to produce the same thing
-as the modes. For the most part we have never used these styles, so we
-are not sure what should actually be produced. Generally we are using
-the examples, but some of the examples are quite obviously wrong. K&R
-style, for example is given as
+we are not sure whether to modify the indentation styles or the
+examples. Generally we are using the examples, but K&R style, for
+example, is given as
 
      if (foo)
      {
@@ -154,21 +151,20 @@ style, for example is given as
      else
      {
 
-in the documentation, which is definitely wrong, see L<this Wikipedia
-article|https://en.wikipedia.org/wiki/Indentation_style#K&R_style> for
-example, but cperl-mode actually produces
+in the cperl-mode documentation, which is definitely wrong, see L<this
+Wikipedia
+article|https://en.wikipedia.org/wiki/Indentation_style#K&R_style>.
+In fact cperl mode actually produces
 
      if (foo) {
 
 anyway. 
 
-We are trying to sort this out, but our assumptions may be wrong. The
-styles affected are the C<BSD>, C<K&R>, C<GNU>, and C<Whitesmith>
-styles. The C<C++>, C<PBP>, and C<PerlStyle>, and the default
-C<Sane-Perl> styles were already indenting as per the
-documentation. At the time of writing the C<Whitesmith> style is the
-only one where the documentation and results disagree, on only one
-line.
+The styles affected are C<BSD>, C<K&R>, C<GNU>, and C<Whitesmith>.
+C<C++>, C<PBP>, and C<PerlStyle>, and the default C<Sane-Perl> were
+already indenting as per the documentation. At the time of writing the
+C<Whitesmith> style is the only one where the documentation and
+results disagree, on only one line.
 
 =head2 Documentation improvements
 
@@ -342,8 +338,8 @@ L</Indentation styles> for details.
 
 =item Semi-colon bug
 
-A test of the semicolon bug where C<};> (for example at the end of a
-BEGIN block) is mistakenly converted into
+A test of fix of the semicolon bug, where C<};> (for example at the
+end of a BEGIN block) used to be mistakenly converted into
 
     }
     ;
