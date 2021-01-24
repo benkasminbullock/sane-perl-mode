@@ -163,8 +163,15 @@ anyway.
 So while we are doing our best to sort this out, our assumptions may
 be wrong, and this may need to be changed. The styles affected are the
 C<BSD>, C<K&R>, C<GNU>, and C<Whitesmith> styles. The C<C++>, C<PBP>,
-and C<PerlStyle> styles were already indenting as per the
-documentation.
+and C<PerlStyle>, and the default C<Sane-Perl> styles were already
+indenting as per the documentation. At the time of writing the
+Whitesmith style is the only one where the documentation and results
+disagree.
+
+=head2 Pod parsing
+
+Some bugs parsing Pod links which would be seen on using
+C<sane-perl-perldoc> have been fixed.
 
 =head2 Documentation improvements
 
@@ -203,8 +210,9 @@ there.
 
 =head3 Untabifying by delete is off
 
-Untabifying by delete (turning a tab character into spaces) was
-switched off. It's still in the mode as a user option.
+Untabifying by delete (turning a tab character into spaces when
+deleting whitespace) was switched off. It's still in the mode as a
+user option.
 
 =head3 Font lock mode changes
 
@@ -267,7 +275,7 @@ Currently the following tests exist:
 =item Non far-right indentation
 
 Tests of the C<qw!!> and C<qr!!x> non-far-right indentation have been
-added in F<t/run.t> and F<t/test-regex.t>
+added in F<t/run.t> and F<t/test-regex.t>. See L</Far-right indentation>.
 
 =item Invert-if
 
@@ -330,6 +338,16 @@ sane-perl-mode.el. Tests are in F<t/nested-pod.t>.
 The test F<t/doc-indent.t> tests whether sane-perl-mode produces the
 same indentation as the example indentations in the document. See
 L</Indentation styles> for details.
+
+=item Semi-colon bug
+
+A test of the semicolon bug where C<};> is converted into
+
+    }
+    ;
+
+on applying C<indent-region> is in F<t/semicolon-bug.t>. The bug is
+not fixed yet.
 
 =item Tests of CPerl-Mode features
 
