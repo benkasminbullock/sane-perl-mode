@@ -98,6 +98,74 @@ instead of
 
 This is fixed in sane-perl-mode.
 
+=head2 Indentation styles
+
+Sane-Perl-Mode provides various indentation styles via the function
+
+    (sane-perl-set-style "BSD")
+
+and examples of what the indentation styles are supposed to look
+like. However, at the time we forked the module, the indentation
+actually produced differed in most of the cases from the examples
+provided. For example, the example of Whitesmith indentation from the
+cperl-mode documentation looks like this:
+
+    if (foo)
+        {
+            bar
+    	        baz;
+        label:
+    	    {
+    	        boon;
+    	    }
+        }
+    else
+        {
+    	    stop;
+        }
+
+However, the output of C<cperl-set-style> C<Whitesmith>
+C<indent-region> is as follows:
+
+    if (foo) {
+        bar
+            baz;
+     label:
+        {
+    	    boon;
+        }
+    } else {
+        stop;
+    }
+
+Because it looks like changes to the defaults of the mode caused this,
+we are not sure whether to modify the indentation styles so that they
+produce the examples, or modify the examples to produce the same thing
+as the modes. For the most part we have never used these styles, so we
+are not sure what should actually be produced. Generally we are using
+the examples, but some of the examples are quite obviously wrong. K&R
+style, for example is given as
+
+     if (foo)
+     {
+     }
+     else
+     {
+
+in the documentation, which is definitely wrong, see
+L<https://en.wikipedia.org/wiki/Indentation_style#K&R_style> for
+example, but cperl-mode actually produces
+
+     if (foo) {
+
+anyway. 
+
+So while we are doing our best to sort this out, our assumptions may
+be wrong, and this may need to be changed. The styles affected are the
+C<BSD>, C<K&R>, C<GNU>, and C<Whitesmith> styles. The C<C++>, C<PBP>,
+and C<PerlStyle> styles were already indenting as per the
+documentation.
+
 =head2 Documentation improvements
 
 Spelling and grammar mistakes have been fixed. Some attempt has been
@@ -256,6 +324,12 @@ Cperl mode parses pod before displaying it in a help buffer to change
 the links to an Emacs-valid format. There were some problems with
 parsing nested Pod commands within links, which have been fixed in
 sane-perl-mode.el. Tests are in F<t/nested-pod.t>.
+
+=item Example indentations
+
+The test F<t/doc-indent.t> tests whether sane-perl-mode produces the
+same indentation as the example indentations in the document. See
+L</Indentation styles> for details.
 
 =item Tests of CPerl-Mode features
 

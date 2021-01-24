@@ -5955,6 +5955,7 @@ if (foo) {
 else {
     stop;
 }
+
 ### PerlStyle	(=Sane-Perl with 4 as indent)		4/0/0/-2/4/t/nil
 if (foo) {
     bar
@@ -6015,17 +6016,14 @@ else
 
 ### K&R		(=C++ with indent 5 - merge-trailing-else, but will not
 ###		 change preexisting extra-newline-before-brace)	5/0/-5/-5/5/nil
-if (foo)
-{
+if (foo) {
      bar
 	  baz;
  label:
      {
 	  boon;
      }
-}
-else
-{
+} else {
      stop;
 }
 
@@ -6083,7 +6081,7 @@ else
     ("GNU"
      (sane-perl-indent-level               .  2)
      (sane-perl-brace-offset               .  0)
-     (sane-perl-continued-brace-offset     .  0)
+     (sane-perl-continued-brace-offset     .  2)
      (sane-perl-label-offset               . -2)
      (sane-perl-continued-statement-offset .  2)
      (sane-perl-extra-newline-before-brace .  t)
@@ -6096,7 +6094,7 @@ else
      (sane-perl-continued-brace-offset     . -5)
      (sane-perl-label-offset               . -5)
      (sane-perl-continued-statement-offset .  5)
-     (sane-perl-merge-trailing-else	       .  nil))
+     (sane-perl-merge-trailing-else	       .  t))
 
     ("BSD"
      (sane-perl-indent-level               .  4)
@@ -6104,6 +6102,8 @@ else
      (sane-perl-continued-brace-offset     . -4)
      (sane-perl-label-offset               . -4)
      (sane-perl-continued-statement-offset .  4)
+     (sane-perl-extra-newline-before-brace .  t)
+     (sane-perl-merge-trailing-else	       .  nil)
      )
 
     ("C++"
@@ -6118,10 +6118,12 @@ else
 
     ("Whitesmith"
      (sane-perl-indent-level               .  4)
-     (sane-perl-brace-offset               .  0)
+     (sane-perl-brace-offset               .  4)
      (sane-perl-continued-brace-offset     .  0)
      (sane-perl-label-offset               . -4)
      (sane-perl-continued-statement-offset .  4)
+     (sane-perl-extra-newline-before-brace .  t)
+     (sane-perl-merge-trailing-else	       .  nil)
      )
     ("Current"))
   "List of variables to set to get a particular indentation style.
