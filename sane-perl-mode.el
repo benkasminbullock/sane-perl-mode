@@ -5306,8 +5306,16 @@ Returns some position at the last line."
                   (progn
                     (sane-perl-indent-line parse-data)
                     (search-forward "}")
-                    (delete-horizontal-space)
-                    (insert "\n"))
+		    ;; This solves the problem of "};" turning into "}\n;"
+		    (if (not (eq (following-char) ?\;))
+			(progn
+			  (delete-horizontal-space)
+			  (insert "\n"))
+		      ;; If we don't move the point beyond the };, it
+		      ;; recurses endlessly. The following line stops
+		      ;; that, but it doesn't seem the right thing to
+		      ;; do.
+		      (forward-char 2)))
                 (delete-horizontal-space)
                 (or (eq (preceding-char) ?\;)
                     (bolp)

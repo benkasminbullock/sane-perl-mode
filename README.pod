@@ -215,16 +215,19 @@ user option.
 
 Emacs has had font-lock-mode on globally by default since 2007, but in
 cperl-mode the default for the variable C<cperl-font-lock> is to be
-turned off, even though font-lock-mode is on by default. We have
-discovered that the old default of having C<sane-perl-font-lock>
-switched off with font-lock-mode on causes some odd behaviour, so
-we've switched it on as the default. It can still be switched off
+turned off. 
+
+In the development of sane-perl-mode, we discovered that the default
+inherited from cperl-mode of having C<sane-perl-font-lock> switched
+off with Emacs' C<font-lock-mode> on causes some very odd behaviour.
+
+We've thus switched it on as the default. It can still be switched off
 using
 
     (setq sane-perl-font-lock nil)
 
-In this case, font-lock-mode itself will be switched off as well,
-otherwise the option doesn't really make sense.
+In this case, C<font-lock-mode> itself will be switched off for the
+Perl buffer as well, otherwise the option doesn't really make sense.
 
 =head2 Removal of obsolete and non-core support
 
