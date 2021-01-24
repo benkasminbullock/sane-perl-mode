@@ -325,8 +325,8 @@ F<t/byte-compile.t>.
 Cperl mode displays perl documentation using pod2html, but it uses an
 extra stage before displaying it in a help buffer which changes the
 links to an Emacs-valid format. There were some problems with parsing
-nested Pod commands within links. See L</Pod parsing>. These have been
-fixed in sane-perl-mode.el. Tests are in F<t/nested-pod.t>.
+nested Pod commands within links. These have been fixed in
+sane-perl-mode.el. Tests are in F<t/nested-pod.t>.
 
 =item Example indentations
 
@@ -336,8 +336,8 @@ L</Indentation styles> for details.
 
 =item Semi-colon bug
 
-A test of fix of the semicolon bug, where C<};> (for example at the
-end of a BEGIN block) used to be mistakenly converted into
+A test of our fix of the semicolon bug, where C<};> (for example at
+the end of a BEGIN block) used to be mistakenly converted into
 
     }
     ;
@@ -367,7 +367,7 @@ if you're not sure whether to report a bug or just ask a question.
 =head1 PERLTIDY EQUIVALENTS
 
 This section details similar and equivalent commands between the
-L</perltidy> utility and C<sane-perl-mode>.
+L<perltidy> utility and C<sane-perl-mode>.
 
 =cut
 
@@ -381,6 +381,19 @@ L</perltidy> utility and C<sane-perl-mode>.
 
 This option is C<nil> by default. Setting this to C<t> is equivalent
 to C<-sbl> in perltidy.
+
+=item sane-perl-indent-left-aligned-comments
+
+This option is C<t> by default. This corresponds to setting C<-ibc>
+C<--indent-block-comments> in perltidy. A C<nil> value corresponds to
+C<-nibc> in perltidy.
+
+=item sane-perl-indent-level
+
+This option is C<2> by default. This corresponds to C<-i=2> in
+perltidy. To get the same value as perltidy's default of 4, use
+
+    (setq sane-perl-indent-level 4)
 
 =item sane-perl-merge-trailing-else
 
