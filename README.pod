@@ -277,6 +277,31 @@ is also L<a "discussions"
 option|https://github.com/benkasminbullock/sane-perl-mode/discussions>
 if you're not sure whether to report a bug or just ask a question.
 
+=head1 PERLTIDY EQUIVALENTS
+
+This section details similar and equivalent commands between the
+L</perltidy> utility and C<sane-perl-mode>.
+
+=cut
+
+# Alphabetical order
+
+=pod
+
+=over
+
+=item sane-perl-extra-newline-before-brace
+
+This option is C<nil> by default. Setting this to C<t> is equivalent
+to C<-sbl> in perltidy.
+
+=item sane-perl-merge-trailing-else
+
+This option is C<t> by default. Setting this to C<t> is equivalent to
+C<-ce> in perltidy.
+
+=back
+
 =head1 SEE ALSO
 
 =head2 cperl-mode
