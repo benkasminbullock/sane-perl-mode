@@ -113,15 +113,15 @@ cperl-mode documentation looks like this:
     if (foo)
         {
             bar
-    	        baz;
+                baz;
         label:
-    	    {
-    	        boon;
-    	    }
+            {
+                boon;
+            }
         }
     else
         {
-    	    stop;
+            stop;
         }
 
 However, the output of C<cperl-set-style> C<Whitesmith>
