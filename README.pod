@@ -342,13 +342,13 @@ L</Indentation styles> for details.
 
 =item Semi-colon bug
 
-A test of the semicolon bug where C<};> is converted into
+A test of the semicolon bug where C<};> (for example at the end of a
+BEGIN block) is mistakenly converted into
 
     }
     ;
 
-on applying C<indent-region> is in F<t/semicolon-bug.t>. The bug is
-not fixed yet.
+on applying C<indent-region> is in F<t/semicolon-bug.t>.
 
 =item Tests of CPerl-Mode features
 
