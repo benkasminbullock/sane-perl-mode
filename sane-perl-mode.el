@@ -409,12 +409,6 @@ after reload."
   :type 'boolean
   :group 'sane-perl-speed)
 
-(defcustom sane-perl-imenu-addback nil
-  "Not-nil means add backreferences to generated `imenu's.
-May require patched `imenu' and `imenu-go'.  Obsolete."
-  :type 'boolean
-  :group 'sane-perl-help-system)
-
 (defcustom sane-perl-max-help-size 66
   "Non-nil means shrink-wrapping of info-buffer allowed up to these percents."
   :type '(choice integer (const nil))
