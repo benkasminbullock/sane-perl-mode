@@ -5511,6 +5511,7 @@ indentation and initial hashes.  Behaves usually outside of comment."
 	  (or (memq (preceding-char) '(?\s ?\t)) (insert " "))))))
 
 ;;; imenu functions
+(defvar sane-perl-imenu-addback)
 (defun sane-perl-imenu-addback (lst &optional isback name)
   ;; We suppose that the lst is a DAG, unless the first element only
   ;; loops back, and ISBACK is set.  Thus this function cannot be

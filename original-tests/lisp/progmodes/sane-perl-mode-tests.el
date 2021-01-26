@@ -1,11 +1,9 @@
 ;;; sane-perl-mode-tests --- Test for sane-perl-mode  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2020 Free Software Foundation, Inc.
+;; This is part of a fork of cperl-mode. The original copyright is as
+;; follows:
 
-;; Author: Harald Jörg <haj@posteo.de>
-;; Maintainer: Harald Jörg
-;; Keywords: internal
-;; Homepage: https://github.com/HaraldJoerg/cperl-mode
+;; Copyright (C) 2020 Free Software Foundation, Inc.
 
 ;; This file is part of GNU Emacs.
 
@@ -154,6 +152,7 @@ end of the statement."
                                 sane-perl-mode-tests-data-directory)))
     (with-temp-buffer
       (insert-file-contents file)
+      ;; The following line seems to be necessary to make this work.
       (sane-perl-mode)
       (goto-char (point-min))
       (while (re-search-forward
