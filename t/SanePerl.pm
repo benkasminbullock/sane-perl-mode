@@ -231,6 +231,8 @@ EOF
 #    print $out;
     unlink ($inf, $outf, $elf, $errf) or warn "Error unlinking temp files: $!";
     cleanup ();
+    # Completely unnecessary use of entities for everything in htmlize.el.
+    $out =~ s!&#([0-9]+);!chr ($1)!ge;
     return $out;
 }
 

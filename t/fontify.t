@@ -1,6 +1,7 @@
 use FindBin '$Bin';
 use lib "$Bin";
 use SanePerl;
+use utf8;
 my $in = read_text ("$Bin/ex/hash-font.pl");
 my $out = run_font_lock ($in);
 my @lines = split /\n/, $out;
@@ -25,7 +26,7 @@ TODO: {
 	    like ($_, qr!<span class="sane-perl-hash">.+?字代</span>!,
 		  "Fontified 字代 as hash in $line");
 	}
-	if (/chops/) {
+	if (/羊/) {
 	    like ($_, qr!<span class="sane-perl-array">.+?羊</span>!,
 		  "Fontified 羊 as array in $line");
 	}
