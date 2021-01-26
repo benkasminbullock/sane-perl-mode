@@ -5,7 +5,7 @@
 
 use Z;
 my $verbose = 1;
-rename_files ("test");
+rename_files ("original-tests");
 exit;
 sub rename_files
 {

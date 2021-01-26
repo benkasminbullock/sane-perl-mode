@@ -1651,8 +1651,6 @@ the last)."
   (modify-syntax-entry ?# "<" sane-perl-mode-syntax-table)
   (modify-syntax-entry ?' "\"" sane-perl-mode-syntax-table)
   (modify-syntax-entry ?` "\"" sane-perl-mode-syntax-table)
-  (if sane-perl-under-as-char
-      (modify-syntax-entry ?_ "w" sane-perl-mode-syntax-table))
   (modify-syntax-entry ?: "_" sane-perl-mode-syntax-table)
   (modify-syntax-entry ?| "." sane-perl-mode-syntax-table)
   (setq sane-perl-string-syntax-table (copy-syntax-table sane-perl-mode-syntax-table))

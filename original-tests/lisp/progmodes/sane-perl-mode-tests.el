@@ -172,35 +172,39 @@ end of the statement."
             (setq got (concat "test case " name ":\n" (buffer-string)))
             (should (equal got expected))))))))
 
-(ert-deftest sane-perl-mode-test-indent-styles ()
-  "Verify correct indentation by style \"PBP\".
-Perl Best Practices sets some indentation values different from
-  the defaults, and also wants an \"else\" or \"elsif\" keyword
-  to align with the \"if\"."
-  (let ((file (expand-file-name "sane-perl-indent-styles.pl"
-                                sane-perl-mode-tests-data-directory)))
-    (with-temp-buffer
-      (sane-perl-set-style "PBP")
-      (insert-file-contents file)
-      (goto-char (point-min))
-      (while (re-search-forward
-              (concat "^# ?-+ \\_<\\(?1:.+?\\)\\_>: input ?-+\n"
-                      "\\(?2:\\(?:.*\n\\)+?\\)"
-                      "# ?-+ \\1: expected output ?-+\n"
-                      "\\(?3:\\(?:.*\n\\)+?\\)"
-                      "# ?-+ \\1: end ?-+")
-              nil t)
-        (let ((name (match-string 1))
-              (code (match-string 2))
-              (expected (match-string 3))
-              got)
-          (with-temp-buffer
-            (insert code)
-	    (sane-perl-mode)
-	    (indent-region (point-min) (point-max)) ; here we go!
-            (setq expected (concat "test case " name ":\n" expected))
-            (setq got (concat "test case " name ":\n" (buffer-string)))
-            (should (equal got expected)))))
-      (sane-perl-set-style "CPerl"))))
+;; The test file was missing in the original HaraldJoerg repo:
+
+;; https://github.com/HaraldJoerg/cperl-mode/discussions/14
+
+;; (ert-deftest sane-perl-mode-test-indent-styles ()
+;;   "Verify correct indentation by style \"PBP\".
+;; Perl Best Practices sets some indentation values different from
+;;   the defaults, and also wants an \"else\" or \"elsif\" keyword
+;;   to align with the \"if\"."
+;;   (let ((file (expand-file-name "sane-perl-indent-styles.pl"
+;;                                 sane-perl-mode-tests-data-directory)))
+;;     (with-temp-buffer
+;;       (sane-perl-set-style "PBP")
+;;       (insert-file-contents file)
+;;       (goto-char (point-min))
+;;       (while (re-search-forward
+;;               (concat "^# ?-+ \\_<\\(?1:.+?\\)\\_>: input ?-+\n"
+;;                       "\\(?2:\\(?:.*\n\\)+?\\)"
+;;                       "# ?-+ \\1: expected output ?-+\n"
+;;                       "\\(?3:\\(?:.*\n\\)+?\\)"
+;;                       "# ?-+ \\1: end ?-+")
+;;               nil t)
+;;         (let ((name (match-string 1))
+;;               (code (match-string 2))
+;;               (expected (match-string 3))
+;;               got)
+;;           (with-temp-buffer
+;;             (insert code)
+;; 	    (sane-perl-mode)
+;; 	    (indent-region (point-min) (point-max)) ; here we go!
+;;             (setq expected (concat "test case " name ":\n" expected))
+;;             (setq got (concat "test case " name ":\n" (buffer-string)))
+;;             (should (equal got expected)))))
+;;       (sane-perl-set-style "CPerl"))))
 
 ;;; sane-perl-mode-tests.el ends here
