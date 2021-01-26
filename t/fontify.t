@@ -16,6 +16,22 @@ for (@lines) {
 	      "Fontified chops as array in $line");
     }
 }
+TODO: {
+    local $TODO = 'Fontify non-ASCII correctly';
+    for (@lines) {
+	my $line = $_;
+	$line =~ s/<.*?>//g;
+	if (/字代/) {
+	    like ($_, qr!<span class="sane-perl-hash">.+?字代</span>!,
+		  "Fontified 字代 as hash in $line");
+	}
+	if (/chops/) {
+	    like ($_, qr!<span class="sane-perl-array">.+?羊</span>!,
+		  "Fontified 羊 as array in $line");
+	}
+    }
+};
+
 
 
 done_testing ();

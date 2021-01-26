@@ -206,11 +206,13 @@ EOF
 	$fontify = $el . $fontify;
     }
     my ($inh, $inf) = tempfile ("in.XXXXX", DIR => $dir);
+    binmode $inh, ":encoding(utf8)";
     print $inh $in;
     close $inh or die $!;
     my ($outh, $outf) = tempfile ("out.XXXXX", DIR => $dir);
     close $outh or die $!;
     my ($elh, $elf) = tempfile ("el.XXXXX", DIR => $dir);
+    binmode $elh, ":encoding(utf8)";
     print $elh $fontify;
     close $elh or die $!;
     my ($errh, $errf) = tempfile ("err.XXXXX", DIR => $dir);
