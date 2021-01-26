@@ -5697,11 +5697,10 @@ indentation and initial hashes.  Behaves usually outside of comment."
 	 (or sane-perl-faces-init (sane-perl-init-faces)))
 	((not sane-perl-faces-init)
 	 (add-hook 'font-lock-mode-hook
-		   (function
-		    (lambda ()
-		      (if (memq major-mode '(perl-mode sane-perl-mode))
-			  (progn
-			    (or sane-perl-faces-init (sane-perl-init-faces)))))))
+		   (lambda ()
+		     (if (memq major-mode '(perl-mode sane-perl-mode))
+			 (progn
+			   (or sane-perl-faces-init (sane-perl-init-faces))))))
 	 (eval-after-load
 	     "ps-print"
 	   '(or sane-perl-faces-init (sane-perl-init-faces))))))
@@ -6142,9 +6141,8 @@ side-effect of memorizing only.  Examples in `sane-perl-style-examples'."
    (list (completing-read "Enter style: " sane-perl-style-alist nil 'insist)))
   (or sane-perl-old-style
       (setq sane-perl-old-style
-	    (mapcar (function
-		     (lambda (name)
-		       (cons name (eval name))))
+	    (mapcar (lambda (name)
+		      (cons name (eval name)))
 		    sane-perl-styles-entries)))
   (let ((style (cdr (assoc style sane-perl-style-alist))) setting)
     (while style
@@ -6637,22 +6635,21 @@ Does not move point."
 	  (setq lst (cdr (assoc "+Unsorted List+..." ind))))
 	(setq lst
 	      (mapcar
-	       (function
-		(lambda (elt)
-		  (cond ((string-match "^[_a-zA-Z]" (car elt))
-			 (goto-char (cdr elt))
-			 (beginning-of-line) ; pos should be of the start of the line
-			 (list (car elt)
-			       (point)
-			       (1+ (count-lines 1 (point))) ; 1+ since at beg-o-l
-			       (buffer-substring (progn
-						   (goto-char (cdr elt))
-						   ;; After name now...
-						   (or (eolp) (forward-char 1))
-						   (point))
-						 (progn
-						   (beginning-of-line)
-						   (point))))))))
+	       (lambda (elt)
+		 (cond ((string-match "^[_a-zA-Z]" (car elt))
+			(goto-char (cdr elt))
+			(beginning-of-line) ; pos should be of the start of the line
+			(list (car elt)
+			      (point)
+			      (1+ (count-lines 1 (point))) ; 1+ since at beg-o-l
+			      (buffer-substring (progn
+						  (goto-char (cdr elt))
+						  ;; After name now...
+						  (or (eolp) (forward-char 1))
+						  (point))
+						(progn
+						  (beginning-of-line)
+						  (point)))))))
 	       lst))
 	(erase-buffer)
 	(while lst
@@ -6757,8 +6754,7 @@ Use as
                           (setq sane-perl-unreadable-ok t)
                           nil)	; Return empty list
 		      (error "Aborting: unreadable directory %s" file)))))))
-	  (mapc (function
-		 (lambda (file)
+	  (mapc (lambda (file)
 		   (cond
 		    ((string-match sane-perl-noscan-files-regexp file)
 		     nil)
@@ -6766,7 +6762,7 @@ Use as
 		     (if (string-match sane-perl-scan-files-regexp file)
 			 (sane-perl-write-tags file erase recurse nil t noxs topdir)))
 		    ((not recurse) nil)
-		    (t (sane-perl-write-tags file erase recurse t t noxs topdir)))))
+		    (t (sane-perl-write-tags file erase recurse t t noxs topdir))))
 		files)))
        (t
 	(setq xs (string-match "\\.xs$" file))
@@ -6868,11 +6864,10 @@ One may build such TAGS files from Sane-Perl mode menu."
 	(or tags-table-list
 	    (call-interactively 'visit-tags-table))
 	(mapc
-	 (function
-	  (lambda (tagsfile)
-	    (message "Updating list of classes... %s" tagsfile)
-	    (set-buffer (get-file-buffer tagsfile))
-	    (sane-perl-tags-hier-fill)))
+	 (lambda (tagsfile)
+	   (message "Updating list of classes... %s" tagsfile)
+	   (set-buffer (get-file-buffer tagsfile))
+	   (sane-perl-tags-hier-fill))
 	 tags-table-list)
 	(message "Updating list of classes... postprocessing...")
 	(mapc remover (car sane-perl-hierarchy))
@@ -6914,7 +6909,6 @@ One may build such TAGS files from Sane-Perl mode menu."
 	 l1 head cons1 cons2 ord writeto recurse
 	 root-packages root-functions
 	 (move-deeper
-	  (function
 	   (lambda (elt)
 	     (cond ((and (string-match regexp (car elt))
 			 (or (eq ord 1) (match-end 2)))
@@ -6931,7 +6925,7 @@ One may build such TAGS files from Sane-Perl mode menu."
 		   ((eq ord 2)
 		    (setq root-functions (cons elt root-functions)))
 		   (t
-		    (setq root-packages (cons elt root-packages))))))))
+		    (setq root-packages (cons elt root-packages)))))))
     (setcdr to l1)			; Init to dynamic space
     (setq writeto to)
     (setq ord 1)
@@ -6994,16 +6988,15 @@ One may build such TAGS files from Sane-Perl mode menu."
   (let (list)
     (cons 'keymap
 	  (mapcar
-	   (function
-	    (lambda (elt)
-	      (cond ((listp (cdr elt))
-		     (setq list (sane-perl-list-fold
-				 (cdr elt) (car elt) imenu-max-items))
-		     (cons nil
-			   (cons (car elt)
-				 (sane-perl-menu-to-keymap list))))
-		    (t
-		     (list (cdr elt) (car elt) t))))) ; t is needed in 19.34
+	   (lambda (elt)
+	     (cond ((listp (cdr elt))
+		    (setq list (sane-perl-list-fold
+				(cdr elt) (car elt) imenu-max-items))
+		    (cons nil
+			  (cons (car elt)
+				(sane-perl-menu-to-keymap list))))
+		   (t
+		    (list (cdr elt) (car elt) t)))) ; t is needed in 19.34
 	   (sane-perl-list-fold menu "Root" imenu-max-items)))))
 
 
@@ -8554,15 +8547,14 @@ If a region is highlighted, restricts to the region."
 		end (max (mark) (point)))
 	(setq beg (point-min)
 	      end (point-max)))
-      (sane-perl-map-pods-heres (function
-			     (lambda (s e _p)
+      (sane-perl-map-pods-heres (lambda (s e _p)
 			       (if do-heres
 				   (setq e (save-excursion
 					     (goto-char e)
 					     (forward-line -1)
 					     (point))))
 			       (ispell-region s e)
-			       t))
+			       t)
 			    (if do-heres 'here-doc-group 'in-pod)
 			    beg end))))
 

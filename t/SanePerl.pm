@@ -212,7 +212,6 @@ EOF
     close $outh or die $!;
     my ($elh, $elf) = tempfile ("el.XXXXX", DIR => $dir);
     print $elh $fontify;
-    print $fontify;
     close $elh or die $!;
     my ($errh, $errf) = tempfile ("err.XXXXX", DIR => $dir);
     close $errh or die $!;
