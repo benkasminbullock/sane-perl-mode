@@ -45,7 +45,7 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>emacs/cperl-indent-styles.pl at master · emacs-mirror/emacs · GitHub</title>
+  <title>emacs/sane-perl-indent-styles.pl at master · emacs-mirror/emacs · GitHub</title>
     <meta name="description" content="Mirror of GNU Emacs. Contribute to emacs-mirror/emacs development by creating an account on GitHub.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
@@ -114,7 +114,7 @@
 
 
 
-    <link rel="canonical" href="https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -160,7 +160,7 @@
         <div class="d-flex flex-items-center">
               <a href="/join?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fblob%2Fshow&amp;source=header-repo"
                 class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-                data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a73ab5b7a8a3c9761f30ce115a17c203a1e8838049e66061f5bfd0b8179bad38"
+                data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a73ab5b7a8a3c9761f30ce115a17c203a1e8838049e66061f5bfd0b8179bad38"
                 data-ga-click="Sign up, click to sign up for account, ref_page:/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show;ref_cta:Sign up;ref_loc:header logged out">
                 Sign&nbsp;up
               </a>
@@ -464,15 +464,15 @@
 
           </div>
 
-        <a href="/login?return_to=%2Femacs-mirror%2Femacs%2Fblob%2Fmaster%2Ftest%2Flisp%2Fprogmodes%2Fcperl-mode-resources%2Fcperl-indent-styles.pl"
+        <a href="/login?return_to=%2Femacs-mirror%2Femacs%2Fblob%2Fmaster%2Ftest%2Flisp%2Fprogmodes%2Fsane-perl-mode-resources%2Fsane-perl-indent-styles.pl"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1afbb0e857595511ca213efda227741f341b8d5c9d621f276633e451ec58e3a4"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1afbb0e857595511ca213efda227741f341b8d5c9d621f276633e451ec58e3a4"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
             <a href="/join?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fblob%2Fshow&amp;source=header-repo&amp;source_repo=emacs-mirror%2Femacs"
               class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1afbb0e857595511ca213efda227741f341b8d5c9d621f276633e451ec58e3a4"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1afbb0e857595511ca213efda227741f341b8d5c9d621f276633e451ec58e3a4"
               data-ga-click="Sign up, click to sign up for account, ref_page:/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show;ref_cta:Sign up;ref_loc:header logged out">
               Sign&nbsp;up
             </a>
@@ -563,7 +563,7 @@
           <ul class="pagehead-actions flex-shrink-0 d-none d-md-inline" style="padding: 2px 0;">
 
   <li>
-          <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="f24b150b0eaf62ee753a91f8c96229ad1762425ba3be5e0b1130995df5400276" href="/login?return_to=%2Femacs-mirror%2Femacs">
+          <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="f24b150b0eaf62ee753a91f8c96229ad1762425ba3be5e0b1130995df5400276" href="/login?return_to=%2Femacs-mirror%2Femacs">
     <svg class="octicon octicon-eye" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path></svg>
     Watch
 </a>    <a class="social-count" href="/emacs-mirror/emacs/watchers"
@@ -574,7 +574,7 @@
   </li>
 
   <li>
-          <a class="btn btn-sm btn-with-count  tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:22711712,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c2018516ef6a49588fadea74de9c9257c94247dd83aa31e349eb5280ceb04933" href="/login?return_to=%2Femacs-mirror%2Femacs">
+          <a class="btn btn-sm btn-with-count  tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:22711712,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c2018516ef6a49588fadea74de9c9257c94247dd83aa31e349eb5280ceb04933" href="/login?return_to=%2Femacs-mirror%2Femacs">
       <svg class="octicon octicon-star v-align-text-bottom mr-1" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
       <span>
         Star
@@ -587,7 +587,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:22711712,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e48a2131bf79b9ca0fdc9ff3b1d3005cb0fdf456c4d401b4c19d5e17461d07cd" href="/login?return_to=%2Femacs-mirror%2Femacs">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:22711712,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e48a2131bf79b9ca0fdc9ff3b1d3005cb0fdf456c4d401b4c19d5e17461d07cd" href="/login?return_to=%2Femacs-mirror%2Femacs">
           <svg class="octicon octicon-repo-forked" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
           Fork
 </a>
@@ -703,7 +703,7 @@
   
 
 
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/emacs-mirror/emacs/blob/49e01d85ed6a6e4c95d43b6eeb4f32c7daa319a7/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/emacs-mirror/emacs/blob/49e01d85ed6a6e4c95d43b6eeb4f32c7daa319a7/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl">Permalink</a>
 
     <!-- blob contrib key: blob_contributors:v22:e1e8377a652dc51afd1935b9a0ff7d7f5894f1f983eb12d5bb28225508161734 -->
 
@@ -719,7 +719,7 @@
       <span class="dropdown-caret"></span>
     </summary>
 
-    <details-menu class="SelectMenu SelectMenu--hasFilter" src="/emacs-mirror/emacs/refs/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl?source_action=show&amp;source_controller=blob" preload>
+    <details-menu class="SelectMenu SelectMenu--hasFilter" src="/emacs-mirror/emacs/refs/master/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl?source_action=show&amp;source_controller=blob" preload>
       <div class="SelectMenu-modal">
         <include-fragment class="SelectMenu-loading" aria-label="Menu is loading">
           <svg class="octicon octicon-octoface anim-pulse" height="32" viewBox="0 0 24 24" version="1.1" width="32" aria-hidden="true"><path d="M7.75 11c-.69 0-1.25.56-1.25 1.25v1.5a1.25 1.25 0 102.5 0v-1.5C9 11.56 8.44 11 7.75 11zm1.27 4.5a.469.469 0 01.48-.5h5a.47.47 0 01.48.5c-.116 1.316-.759 2.5-2.98 2.5s-2.864-1.184-2.98-2.5zm7.23-4.5c-.69 0-1.25.56-1.25 1.25v1.5a1.25 1.25 0 102.5 0v-1.5c0-.69-.56-1.25-1.25-1.25z"></path><path fill-rule="evenodd" d="M21.255 3.82a1.725 1.725 0 00-2.141-1.195c-.557.16-1.406.44-2.264.866-.78.386-1.647.93-2.293 1.677A18.442 18.442 0 0012 5c-.93 0-1.784.059-2.569.17-.645-.74-1.505-1.28-2.28-1.664a13.876 13.876 0 00-2.265-.866 1.725 1.725 0 00-2.141 1.196 23.645 23.645 0 00-.69 3.292c-.125.97-.191 2.07-.066 3.112C1.254 11.882 1 13.734 1 15.527 1 19.915 3.13 23 12 23c8.87 0 11-3.053 11-7.473 0-1.794-.255-3.647-.99-5.29.127-1.046.06-2.15-.066-3.125a23.652 23.652 0 00-.689-3.292zM20.5 14c.5 3.5-1.5 6.5-8.5 6.5s-9-3-8.5-6.5c.583-4 3-6 8.5-6s7.928 2 8.5 6z"></path></svg>
@@ -731,7 +731,7 @@
 </div>
 
       <h2 id="blob-path" class="breadcrumb flex-auto min-width-0 text-normal mx-0 mx-md-3 width-full width-md-auto flex-order-1 flex-md-order-none mt-3 mt-md-0">
-        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs"><span>emacs</span></a></span></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test"><span>test</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test/lisp"><span>lisp</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test/lisp/progmodes"><span>progmodes</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test/lisp/progmodes/cperl-mode-resources"><span>cperl-mode-resources</span></a></span><span class="separator">/</span><strong class="final-path">cperl-indent-styles.pl</strong>
+        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs"><span>emacs</span></a></span></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test"><span>test</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test/lisp"><span>lisp</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test/lisp/progmodes"><span>progmodes</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/emacs-mirror/emacs/tree/master/test/lisp/progmodes/sane-perl-mode-resources"><span>sane-perl-mode-resources</span></a></span><span class="separator">/</span><strong class="final-path">sane-perl-indent-styles.pl</strong>
       </h2>
       <a href="/emacs-mirror/emacs/find/master"
             class="js-pjax-capture-input btn mr-2 d-none d-md-block"
@@ -746,7 +746,7 @@
 </summary>  <div>
     <ul class="dropdown-menu dropdown-menu-sw">
             <li class="d-block d-md-none">
-              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:22711712,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="06890125caf94d04f4f713c6393c9bec2d983fa3422c7d78415b3f094b205868" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/emacs-mirror/emacs/find/master">
+              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:22711712,&quot;originating_url&quot;:&quot;https://github.com/emacs-mirror/emacs/blob/master/test/lisp/progmodes/cperl-mode-resources/sane-perl-indent-styles.pl&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="06890125caf94d04f4f713c6393c9bec2d983fa3422c7d78415b3f094b205868" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/emacs-mirror/emacs/find/master">
                 <span class="flex-auto">Go to file</span>
                 <span class="text-small text-gray" aria-hidden="true">T</span>
 </a>            </li>
@@ -760,7 +760,7 @@
             </li>
             <li class="dropdown-divider" role="none"></li>
             <li>
-              <clipboard-copy value="test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl" class="dropdown-item cursor-pointer" data-toggle-for="blob-more-options-details">
+              <clipboard-copy value="test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl" class="dropdown-item cursor-pointer" data-toggle-for="blob-more-options-details">
                 Copy path
               </clipboard-copy>
             </li>
@@ -781,19 +781,19 @@
             <a class="text-bold link-gray-dark" rel="contributor" data-hovercard-type="user" data-hovercard-url="/users/HaraldJoerg/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/HaraldJoerg">HaraldJoerg</a>
 
               <span>
-                <a data-pjax="true" title="cperl-mode: Indentation of &#39;)&#39; follows customisation
+                <a data-pjax="true" title="sane-perl-mode: Indentation of &#39;)&#39; follows customisation
 
-* lisp/progmodes/cperl-mode.el (cperl-style-alist): Add
-cperl-close-paren-offset to the settings for PBP style.
+* lisp/progmodes/sane-perl-mode.el (sane-perl-style-alist): Add
+sane-perl-close-paren-offset to the settings for PBP style.
 
-* test/lisp/progmodes/cperl-mode-tests.el (cperl-bug19709):
+* test/lisp/progmodes/sane-perl-mode-tests.el (sane-perl-bug19709):
 New test to verify correct indentation of closing parentheses (Bug#19709).
 
-* test/lisp/progmodes/cperl-mode-resources/cperl-bug-19709.pl:
+* test/lisp/progmodes/sane-perl-mode-resources/sane-perl-bug-19709.pl:
 New test case with code from the bug report.
 
-* test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl:
-Add a new test clause for cperl-close-paren-offset." class="link-gray" href="/emacs-mirror/emacs/commit/8dc237270f88a6abce4df9a1235b38288792ab71">cperl-mode: Indentation of ')' follows customisation</a>
+* test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl:
+Add a new test clause for sane-perl-close-paren-offset." class="link-gray" href="/emacs-mirror/emacs/commit/8dc237270f88a6abce4df9a1235b38288792ab71">sane-perl-mode: Indentation of ')' follows customisation</a>
               </span>
           </div>
 
@@ -812,7 +812,7 @@ Add a new test clause for cperl-close-paren-offset." class="link-gray" href="/em
             <span itemprop="dateModified"><relative-time datetime="2020-11-09T14:25:47Z" class="no-wrap">Nov 9, 2020</relative-time></span>
           </span>
 
-          <a data-pjax href="/emacs-mirror/emacs/commits/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl" class="ml-3 no-wrap link-gray-dark no-underline">
+          <a data-pjax href="/emacs-mirror/emacs/commits/master/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl" class="ml-3 no-wrap link-gray-dark no-underline">
             <svg class="octicon octicon-history text-gray" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path></svg>
             <span class="d-none d-sm-inline">
               <strong>History</strong>
@@ -820,17 +820,17 @@ Add a new test clause for cperl-close-paren-offset." class="link-gray" href="/em
           </a>
         </div>
       </div>
-        <div class="Details-content--hidden ml-5 mt-2"><pre class="mt-2 f6 ws-pre-wrap">* lisp/progmodes/cperl-mode.el (cperl-style-alist): Add
-cperl-close-paren-offset to the settings for PBP style.
+        <div class="Details-content--hidden ml-5 mt-2"><pre class="mt-2 f6 ws-pre-wrap">* lisp/progmodes/sane-perl-mode.el (sane-perl-style-alist): Add
+sane-perl-close-paren-offset to the settings for PBP style.
 
-* test/lisp/progmodes/cperl-mode-tests.el (cperl-bug19709):
+* test/lisp/progmodes/sane-perl-mode-tests.el (sane-perl-bug19709):
 New test to verify correct indentation of closing parentheses (Bug#19709).
 
-* test/lisp/progmodes/cperl-mode-resources/cperl-bug-19709.pl:
+* test/lisp/progmodes/sane-perl-mode-resources/sane-perl-bug-19709.pl:
 New test case with code from the bug report.
 
-* test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl:
-Add a new test clause for cperl-close-paren-offset.</pre></div>
+* test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl:
+Add a new test clause for sane-perl-close-paren-offset.</pre></div>
 
   </div>
 
@@ -845,7 +845,7 @@ Add a new test clause for cperl-close-paren-offset.</pre></div>
       <details-dialog
         class="Box Box--overlay d-flex flex-column anim-fade-in fast"
         aria-label="Users who have contributed to this file"
-        src="/emacs-mirror/emacs/contributors-list/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl" preload>
+        src="/emacs-mirror/emacs/contributors-list/master/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl" preload>
         <div class="Box-header">
           <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
             <svg class="octicon octicon-x" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
@@ -886,8 +886,8 @@ Add a new test clause for cperl-close-paren-offset.</pre></div>
   <div class="d-flex py-1 py-md-0 flex-auto flex-order-1 flex-md-order-2 flex-sm-grow-0 flex-justify-between">
 
     <div class="BtnGroup">
-      <a href="/emacs-mirror/emacs/raw/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl" id="raw-url" role="button" class="btn btn-sm BtnGroup-item ">Raw</a>
-        <a href="/emacs-mirror/emacs/blame/master/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl" data-hotkey="b" role="button" class="btn js-update-url-with-hash btn-sm BtnGroup-item ">Blame</a>
+      <a href="/emacs-mirror/emacs/raw/master/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl" id="raw-url" role="button" class="btn btn-sm BtnGroup-item ">Raw</a>
+        <a href="/emacs-mirror/emacs/blame/master/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl" data-hotkey="b" role="button" class="btn js-update-url-with-hash btn-sm BtnGroup-item ">Blame</a>
     </div>
 
     <div>
@@ -899,11 +899,11 @@ Add a new test clause for cperl-close-paren-offset.</pre></div>
               <svg class="octicon octicon-device-desktop" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.75 2.5h12.5a.25.25 0 01.25.25v7.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25v-7.5a.25.25 0 01.25-.25zM14.25 1H1.75A1.75 1.75 0 000 2.75v7.5C0 11.216.784 12 1.75 12h3.727c-.1 1.041-.52 1.872-1.292 2.757A.75.75 0 004.75 16h6.5a.75.75 0 00.565-1.243c-.772-.885-1.193-1.716-1.292-2.757h3.727A1.75 1.75 0 0016 10.25v-7.5A1.75 1.75 0 0014.25 1zM9.018 12H6.982a5.72 5.72 0 01-.765 2.5h3.566a5.72 5.72 0 01-.765-2.5z"></path></svg>
           </a>
 
-          <a href="/login?return_to=%2Femacs-mirror%2Femacs%2Fblob%2Fmaster%2Ftest%2Flisp%2Fprogmodes%2Fcperl-mode-resources%2Fcperl-indent-styles.pl" class="btn-octicon disabled tooltipped tooltipped-nw"
+          <a href="/login?return_to=%2Femacs-mirror%2Femacs%2Fblob%2Fmaster%2Ftest%2Flisp%2Fprogmodes%2Fsane-perl-mode-resources%2Fsane-perl-indent-styles.pl" class="btn-octicon disabled tooltipped tooltipped-nw"
             aria-label="You must be signed in to make or propose changes">
             <svg class="octicon octicon-pencil" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path></svg>
           </a>
-          <a href="/login?return_to=%2Femacs-mirror%2Femacs%2Fblob%2Fmaster%2Ftest%2Flisp%2Fprogmodes%2Fcperl-mode-resources%2Fcperl-indent-styles.pl" class="btn-octicon btn-octicon-danger disabled tooltipped tooltipped-nw"
+          <a href="/login?return_to=%2Femacs-mirror%2Femacs%2Fblob%2Fmaster%2Ftest%2Flisp%2Fprogmodes%2Fsane-perl-mode-resources%2Fsane-perl-indent-styles.pl" class="btn-octicon btn-octicon-danger disabled tooltipped tooltipped-nw"
             aria-label="You must be signed in to make or propose changes">
             <svg class="octicon octicon-trashcan" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.5 1.75a.25.25 0 01.25-.25h2.5a.25.25 0 01.25.25V3h-3V1.75zm4.5 0V3h2.25a.75.75 0 010 1.5H2.75a.75.75 0 010-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75zM4.496 6.675a.75.75 0 10-1.492.15l.66 6.6A1.75 1.75 0 005.405 15h5.19c.9 0 1.652-.681 1.741-1.576l.66-6.6a.75.75 0 00-1.492-.149l-.66 6.6a.25.25 0 01-.249.225h-5.19a.25.25 0 01-.249-.225l-.66-6.6z"></path></svg>
           </a>
@@ -943,7 +943,7 @@ Add a new test clause for cperl-close-paren-offset.</pre></div>
       </tr>
       <tr>
         <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
-        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> cperl-mode-tests.el, cperl-mode-test-indent-exp.  The code is</span></td>
+        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> sane-perl-mode-tests.el, sane-perl-mode-test-indent-exp.  The code is</span></td>
       </tr>
       <tr>
         <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
@@ -1154,7 +1154,7 @@ Add a new test clause for cperl-close-paren-offset.</pre></div>
             Copy permalink
           </clipboard-copy>
         </li>
-        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/emacs-mirror/emacs/blame/49e01d85ed6a6e4c95d43b6eeb4f32c7daa319a7/test/lisp/progmodes/cperl-mode-resources/cperl-indent-styles.pl">View git blame</a></li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/emacs-mirror/emacs/blame/49e01d85ed6a6e4c95d43b6eeb4f32c7daa319a7/test/lisp/progmodes/sane-perl-mode-resources/sane-perl-indent-styles.pl">View git blame</a></li>
       </ul>
     </details-menu>
   </details>

@@ -4,7 +4,7 @@ use warnings;
 use 5.020;
 
 # This file contains test input and expected output for the tests in
-# cperl-mode-tests.el, cperl-mode-test-indent-exp.  The code is
+# sane-perl-mode-tests.el, sane-perl-mode-test-indent-exp.  The code is
 # syntactically valid, but doesn't make much sense.
 
 # -------- for loop: input --------

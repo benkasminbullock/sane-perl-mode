@@ -4,7 +4,7 @@
 # sane-perl.
 
 use Z;
-rewrite_files ("test");
+rewrite_files ("original-tests");
 exit;
 sub rewrite_files
 {
