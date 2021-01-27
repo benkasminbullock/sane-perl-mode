@@ -7,10 +7,18 @@ my $el = <<EOF;
 (sane-perl-mode)
 (sane-perl--pod-process-links)
 EOF
+
 my ($out, $err) = run_err ($el, $pod);
 #TODO: {
 #    local $TODO = 'Fix the bug with nested L<F<>>';
-    ok (! $err);
+ok (! $err);
 #};
+
+TODO: {
+    local $TODO = 'Process perlre link';
+    my $perlre = 'L<perlop/m/PATTERN/msixpodualngc>';
+    my ($out, $err) = run_err ($el, $perlre);
+    ok (! $err);
+};
 
 done_testing ();
