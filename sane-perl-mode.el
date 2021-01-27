@@ -3817,7 +3817,6 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 	  (save-excursion
 	    (or non-inter
 		(message "Scanning for \"hard\" Perl constructions..."))
-	    ;;(message "find: %s --> %s" min max)
 	    (and sane-perl-pod-here-fontify
 		 ;; We had evals here, do not know why...
 		 (setq face sane-perl-pod-face
@@ -4424,7 +4423,7 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 				    "\\|"
 				       "{[0-9]+,[0-9]*}"
 				    "\\|"
-				       "\\\\[luLUEQbBAzZG]"
+				       "\\\\[luLUEQbBAzZGvVhHR]"
 				    "\\|"
 				       "(" ; Group opener
 				       "\\(" ; 10 group opener follower
@@ -5322,8 +5321,8 @@ Returns some position at the last line."
   (setq sane-perl-update-end (max end (or sane-perl-update-end (point-min)))))
 
 (defun sane-perl-indent-region (start end)
-  "Simple variant of indentation of region in Sane-Perl mode.
-Should be slow.  Will not indent comment if it starts at `comment-indent'
+  "Indentation of region in Sane-Perl mode.
+Will not indent comment if it starts at `comment-indent'
 or looks like continuation of the comment on the previous line.
 Indents all the lines whose first character is between START and END
 inclusive.

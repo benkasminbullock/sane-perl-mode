@@ -265,7 +265,13 @@ sub run_indent
 (sane-perl-mode)
 (indent-region (point-min) (point-max) nil)
 EOF
-    my $pel = $el . $default_el;
+    my $pel;
+    if ($el) {
+	$pel = $el . $default_el;
+    }
+    else {
+	$pel = $default_el;
+    }
     my $output = run ($pel, $in);
     if ($expect) {
 	is ($output, $expect, $note);
