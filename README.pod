@@ -325,8 +325,9 @@ F<t/byte-compile.t>.
 Cperl mode displays perl documentation using pod2html, but it uses an
 extra stage before displaying it in a help buffer which changes the
 links to an Emacs-valid format. There were some problems with parsing
-nested Pod commands within links. These have been fixed in
-sane-perl-mode.el. Tests are in F<t/nested-pod.t>.
+nested Pod commands within links and parsing things of the form
+C<perlop/m/PATTERN/ms>. These have been fixed in
+sane-perl-mode.el. Tests are in F<t/pod.t>.
 
 =item Example indentations
 
