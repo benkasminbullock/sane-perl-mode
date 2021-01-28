@@ -8205,11 +8205,11 @@ browse-url."
     (when url
       (cond
        ((string-match (concat "^perldoc://"	; our scheme
-				"\\(?:\\(?1:.*\\)"   ; 1: page, may be empty
+				"\\(?:\\(?1:[^/]*\\)"   ; 1: page, may be empty
 				"\\(?:#\\|/\\)"      ; section separator
 				"\\(?2:.+\\)" ; "/" + 2: nonzero section
 				"\\|"		; or
-				"\\(?1:.+\\)\\)$")   ; 1: just a page
+				"\\(?1:[^/]+\\)\\)$")   ; 1: just a page
 			url)
 	  ;; link to be handled by sane-perl-perldoc
 	(let ((page   (match-string 1 url))
@@ -8270,7 +8270,7 @@ section, and process it."
 	 (ws	(concat { "[[:blank:]]" or "\n" } ))
 	 (quoted    (concat { q { bs bs or bs q or "[^\"]" } "*" q } ))
 	 (ang-expr "[BCEFISXZ]<+[^>]*>+")
-	 (plain     (concat { "[^|/<>]" or ang-expr } ))
+	 (plain     (concat { "[^|<>]" or ang-expr } ))
 	 (extended  (concat { "[^|/]" } ))
 	 (nomarkup  (concat { "[^A-Z]<" } ))
 	 (no-del    (concat { bs "|" or bs "/" or "[^|/]" } ))

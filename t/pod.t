@@ -14,11 +14,13 @@ my ($out, $err) = run_err ($el, $pod);
 ok (! $err);
 #};
 
-TODO: {
-    local $TODO = 'Process perlre link';
-    my $perlre = 'L<perlop/m/PATTERN/msixpodualngc>';
-    my ($out, $err) = run_err ($el, $perlre);
-    ok (! $err);
-};
+# http://mikan/bugs/bug/2186
+
+#TODO: {
+#    local $TODO = 'Process perlre link';
+my $perlre = 'L<perlop/m/PATTERN/msixpodualngc>';
+my ($reout, $reerr) = run_err ($el, $perlre);
+ok (! $reerr);
+#};
 
 done_testing ();
