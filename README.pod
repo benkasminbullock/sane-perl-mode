@@ -381,25 +381,27 @@ L<perltidy> utility and C<sane-perl-mode>.
 =item sane-perl-extra-newline-before-brace
 
 This option is C<nil> by default. Setting this to C<t> is equivalent
-to C<-sbl> in perltidy.
+to C<-bl> or C<--opening-brace-on-new-line> in perltidy.
 
 =item sane-perl-indent-left-aligned-comments
 
-This option is C<t> by default. This corresponds to setting C<-ibc>
+This option is C<t> by default. This corresponds to setting C<-ibc> or
 C<--indent-block-comments> in perltidy. A C<nil> value corresponds to
-C<-nibc> in perltidy.
+C<-nibc> or in perltidy.
 
 =item sane-perl-indent-level
 
-This option is C<2> by default. This corresponds to C<-i=2> in
-perltidy. To get the same value as perltidy's default of 4, use
+This variable's default is C<2>. This corresponds to C<-i=2> or
+C<--indent-columns=2> in perltidy. To get the same value as perltidy's
+default of 4, use
 
     (setq sane-perl-indent-level 4)
 
 =item sane-perl-merge-trailing-else
 
-This option is C<t> by default. Setting this to C<t> is equivalent to
-C<-ce> in perltidy.
+This option is C<t> by default. This corresponds to C<-ce> or
+C<--cuddled-else> in perltidy. Setting this to C<nil> is equivalent to
+C<-nce> or C<--nocuddled-else> in perltidy.
 
 =back
 
