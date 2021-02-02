@@ -25,11 +25,11 @@ sub baba
 EOF
 # http://mikan/bugs/bug/2181
 
-TODO: {
-    local $TODO = 'Last line of qw is not indented correctly';
+#TODO: {
+#    local $TODO = 'Last line of qw is not indented correctly';
     my $out = run_indent ($pl, $el);
     like ($out, qr!    /;!, "Indented end of qw correctly");
     my $out_re = run_indent ($pl_re, $el);
     like ($out_re, qr{    !x;}, "Indented end of qr correctly");
-};
+#};
 done_testing ();

@@ -2765,6 +2765,8 @@ Will not look before LIM."
       (point-min))
   )
 
+;; Compute the indents of the currently-examined lines.
+
 (defun sane-perl-sniff-for-indent (&optional parse-data) ; was parse-start
   ;; the sniffer logic to understand what the current line MEANS.
   (sane-perl-update-syntaxification (point) (point))
@@ -3084,15 +3086,18 @@ and closing parentheses and brackets."
 	  (current-column))
 	 ((eq 'indentable (elt i 0))	; Indenter for REGEXP, qw(), etc.
 	  (cond		       ;;; [indentable terminator start-pos is-block]
+	   ;; At the end of the qw expression
 	   ((eq 'terminator (elt i 1)) ; Lone terminator of "indentable string"
 	    (goto-char (elt i 2))	; After opening parens
 	    (if sane-perl-indentable-indent
+		;; Far-right indent
                 (1- (current-column))
+	      ;; Not doing the far-right indent
 	      (cond ((eq what ?\) )
 		     (- sane-perl-close-paren-offset)) ; compensate
 		    ((eq what ?\| )
 		     (- (or sane-perl-regexp-indent-step sane-perl-indent-level)))
-		    (t 0))
+		    (t (current-indentation)))
 	      )
 	    )
 	   ((eq 'first-line (elt i 1)); [indentable first-line start-pos]
@@ -3140,9 +3145,9 @@ and closing parentheses and brackets."
 ; it's not clear yet if commenting these out will cause other
 ; failures. 2021-01-19 23:08:29
 
-;	     (if (elt i 3)		; state (XXX What is the semantic???)
-;		 0
-;	       sane-perl-continued-statement-offset)
+	     ;; (if (elt i 3)		; state (XXX What is the semantic???)
+	     ;; 	 0
+	     ;;   sane-perl-continued-statement-offset)
 	     ))
 	 ;;
 	 ;; Indenter for stuff in "parentheses" (or brackets, braces-as-hash)
