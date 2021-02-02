@@ -383,11 +383,15 @@ L<perltidy> utility and C<sane-perl-mode>.
 This option is C<nil> by default. Setting this to C<t> is equivalent
 to C<-bl> or C<--opening-brace-on-new-line> in perltidy.
 
+    (setq sane-perl-extra-newline-before-brace t)
+
 =item sane-perl-indent-left-aligned-comments
 
 This option is C<t> by default. This corresponds to setting C<-ibc> or
 C<--indent-block-comments> in perltidy. A C<nil> value corresponds to
-C<-nibc> or in perltidy.
+C<-nibc> in perltidy.
+
+    (setq sane-perl-indent-left-aligned-comments nil)
 
 =item sane-perl-indent-level
 
@@ -402,6 +406,8 @@ default of 4, use
 This option is C<t> by default. This corresponds to C<-ce> or
 C<--cuddled-else> in perltidy. Setting this to C<nil> is equivalent to
 C<-nce> or C<--nocuddled-else> in perltidy.
+
+    (setq sane-perl-merge-trailing-else nil)
 
 =back
 
@@ -464,5 +470,14 @@ facilities.
 
 =head1 AUTHORS
 
-Ben Bullock, <benkasminbullock@gmail.com>, <bkb@cpan.org>
+The person responsible for this fork is Ben Bullock,
+<benkasminbullock@gmail.com>, <bkb@cpan.org>. The authors and
+maintainers of the CPerl mode which it forked from are listed in the
+source code of the file.
 
+=head1 LICENCE
+
+C<sane-perl-mode.el> is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
