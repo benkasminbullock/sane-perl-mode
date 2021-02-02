@@ -61,4 +61,21 @@ EOF
     is ($got, $hash_ref_want, "indentation of hash ref in arguments bug");
 };
 
+# Nutty indentation bug
+
+# http://mikan/bugs/bug/2206
+
+my $hashrefs = <<'EOF';
+my @headings = (
+    {key => 'k', name => 'Kanji', class => 'kanji'},
+);
+EOF
+
+TODO: {
+    local $TODO = 'Improve indentation of hash references';
+    my $got = run_indent ($hashrefs);
+    unlike ($got, qr!\s+\{\n!,
+	    "Don't do nutty indentation of hash references");
+};
+
 done_testing ();
