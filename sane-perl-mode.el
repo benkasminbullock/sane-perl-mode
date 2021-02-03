@@ -7479,15 +7479,15 @@ getservent
 getsockname(SOCKET)
 getsockopt(SOCKET,LEVEL,OPTNAME)
 given (EXPR) { [ when (EXPR) { ... } ]+ [ default { ... } ]? }
-gmtime(EXPR)
+gmtime(EXPR)    
 goto LABEL
 ... gt ...	String greater than.
-hex(EXPR)
+hex(EXPR)       Convert from hexadecimal
 if (EXPR) { ... } [ elsif (EXPR) { ... } ... ] [ else { ... } ] or EXPR if EXPR
 index(STR,SUBSTR[,OFFSET])
-int(EXPR)
+int(EXPR)         Integer part of EXPR
 ioctl(FILEHANDLE,FUNCTION,SCALAR)
-join(EXPR,LIST)
+join(EXPR,LIST)      Join LIST with EXPR and return the resulting string
 keys(%HASH)
 kill(LIST)
 last [LABEL]
@@ -7517,14 +7517,14 @@ ord(EXPR)	ASCII value of the first char of the string.
 pack(TEMPLATE,LIST)
 package NAME	Introduces package context.
 pipe(READHANDLE,WRITEHANDLE)	Create a pair of filehandles on ends of a pipe.
-pop(ARRAY)
-print [FILEHANDLE] [(LIST)]
-printf [FILEHANDLE] (FORMAT,LIST)
-push(ARRAY,LIST)
+pop(ARRAY)        Remove last element from array
+print [FILEHANDLE] [(LIST)]       Print
+printf [FILEHANDLE] (FORMAT,LIST)  Print formatted
+push(ARRAY,LIST)     Push LIST into ARRAY
 q/STRING/	Synonym for \\='STRING\\='
 qq/STRING/	Synonym for \"STRING\"
 qx/STRING/	Synonym for \\=`STRING\\=`
-rand[(EXPR)]
+rand[(EXPR)]    Returns a random number between 0 and 1
 read(FILEHANDLE,SCALAR,LENGTH[,OFFSET])
 readdir(DIRHANDLE)
 readlink(EXPR)
@@ -7571,8 +7571,8 @@ sort [SUBROUTINE] (LIST)
 splice(ARRAY,OFFSET[,LENGTH[,LIST]])
 split[(/PATTERN/[,EXPR[,LIMIT]])]
 sprintf(FORMAT,LIST)
-sqrt(EXPR)
-srand(EXPR)  Seed random number generator
+sqrt(EXPR)   Square root
+srand(EXPR)  Seed the random number generator
 stat(EXPR|FILEHANDLE|VAR)
 state VAR or state (VAR1,...)	Introduces a static lexical variable
 study[(SCALAR)]
@@ -8316,7 +8316,6 @@ section, and process it."
 				}))
 	     (re	(concat link-re terminator))
 	     (end-marker (make-marker)))
-	
 	(re-search-forward re nil t)
 	(set-marker end-marker (match-end 0))
 	(cond
