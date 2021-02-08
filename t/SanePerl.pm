@@ -97,6 +97,16 @@ sub run
 {
     my ($el, $text, %options) = @_;
 
+    my $no_clean = $options{no_clean};
+    delete $options{no_clean};
+    my $want_errors = $options{want_errors};
+    delete $options{want_errors};
+    for my $k (keys %options) {
+	carp "Unknown option $k";
+	delete $options{$k};
+    }
+
+
     # Write the emacs lisp into a temporary file
     my ($elfh, $elfn) = tempfile ("el.XXXXXX", DIR => $dir);
     print $elfh $el;
@@ -129,14 +139,22 @@ sub run
 	}
     }
     else {
-	warn "'$command' failed: $!";
+	if (-s $errfn) {
+	    $errors = read_text ($errfn);
+	}
+	else {
+	    warn "'$command' failed: $!";
+	}
     }
     $output = read_text ($textfn);
     # To do: have an option where the user can keep the files, for
     # debugging.
-    unlink ($textfn, $errfn, $elfn) or warn "Error unlinking temp files: $!";
-    cleanup ();
-    if ($options{want_errors}) {
+    if (! $no_clean) {
+	unlink ($textfn, $errfn, $elfn)
+	    or warn "Error unlinking temp files: $!";
+	cleanup ();
+    }
+    if ($want_errors) {
 	return ($output, $errors);
     }
     if ($errors) {
