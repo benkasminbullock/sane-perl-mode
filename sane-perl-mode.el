@@ -1160,11 +1160,6 @@ versions of Emacs."
            t]))))
   (error nil))
 
-(autoload 'c-macro-expand "cmacexp"
-  "Display the result of expanding all C macros occurring in the region.
-The expansion is entirely correct because it uses the C preprocessor."
-  t)
-
 ;; These two must be unwound, otherwise take exponential time
 (defconst sane-perl-maybe-white-and-comment-rex "[ \t\n]*\\(#[^\n]*\n[ \t\n]*\\)*"
 "Regular expression to match optional whitespace with interspersed comments.
