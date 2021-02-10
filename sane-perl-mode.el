@@ -55,11 +55,6 @@
 ;; above), please eliminate the corresponding compatibility-helpers.
 ;; Whenever you create a new compatibility-helper, please add it here.
 
-;; Available in Emacs 27.1: time-convert
-(defalias 'sane-perl--time-convert
-  (if (fboundp 'time-convert) 'time-convert
-    'encode-time))
-
 ;; Available in Emacs 28: format-prompt
 (defalias 'sane-perl--format-prompt
   (if (fboundp 'format-prompt) 'format-prompt
@@ -1104,7 +1099,6 @@ versions of Emacs."
 	  "----"
 	  ["Syntaxify region" sane-perl-find-pods-heres-region
 	   (use-region-p)]
-	  ["Profile syntaxification" sane-perl-time-fontification t]
 	  ["Debug errors in delayed fontification" sane-perl-emulate-lazy-lock t]
 	  ["Debug unwind for syntactic scan" sane-perl-toggle-set-debug-unwind t]
 	  ["Debug backtrace on syntactic scan (BEWARE!!!)"
@@ -8629,36 +8623,6 @@ Such requests are usually bound to M-o LETTER."
 			(underline . "C<")))
 	   (error "Face %S not configured for sane-perl-mode"
 		  face))))
-
-(defun sane-perl-time-fontification (&optional l step lim)
-  "Times how long it takes to do incremental fontification in a region.
-L is the line to start at, STEP is the number of lines to skip when
-doing next incremental fontification, LIM is the maximal number of
-incremental fontification to perform.  Messages are accumulated in
-*Messages* buffer.
-
-May be used for pinpointing which construct slows down buffer fontification:
-start with default arguments, then refine the slowdown regions."
-  (interactive "nLine to start at: \nnStep to do incremental fontification: ")
-  (or l (setq l 1))
-  (or step (setq step 500))
-  (or lim (setq lim 40))
-  (let* ((timems (function (lambda () (car (sane-perl--time-convert nil 1000)))))
-	 (tt (funcall timems)) (c 0) delta tot)
-    (goto-char (point-min))
-    (forward-line (1- l))
-    (sane-perl-mode)
-    (setq tot (- (- tt (setq tt (funcall timems)))))
-    (message "sane-perl-mode at %s: %s" l tot)
-    (while (and (< c lim) (not (eobp)))
-      (forward-line step)
-      (setq l (+ l step))
-      (setq c (1+ c))
-      (sane-perl-update-syntaxification (point) (point))
-      (setq delta (- (- tt (setq tt (funcall timems)))) tot (+ tot delta))
-      (message "to %s:%6s,%7s" l delta tot))
-    tot))
-
 (defvar font-lock-cache-position)
 
 (defun sane-perl-emulate-lazy-lock (&optional window-size)

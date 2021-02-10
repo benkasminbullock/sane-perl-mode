@@ -91,12 +91,31 @@ This uses L<File::Temp/tempfile> to create temporary files for the
 lisp and the text and for error output, and then it deletes the files
 at the end of processing.
 
+Options are
+
+=over
+
+=item no_clean
+
+Do not delete the temporary files after completion, for debugging.
+
+=item want_errors
+
+Return the errors, as in
+
+    my ($out, $errors) = run (...);
+
+If this is not set then errors are printed by run.
+
+=back
+
 =cut
 
 sub run
 {
     my ($el, $text, %options) = @_;
 
+    # Keep the files for debugging.
     my $no_clean = $options{no_clean};
     delete $options{no_clean};
     my $want_errors = $options{want_errors};
@@ -147,8 +166,6 @@ sub run
 	}
     }
     $output = read_text ($textfn);
-    # To do: have an option where the user can keep the files, for
-    # debugging.
     if (! $no_clean) {
 	unlink ($textfn, $errfn, $elfn)
 	    or warn "Error unlinking temp files: $!";
@@ -162,6 +179,12 @@ sub run
     }
     return $output;
 }
+
+=head2 run_err
+
+Run and output errors.
+
+=cut
 
 sub run_err
 {
