@@ -1741,8 +1741,7 @@ into
 
 \\{sane-perl-mode-map}
 
-Setting the variable `sane-perl-font-lock' to t switches on
-font-lock-mode \(even with older Emacsen),
+Setting the variable 
 `sane-perl-electric-lbrace-space' to t switches on electric space
 between $ and {, `sane-perl-electric-parens-string' is the string
 that contains parentheses that should be electric in Sane-Perl
@@ -5554,8 +5553,6 @@ indentation and initial hashes.  Behaves usually outside of comment."
 	   (null (get-text-property (match-beginning 1) 'syntax-type))
 	   (null (get-text-property (match-beginning 1) 'in-pod)))
 	  (setq is-pack (match-beginning 2))
-	  ;; (if (looking-at "([^()]*)[ \t\n\f]*")
-	  ;;    (goto-char (match-end 0)))	; Messes what follows
 	  (setq meth nil
 		p (point))
 	  (while (and ends-ranges (>= p (car ends-ranges)))
@@ -5904,8 +5901,11 @@ Style of printout regulated by the variable `sane-perl-ps-print-face-properties'
 (sane-perl-windowed-init)
 
 (defconst sane-perl-styles-entries
-  '(sane-perl-indent-level sane-perl-brace-offset sane-perl-continued-brace-offset
-    sane-perl-label-offset sane-perl-extra-newline-before-brace
+  '(sane-perl-indent-level
+    sane-perl-brace-offset
+    sane-perl-continued-brace-offset
+    sane-perl-label-offset
+    sane-perl-extra-newline-before-brace
     sane-perl-extra-newline-before-brace-multiline
     sane-perl-merge-trailing-else
     sane-perl-continued-statement-offset))
