@@ -559,7 +559,7 @@ This way enabling/disabling of menu items is more correct."
     (((class grayscale) (background dark))
      (:foreground "Gray80" :slant italic :underline t :weight bold))
     (((class color) (background light))
-     (:foreground "chartreuse3"))
+     (:foreground "dark olive green"))
     (((class color) (background dark))
      (:foreground ,sane-perl-dark-foreground))
     (t (:weight bold :underline t)))
