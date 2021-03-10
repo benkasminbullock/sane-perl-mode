@@ -1820,12 +1820,30 @@ Variables controlling indentation style:
  `sane-perl-min-label-indent'
     Minimal indentation for line that is a label.
 
-Settings for classic indent-styles: K&R BSD=C++ GNU PBP PerlStyle=Whitesmith
-  `sane-perl-indent-level'                5   4       2   4   4
-  `sane-perl-brace-offset'                0   0       0   0   0
-  `sane-perl-continued-brace-offset'     -5  -4       0   0   0
-  `sane-perl-label-offset'               -5  -4      -2  -2  -4
-  `sane-perl-continued-statement-offset'  5   4       2   4   4
+Settings for classic indent-styles:
++-----------+-----+-----+-----+-----+-----+------+------+------+
+|           | BSD | C++ | GNU | K&R | PBP | Perl | Sane | Whit |
+| b-o       |   0 |   0 |   0 |   0 |   0 |    0 |    0 |    4 |
+| c-b-o     |  -4 |  -4 |   2 |  -5 |   0 |    0 |    0 |    0 |
+| c-s-o     |   4 |   4 |   2 |   5 |   4 |    4 |    2 |    4 |
+| e-n-b-b   |   t |   t |   t | nil | nil |  nil |  nil |    t |
+| e-n-b-b-m | nil |   t |   t | nil | nil |  nil |  nil |  nil |
+| i-l       |   4 |   4 |   2 |   5 |   4 |    4 |    2 |    4 |
+| i-p-a-b   | nil | nil | nil | nil |   t |  nil |  nil |  nil |
+| l-o       |  -4 |  -4 |  -2 |  -5 |  -2 |   -4 |   -2 |   -4 |
+| m-t-e     | nil | nil | nil |   t | nil |    t |    t |  nil |
+| t-a-i     | nil | nil | nil | nil |   t |  nil |  nil |  nil |
++-----------+-----+-----+-----+-----+-----+------+------+------+
+b-o = sane-perl-brace-offset
+c-b-o = sane-perl-continued-brace-offset
+c-s-o = sane-perl-continued-statement-offset
+e-n-b-b = sane-perl-extra-newline-before-brace
+e-n-b-b-m = sane-perl-extra-newline-before-brace-multiline
+i-l = sane-perl-indent-level
+i-p-a-b = sane-perl-indent-parens-as-block
+l-o = sane-perl-label-offset
+m-t-e = sane-perl-merge-trailing-else
+t-a-i = sane-perl-tab-always-indent
 
 Sane-Perl knows several indentation styles, and may bulk set the
 corresponding variables.  Use \\[sane-perl-set-style] to do this.  Use
