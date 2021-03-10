@@ -4447,6 +4447,10 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 				          "\\?([0-9]+)"	; (?(1)foo|bar)
 				       "\\|"
 					  "\\?<[=!]"
+				       "\\|"
+					  "\\?<.*?>"
+				       "\\|"
+					  "\\?'.*?'"
 				       ;;;"\\|"
 				       ;;;   "\\?"
 				       "\\)?"
