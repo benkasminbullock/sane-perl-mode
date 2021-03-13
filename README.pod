@@ -345,6 +345,14 @@ the end of a BEGIN block) used to be mistakenly converted into
 
 on applying C<indent-region> is in F<t/semicolon-bug.t>.
 
+=item Support for named captures in regexes
+
+Named captures in regexes of the form
+
+    m/(?<name>.*abc)/
+
+no longer cause a "warning" display.
+
 =item Tests of CPerl-Mode features
 
 We have added some tests of CPerl-Mode features such as its documented
