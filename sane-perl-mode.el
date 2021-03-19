@@ -997,159 +997,150 @@ Unless KEEP, removes the old indentation."
   "Keymap used in Sane-Perl mode.")
 
 ;;; Menu
-(defvar sane-perl-menu)
 (defvar sane-perl-lazy-installed)
 (defvar sane-perl-old-style nil)
-(condition-case nil
-    (progn
-      (require 'easymenu)
-      (easy-menu-define
-       sane-perl-menu sane-perl-mode-map "Menu for Sane-Perl mode"
-       '("Perl"
-	 ["Beginning of function" beginning-of-defun t]
-	 ["End of function" end-of-defun t]
-	 ["Mark function" mark-defun t]
-	 ["Indent expression" sane-perl-indent-exp t]
-	  ["Fill paragraph/comment" fill-paragraph t]
-	 "----"
-	 ["Line up a construction" sane-perl-lineup (use-region-p)]
-	 ["Invert if/unless/while etc" sane-perl-invert-if-unless t]
-	 ("Regexp"
-	  ["Beautify" sane-perl-beautify-regexp
-	   sane-perl-use-syntax-table-text-property]
-	  ["Beautify one level deep" (sane-perl-beautify-regexp 1)
-	   sane-perl-use-syntax-table-text-property]
-	  ["Beautify a group" sane-perl-beautify-level
-	   sane-perl-use-syntax-table-text-property]
-	  ["Beautify a group one level deep" (sane-perl-beautify-level 1)
-	   sane-perl-use-syntax-table-text-property]
-	  ["Contract a group" sane-perl-contract-level
-	   sane-perl-use-syntax-table-text-property]
-	  ["Contract groups" sane-perl-contract-levels
-	   sane-perl-use-syntax-table-text-property]
-	  "----"
-	  ["Find next interpolated" sane-perl-next-interpolated-REx
-	   (next-single-property-change (point-min) 'REx-interpolated)]
-	  ["Find next interpolated (no //o)"
-	   sane-perl-next-interpolated-REx-0
-	   (or (text-property-any (point-min) (point-max) 'REx-interpolated t)
-	       (text-property-any (point-min) (point-max) 'REx-interpolated 1))]
-	  ["Find next interpolated (neither //o nor whole-REx)"
-	   sane-perl-next-interpolated-REx-1
-	   (text-property-any (point-min) (point-max) 'REx-interpolated t)])
-	 ["Insert spaces if needed to fix style" sane-perl-find-bad-style t]
-	 ["Refresh \"hard\" constructions" sane-perl-find-pods-heres t]
-	 "----"
-	 ["Indent region" sane-perl-indent-region (use-region-p)]
-	 ["Comment region" sane-perl-comment-region (use-region-p)]
-	 ["Uncomment region" sane-perl-uncomment-region (use-region-p)]
-	 "----"
-	 ["Run" mode-compile (fboundp 'mode-compile)]
-	 ["Kill" mode-compile-kill (and (fboundp 'mode-compile-kill)
-					(get-buffer "*compilation*"))]
-	 ["Next error" next-error (get-buffer "*compilation*")]
-	 ["Check syntax" sane-perl-check-syntax (fboundp 'mode-compile)]
-	 "----"
-	 ["Debugger" sane-perl-db t]
-	 "----"
-	 ("Tools"
-	  ["Imenu" imenu (fboundp 'imenu)]
-	  ["Imenu on Perl Info" sane-perl-imenu-on-info (featurep 'imenu)]
-	  "----"
-	  ["Ispell PODs" sane-perl-pod-spell
-	   ;; Better not to update syntaxification here:
-	   ;; debugging syntaxification can be broken by this???
-	   (or
-	    (get-text-property (point-min) 'in-pod)
-	    (< (progn
-		 (and sane-perl-syntaxify-for-menu
-		      (sane-perl-update-syntaxification (point-max) (point-max)))
-		 (next-single-property-change (point-min) 'in-pod nil (point-max)))
-	       (point-max)))]
-	  ["Ispell HERE-DOCs" sane-perl-here-doc-spell
-	   (< (progn
-		(and sane-perl-syntaxify-for-menu
-		     (sane-perl-update-syntaxification (point-max) (point-max)))
-		(next-single-property-change (point-min) 'here-doc-group nil (point-max)))
-	      (point-max))]
-	  ["Narrow to this HERE-DOC" sane-perl-narrow-to-here-doc
-	   (eq 'here-doc  (progn
-		(and sane-perl-syntaxify-for-menu
-		     (sane-perl-update-syntaxification (point) (point)))
-		(get-text-property (point) 'syntax-type)))]
-	  ["Select this HERE-DOC or POD section"
-	   sane-perl-select-this-pod-or-here-doc
-	   (memq (progn
-		   (and sane-perl-syntaxify-for-menu
-			(sane-perl-update-syntaxification (point) (point)))
-		   (get-text-property (point) 'syntax-type))
-		 '(here-doc pod))]
-	  "----"
-	  ["Sane-Perl pretty print (experimental)" sane-perl-ps-print
-	   (fboundp 'ps-extend-face-list)]
-	  "----"
-	  ["Syntaxify region" sane-perl-find-pods-heres-region
-	   (use-region-p)]
-	  ["Debug errors in delayed fontification" sane-perl-emulate-lazy-lock t]
-	  ["Debug unwind for syntactic scan" sane-perl-toggle-set-debug-unwind t]
-	  ["Debug backtrace on syntactic scan (BEWARE!!!)"
-	   (sane-perl-toggle-set-debug-unwind nil t) t]
-	  "----"
-	  ["Class Hierarchy from TAGS" sane-perl-tags-hier-init t]
-	  ("Tags"
-	   ["Create tags for current file" (sane-perl-write-tags nil t) t]
-	   ["Add tags for current file" (sane-perl-write-tags) t]
-	   ["Create tags for Perl files in directory"
-	    (sane-perl-write-tags nil t nil t) t]
-	   ["Add tags for Perl files in directory"
-	    (sane-perl-write-tags nil nil nil t) t]
-	   ["Create tags for Perl files in (sub)directories"
-	    (sane-perl-write-tags nil t t t) t]
-	   ["Add tags for Perl files in (sub)directories"
-	    (sane-perl-write-tags nil nil t t) t]))
-	 ("Perl docs"
-	  ["Define word at point" imenu-go-find-at-position
-	   (fboundp 'imenu-go-find-at-position)]
-	  ["Help on function" sane-perl-info-on-command t]
-	  ["Help on function at point" sane-perl-info-on-current-command t]
-	  ["Help on symbol at point" sane-perl-get-help t]
-	  ["Perldoc" sane-perl-perldoc t]
-	  ["Perldoc on word at point" sane-perl-perldoc-at-point t]
-	  ["View manpage of POD in this file" sane-perl-build-manpage t]
-	  ["Auto-help on" sane-perl-lazy-install
-	   (not sane-perl-lazy-installed)]
-	  ["Auto-help off" sane-perl-lazy-unstall
-	   sane-perl-lazy-installed])
-	 ("Toggle..."
-	  ["Auto newline" sane-perl-toggle-auto-newline t]
-	  ["Electric parens" sane-perl-toggle-electric t]
-	  ["Electric keywords" sane-perl-toggle-abbrev t]
-	  ["Fix whitespace on indent" sane-perl-toggle-construct-fix t]
-	  ["Auto-help on Perl constructs" sane-perl-toggle-autohelp t]
-	  ["Auto fill" auto-fill-mode t])
-	 ("Indent styles..."
-	  ["Sane-Perl" (sane-perl-set-style "Sane-Perl") t]
-	  ["PBP" (sane-perl-set-style  "PBP") t]
-	  ["PerlStyle" (sane-perl-set-style "PerlStyle") t]
-	  ["GNU" (sane-perl-set-style "GNU") t]
-	  ["C++" (sane-perl-set-style "C++") t]
-	  ["K&R" (sane-perl-set-style "K&R") t]
-	  ["BSD" (sane-perl-set-style "BSD") t]
-	  ["Whitesmith" (sane-perl-set-style "Whitesmith") t]
-	  ["Memorize Current" (sane-perl-set-style "Current") t]
-	  ["Memorized" (sane-perl-set-style-back) sane-perl-old-style])
-	 ("Micro-docs"
-	  ["Tips" (describe-variable 'sane-perl-tips) t]
-	  ["Problems" (describe-variable 'sane-perl-problems) t]
-	  ["Speed" (describe-variable 'sane-perl-speed) t]
-	  ["Praise" (describe-variable 'sane-perl-praise) t]
-	  ["Faces" (describe-variable 'sane-perl-tips-faces) t]
-	  ["Sane-Perl mode" (describe-function 'sane-perl-mode) t]
-	  ["Sane-Perl version"
-	   (message "The version of master-file for this Sane-Perl is %s-Emacs"
-		    sane-perl-version)
-           t]))))
-  (error nil))
+(easy-menu-define
+  sane-perl-menu sane-perl-mode-map "Menu for Sane-Perl mode"
+  '("Perl"
+    ["Beginning of function" beginning-of-defun t]
+    ["End of function" end-of-defun t]
+    ["Mark function" mark-defun t]
+    ["Indent expression" sane-perl-indent-exp t]
+    ["Fill paragraph/comment" fill-paragraph t]
+    "----"
+    ["Line up a construction" sane-perl-lineup (use-region-p)]
+    ["Invert if/unless/while etc" sane-perl-invert-if-unless t]
+    ("Regexp"
+     ["Beautify" sane-perl-beautify-regexp
+      sane-perl-use-syntax-table-text-property]
+     ["Beautify one level deep" (sane-perl-beautify-regexp 1)
+      sane-perl-use-syntax-table-text-property]
+     ["Beautify a group" sane-perl-beautify-level
+      sane-perl-use-syntax-table-text-property]
+     ["Beautify a group one level deep" (sane-perl-beautify-level 1)
+      sane-perl-use-syntax-table-text-property]
+     ["Contract a group" sane-perl-contract-level
+      sane-perl-use-syntax-table-text-property]
+     ["Contract groups" sane-perl-contract-levels
+      sane-perl-use-syntax-table-text-property]
+     "----"
+     ["Find next interpolated" sane-perl-next-interpolated-REx
+      (next-single-property-change (point-min) 'REx-interpolated)]
+     ["Find next interpolated (no //o)"
+      sane-perl-next-interpolated-REx-0
+      (or (text-property-any (point-min) (point-max) 'REx-interpolated t)
+	  (text-property-any (point-min) (point-max) 'REx-interpolated 1))]
+     ["Find next interpolated (neither //o nor whole-REx)"
+      sane-perl-next-interpolated-REx-1
+      (text-property-any (point-min) (point-max) 'REx-interpolated t)])
+    ["Insert spaces if needed to fix style" sane-perl-find-bad-style t]
+    ["Refresh \"hard\" constructions" sane-perl-find-pods-heres t]
+    "----"
+    ["Indent region" sane-perl-indent-region (use-region-p)]
+    ["Comment region" sane-perl-comment-region (use-region-p)]
+    ["Uncomment region" sane-perl-uncomment-region (use-region-p)]
+    "----"
+    ["Run" mode-compile (fboundp 'mode-compile)]
+    ["Kill" mode-compile-kill (and (fboundp 'mode-compile-kill)
+				   (get-buffer "*compilation*"))]
+    ["Next error" next-error (get-buffer "*compilation*")]
+    ["Check syntax" sane-perl-check-syntax (fboundp 'mode-compile)]
+    "----"
+    ["Debugger" sane-perl-db t]
+    "----"
+    ("Tools"
+     ["Imenu" imenu (fboundp 'imenu)]
+     ["Imenu on Perl Info" sane-perl-imenu-on-info (featurep 'imenu)]
+     "----"
+     ["Ispell PODs" sane-perl-pod-spell
+      ;; Better not to update syntaxification here:
+      ;; debugging syntaxification can be broken by this???
+      (or
+       (get-text-property (point-min) 'in-pod)
+       (< (progn
+	    (and sane-perl-syntaxify-for-menu
+		 (sane-perl-update-syntaxification (point-max) (point-max)))
+	    (next-single-property-change (point-min) 'in-pod nil (point-max)))
+	  (point-max)))]
+     ["Ispell HERE-DOCs" sane-perl-here-doc-spell
+      (< (progn
+	   (and sane-perl-syntaxify-for-menu
+		(sane-perl-update-syntaxification (point-max) (point-max)))
+	   (next-single-property-change (point-min) 'here-doc-group nil (point-max)))
+	 (point-max))]
+     ["Narrow to this HERE-DOC" sane-perl-narrow-to-here-doc
+      (eq 'here-doc  (progn
+		       (and sane-perl-syntaxify-for-menu
+			    (sane-perl-update-syntaxification (point) (point)))
+		       (get-text-property (point) 'syntax-type)))]
+     ["Select this HERE-DOC or POD section"
+      sane-perl-select-this-pod-or-here-doc
+      (memq (progn
+	      (and sane-perl-syntaxify-for-menu
+		   (sane-perl-update-syntaxification (point) (point)))
+	      (get-text-property (point) 'syntax-type))
+	    '(here-doc pod))]
+     "----"
+     ["Sane-Perl pretty print (experimental)" sane-perl-ps-print
+      (fboundp 'ps-extend-face-list)]
+     "----"
+     ["Syntaxify region" sane-perl-find-pods-heres-region
+      (use-region-p)]
+     ["Debug errors in delayed fontification" sane-perl-emulate-lazy-lock t]
+     ["Debug unwind for syntactic scan" sane-perl-toggle-set-debug-unwind t]
+     ["Debug backtrace on syntactic scan (BEWARE!!!)"
+      (sane-perl-toggle-set-debug-unwind nil t) t]
+     "----"
+     ["Class Hierarchy from TAGS" sane-perl-tags-hier-init t]
+     ("Tags"
+      ["Create tags for current file" (sane-perl-write-tags nil t) t]
+      ["Add tags for current file" (sane-perl-write-tags) t]
+      ["Create tags for Perl files in directory"
+       (sane-perl-write-tags nil t nil t) t]
+      ["Add tags for Perl files in directory"
+       (sane-perl-write-tags nil nil nil t) t]
+      ["Create tags for Perl files in (sub)directories"
+       (sane-perl-write-tags nil t t t) t]
+      ["Add tags for Perl files in (sub)directories"
+       (sane-perl-write-tags nil nil t t) t]))
+    ("Perl docs"
+     ["Define word at point" imenu-go-find-at-position
+      (fboundp 'imenu-go-find-at-position)]
+     ["Help on function" sane-perl-info-on-command t]
+     ["Help on function at point" sane-perl-info-on-current-command t]
+     ["Help on symbol at point" sane-perl-get-help t]
+     ["Perldoc" sane-perl-perldoc t]
+     ["Perldoc on word at point" sane-perl-perldoc-at-point t]
+     ["View manpage of POD in this file" sane-perl-build-manpage t]
+     ["Auto-help on" sane-perl-lazy-install
+      (not sane-perl-lazy-installed)]
+     ["Auto-help off" sane-perl-lazy-unstall
+      sane-perl-lazy-installed])
+    ("Toggle..."
+     ["Auto newline" sane-perl-toggle-auto-newline t]
+     ["Electric parens" sane-perl-toggle-electric t]
+     ["Electric keywords" sane-perl-toggle-abbrev t]
+     ["Fix whitespace on indent" sane-perl-toggle-construct-fix t]
+     ["Auto-help on Perl constructs" sane-perl-toggle-autohelp t]
+     ["Auto fill" auto-fill-mode t])
+    ("Indent styles..."
+     ["Sane-Perl" (sane-perl-set-style "Sane-Perl") t]
+     ["PBP" (sane-perl-set-style  "PBP") t]
+     ["PerlStyle" (sane-perl-set-style "PerlStyle") t]
+     ["GNU" (sane-perl-set-style "GNU") t]
+     ["C++" (sane-perl-set-style "C++") t]
+     ["K&R" (sane-perl-set-style "K&R") t]
+     ["BSD" (sane-perl-set-style "BSD") t]
+     ["Whitesmith" (sane-perl-set-style "Whitesmith") t]
+     ["Memorize Current" (sane-perl-set-style "Current") t]
+     ["Memorized" (sane-perl-set-style-back) sane-perl-old-style])
+    ("Micro-docs"
+     ["Tips" (describe-variable 'sane-perl-tips) t]
+     ["Problems" (describe-variable 'sane-perl-problems) t]
+     ["Speed" (describe-variable 'sane-perl-speed) t]
+     ["Praise" (describe-variable 'sane-perl-praise) t]
+     ["Faces" (describe-variable 'sane-perl-tips-faces) t]
+     ["Sane-Perl mode" (describe-function 'sane-perl-mode) t])))
 
 ;; These two must be unwound, otherwise take exponential time
 (defconst sane-perl-maybe-white-and-comment-rex "[ \t\n]*\\(#[^\n]*\n[ \t\n]*\\)*"
