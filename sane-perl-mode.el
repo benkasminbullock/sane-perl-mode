@@ -4147,7 +4147,7 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 				  (looking-at
 				   "\\$?\\([_a-zA-Z:][_a-zA-Z0-9:]*\\)?>"))))
 		      tb (match-beginning 0))
-		(goto-char p)
+		(goto-char (match-beginning b1))
 		(sane-perl-backward-to-noncomment (point-min))
 		(or bb
 		    (if (eq b1 special-construct)	; bare /blah/ or ?blah? or <foo>
@@ -8801,11 +8801,5 @@ do extra unwind via `sane-perl-unwind-to-safe'."
     (save-excursion
       (goto-char from)
       (sane-perl-fontify-syntaxically to)))))
-
-(defvar sane-perl-version
-  (let ((v  "Revision: 1.0"))
-    (string-match ":\\s *\\([0-9.]+\\)" v)
-    (substring v (match-beginning 1) (match-end 1)))
-  "Fork of cperl-mode version 7.0")
 
 (provide 'sane-perl-mode)
