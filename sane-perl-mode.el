@@ -3675,6 +3675,10 @@ Should be called with the point before leading colon of an attribute."
     (goto-char endbracket)		; just in case something misbehaves???
     t))
 
+
+(defconst quoted-construct 10)
+(defconst special-construct 11)
+
 ;; Debugging this may require (setq max-specpdl-size 2000)...
 (defun sane-perl-find-pods-heres (&optional min max non-inter end ignore-max end-of-here-doc)
   "Scans the buffer for hard-to-parse Perl constructions.
@@ -3687,7 +3691,7 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 		sane-perl-syntax-done-to min))
   (or max (setq max (point-max)))
   (let* ((sane-perl-pod-here-fontify (eval sane-perl-pod-here-fontify)) go tmpend
-	 face head-face here-face b e bb tag qtag b1 e1 argument i c tail tb
+	 face head-face here-face b e bb b4 d p tag qtag b1 e1 argument i c tail tb
 	 is-REx is-x-REx REx-subgr-start REx-subgr-end was-subgr i2 hairy-RE
 	 (case-fold-search nil) (inhibit-read-only t) (buffer-undo-list t)
 	 (modified (buffer-modified-p)) overshoot is-o-REx name
@@ -3755,10 +3759,10 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 		       max))
 	 (search
 	  (concat
-	   "\\(\\`\n?\\|^\n\\)="	; POD
+	   "\\(\\`\n?\\|^\n\\)="	; 0=POD
 	   "\\|"
 	   ;; One extra () before this:
-	   "<<\\(~?\\)"		 ; HERE-DOC, indented-p = capture 2
+	   "<<\\(~?\\)"		 ; 1=HERE-DOC, indented-p = capture 2
 	   "\\("			; 2 + 1
 	   ;; First variant "BLAH" or just ``.
 	   "[ \t]*"			; Yes, whitespace is allowed!
@@ -4107,35 +4111,35 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 		    (setq tmpend tb))
 		(put-text-property b (point) 'syntax-type 'format))
 	       ;; qq-like String or Regexp:
-	       ((or (match-beginning 10) (match-beginning 11))
+	       ((or (match-beginning quoted-construct)
+		    (match-beginning special-construct))
 		;; 1+6+2=9 extra () before this:
 		;; "\\<\\(q[wxqr]?\\|[msy]\\|tr\\)\\>"
 		;; "\\|"
 		;; "\\([?/<]\\)"	; /blah/ or ?blah? or <file*glob>
-		(setq b1 (if (match-beginning 10) 10 11)
-		      argument (buffer-substring
-				(match-beginning b1) (match-end b1))
+		(setq b1 (if (match-beginning quoted-construct)
+			     quoted-construct special-construct)
+		      p (match-beginning b1)
+		      argument (buffer-substring p (match-end b1))
 		      b (point)		; end of qq etc
 		      i b
-		      c (char-after (match-beginning b1))
-		      bb (char-after (1- (match-beginning b1))) ; tmp holder
+		      c (char-after p)
+		      b4 (char-after (1- p))
+		      d (char-after (- p 2))
 		      ;; bb == "Not a stringy"
-		      bb (if (eq b1 10) ; user variables/whatever
-			     (and (memq bb (append "$@%*#_:-&>" nil)) ; $#y)
-				  (cond ((eq bb ?-) (eq c ?s)) ; -s file test
-					((eq bb ?\:) ; $opt::s
-					 (eq (char-after
-					      (- (match-beginning b1) 2))
-					     ?\:))
-					((eq bb ?\>) ; $foo->s
-					 (eq (char-after
-					      (- (match-beginning b1) 2))
-					     ?\-))
-					((eq bb ?\&)
-					 (not (eq (char-after ; &&m/blah/
-						   (- (match-beginning b1) 2))
-						  ?\&)))
-					(t t)))
+		      bb (if (eq b1 quoted-construct) ; user variables/whatever
+			     (or
+			      ;; false positive: "y_" has no word boundary
+                              (save-match-data (looking-at "_"))
+			      (and (memq b4 (append "$@%*#_:-&>" nil)) ; $#y)
+				  (cond ((eq b4 ?-) (eq c ?s)) ; -s file test
+					((eq b4 ?\:) ; $opt::s
+					 (eq d ?\:))
+					((eq b4 ?\>) ; $foo->s
+					 (eq d ?\-))
+					((eq b4 ?\&) ; &&m/blah/
+					 (not (eq d ?\&)))
+					(t t))))
 			   ;; <file> or <$file>
 			   (and (eq c ?\<)
 				;; Do not stringify <FH>, <$fh> :
@@ -4143,10 +4147,10 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 				  (looking-at
 				   "\\$?\\([_a-zA-Z:][_a-zA-Z0-9:]*\\)?>"))))
 		      tb (match-beginning 0))
-		(goto-char (match-beginning b1))
+		(goto-char p)
 		(sane-perl-backward-to-noncomment (point-min))
 		(or bb
-		    (if (eq b1 11)	; bare /blah/ or ?blah? or <foo>
+		    (if (eq b1 special-construct)	; bare /blah/ or ?blah? or <foo>
 			(setq argument ""
 			      b1 nil
 			      bb	; Not a regexp?
@@ -4804,10 +4808,6 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
       (and (buffer-modified-p)
 	   (not modified)
 	   (set-buffer-modified-p nil))
-      ;; I do not understand what this is doing here.  It breaks font-locking
-      ;; because it resets the syntax-table from font-lock-syntax-table to
-      ;; sane-perl-mode-syntax-table.
-      ;; (set-syntax-table sane-perl-mode-syntax-table)
       )
     (list (car err-l) overshoot)))
 
@@ -5392,11 +5392,10 @@ conditional/loop constructs."
 ;; Stolen from lisp-mode with a lot of improvements
 
 (defun sane-perl-fill-paragraph (&optional justify iteration)
-  "Like `fill-paragraph', but handle Sane-Perl comments.
+  "Like `fill-paragraph', but handle Perl comments.
 If any of the current line is a comment, fill the comment or the
 block of it that point is in, preserving the comment's initial
 indentation and initial hashes.  Behaves usually outside of comment."
-  ;; (interactive "P") ; Only works when called from fill-paragraph.  -stef
   (let (;; Non-nil if the current line contains a comment.
 	has-comment
 	fill-paragraph-function		; do not recurse
