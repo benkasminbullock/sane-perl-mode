@@ -5973,11 +5973,11 @@ else
      (sane-perl-merge-trailing-else	       .  nil))
 
     ("Whitesmith"
-     (sane-perl-indent-level               .  4)
+     (sane-perl-indent-level               .  0)
      (sane-perl-brace-offset               .  4)
      (sane-perl-continued-brace-offset     .  0)
      (sane-perl-label-offset               . -4)
-     (sane-perl-continued-statement-offset .  4)
+     (sane-perl-continued-statement-offset .  0)
      (sane-perl-extra-newline-before-brace .  t)
      (sane-perl-merge-trailing-else	       .  nil)
      )
