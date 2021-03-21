@@ -140,29 +140,19 @@ C<indent-region> is as follows:
         stop;
     }
 
-Because it looks like changes to the defaults of the mode caused this,
-we are not sure whether to modify the indentation styles or the
-examples. Generally we have followed the examples and modified the
-indentation styles to look more like them, but K&R style is given as
+Styles where the cperl-mode documentation example did not match the
+output are C<BSD>, C<K&R>, C<GNU>, and C<Whitesmith>.  C<C++>, C<PBP>,
+and C<PerlStyle>, and the default C<Sane-Perl> were already indenting
+as per the documentation. We have altered either the settings or the
+example to bring them into agreement.
 
-     if (foo)
-     {
-     }
-     else
-     {
-
-in the cperl-mode documentation, which is definitely wrong, see L<this
-Wikipedia
-article|https://en.wikipedia.org/wiki/Indentation_style#K&R_style>.
-
-The styles where the example did not match the output are C<BSD>,
-C<K&R>, C<GNU>, and C<Whitesmith>.  C<C++>, C<PBP>, and C<PerlStyle>,
-and the default C<Sane-Perl> were already indenting as per the
-documentation. We have altered either the settings or the example to
-bring them into agreement, with the exception of the C<Whitesmith>
-style, where the documentation and results disagree, on only one line,
-since we don't know how to reproduce that indentation using the
-options.
+In cases where we didn't know what to do, we initially followed the
+examples and modified the indentation styles to look more like
+them. However, as it turned out, at least the K&R and the Whitesmith
+indentation of cperl-mode are both fairly wildly different from their
+usual meanings, for some reason or another. In these cases the
+indentation of sane-perl-mode was altered from cperl-mode's to bring
+them closer to where they should have been originally.
 
 =head2 Documentation improvements
 
