@@ -1673,10 +1673,10 @@ Settings for classic indent-styles:
 |           | BSD | C++ | GNU | K&R | PBP | Perl | Sane | Whit |
 | b-o       |   0 |   0 |   0 |   0 |   0 |    0 |    0 |    4 |
 | c-b-o     |  -4 |  -4 |   2 |  -5 |   0 |    0 |    0 |    0 |
-| c-s-o     |   4 |   4 |   2 |   5 |   4 |    4 |    2 |    4 |
+| c-s-o     |   4 |   4 |   2 |   5 |   4 |    4 |    2 |    0 |
 | e-n-b-b   |   t |   t |   t | nil | nil |  nil |  nil |    t |
 | e-n-b-b-m | nil |   t |   t | nil | nil |  nil |  nil |  nil |
-| i-l       |   4 |   4 |   2 |   5 |   4 |    4 |    2 |    4 |
+| i-l       |   4 |   4 |   2 |   5 |   4 |    4 |    2 |    0 |
 | i-p-a-b   | nil | nil | nil | nil |   t |  nil |  nil |  nil |
 | l-o       |  -4 |  -4 |  -2 |  -5 |  -2 |   -4 |   -2 |   -4 |
 | m-t-e     | nil | nil | nil |   t | nil |    t |    t |  nil |
@@ -5887,16 +5887,16 @@ if (foo) {
 ###		 extra-newline-before-brace and merge-trailing-else) 4/0/0/-4/4
 if (foo)
     {
-	bar
-	    baz;
-    label:
+    bar
+    baz;
+ label:
 	{
-	    boon;
+	boon;
 	}
     }
 else
     {
-	stop;
+    stop;
     }
 "
 "Examples of if/else with different indent styles (with v4.23).")
