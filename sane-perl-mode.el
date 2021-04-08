@@ -1018,6 +1018,8 @@ Should contain exactly one group.")
 "Regular expression to match whitespace with interspersed comments.
 Should contain exactly one group.")
 
+(defconst sane-perl-keyword-rex "[a-zA-Z_][a-zA-Z_0-9:']*")
+
 ;;; Perl core keywords and regular expressions
 ;; The following code allows Emacs to load different
 ;; keyword sets for fontification / indenting / indexing
@@ -8134,6 +8136,7 @@ section, and process it."
 	 (quoted    (concat { q { bs bs or bs q or "[^\"]" } "*" q } ))
 	 (ang-expr "[BCEFISXZ]<+[^>]*>+")
 	 (plain     (concat { "[^|<>]" or ang-expr } ))
+	 (ponk     (concat { "[^|<>/]" or ang-expr } ))
 	 (extended  (concat { "[^|/]" } ))
 	 (nomarkup  (concat { "[^A-Z]<" } ))
 	 (no-del    (concat { bs "|" or bs "/" or "[^|/]" } ))
@@ -8143,6 +8146,7 @@ section, and process it."
 			    { m2 or m0 or nomarkup or "[^|/>]" }
 			    "+?>" } ))
 	 (component (concat { plain or markup or nomarkup } ))
+	 (pork (concat { ponk or markup or nomarkup } ))
 	 (name      (concat {2 { "[^ \"\t|/<>]" or markup } "*" } ))
 	 (url       (concat {2 "\\w+:/[^ |<>]+" } ))
 	 ;; old-style references to a section in the same page.
@@ -8161,7 +8165,7 @@ section, and process it."
 		      (concat {1 component "+?" } )))
 	     (section (if allow-angle
 			  (concat {3 quoted or extended "+?" } )
-			(concat {3 quoted or component "+" } )))
+			(concat {3 quoted or pork "+" } )))
 	     (terminator (if allow-angle
 			     (concat " " (make-string terminator-length ?>))
 			   ">"))
