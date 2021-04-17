@@ -3546,6 +3546,7 @@ Should be called with the point before leading colon of an attribute."
 
 (defconst quoted-construct 10)
 (defconst special-construct 11)
+(defconst dollar-brace 18)
 
 ;; Debugging this may require (setq max-specpdl-size 2000)...
 (defun sane-perl-find-pods-heres (&optional min max non-inter end ignore-max end-of-here-doc)
@@ -3712,7 +3713,7 @@ the sections using `sane-perl-pod-head-face', `sane-perl-pod-face',
 	      (cond
 	       ;; 1+6+2+1+1+6=17 extra () before this:
 	       ;;    "\\$\\(['{]\\)"
-	       ((match-beginning 18) ; $' or ${foo}
+	       ((match-beginning dollar-brace) ; $' or ${foo}
 		(if (eq (preceding-char) ?\') ; $'
 		    (progn
 		      (setq b (1- (point))
