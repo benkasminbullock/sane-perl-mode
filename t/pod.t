@@ -16,11 +16,14 @@ ok (! $err);
 
 # http://mikan/bugs/bug/2186
 
-#TODO: {
-#    local $TODO = 'Process perlre link';
+TODO: {
+    local $TODO = 'Process perlre link';
 my $perlre = 'L<perlop/m/PATTERN/msixpodualngc>';
 my ($reout, $reerr) = run_err ($el, $perlre);
-ok (! $reerr);
-#};
+ok (! $reerr, "No error with $perlre link");
+if ($reerr) {
+    diag ($reerr);
+}
+};
 
 done_testing ();

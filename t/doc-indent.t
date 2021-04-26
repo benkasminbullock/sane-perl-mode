@@ -49,18 +49,17 @@ for my $style (sort {uc $a cmp uc $b} keys %s2t) {
     run_indent ($initial, $el, $s2t{$style}, "Test of $style indentation");
 }
 
-TODO: {
-    local $TODO = "Fix broken styles";
-    for my $style (sort {uc $a cmp uc $b} keys %s2t) {
-	if (! $broken{$style}) {
-	    next;
-	}
-	my $el = "(sane-perl-set-style \"$style\")\n";
-	# We can't run todo tests in a different module, so we can't
-	# use the third argument of run_indent to run our tests.
-	my $output = run_indent ($initial, $el);
-	is ($output, $s2t{$style}, "Test of $style indentation");
+# Fixed broken styles
+
+for my $style (sort {uc $a cmp uc $b} keys %s2t) {
+    if (! $broken{$style}) {
+	next;
     }
-};
+    my $el = "(sane-perl-set-style \"$style\")\n";
+    # We couldn't run todo tests in a different module, so we couldn't
+    # use the third argument of run_indent to run our tests.
+    my $output = run_indent ($initial, $el);
+    is ($output, $s2t{$style}, "Test of $style indentation");
+}
 
 done_testing ();

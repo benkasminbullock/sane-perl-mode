@@ -29,14 +29,12 @@ EOF
 my $revert = run ($restoreel, $out);
 is ($revert, $if, "Convert trailing to leading if");
 
-TODO: {
-    # http://mikan/bugs/bug/2163
-    local $TODO = "Don't add parentheses if not necessary";
-    my $trailing = <<'EOF';
+# Don't add parentheses if not necessary
+# http://mikan/bugs/bug/2163
+my $trailing = <<'EOF';
 	last if ($m == $b || $m == $t);
 EOF
-    my $leading = run ($restoreel, $trailing);
-    unlike ($leading, qr!\(\(\$m!, "Don't add parentheses unless necessary");
-};
+my $leading = run ($restoreel, $trailing);
+unlike ($leading, qr!\(\(\$m!, "Don't add parentheses unless necessary");
 
 done_testing ();
