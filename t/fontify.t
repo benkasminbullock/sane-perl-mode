@@ -33,6 +33,17 @@ TODO: {
     }
 };
 
+# http://mikan/bugs/bug/2410
+
+TODO: {
+    local $TODO = 'Do not fontify comments';
+    my $comment = '# $xyz{abc}';
+    my $cout = run_font_lock ($comment);
+    print "$cout\n";
+    unlike ($cout, qr!<span class="sane-perl-(?:hash|string)">!);
+};
+
+
 
 
 done_testing ();
