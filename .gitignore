@@ -3,4 +3,6 @@ cperl-mode.el
 gnu-cperl-mode.el
 # Output of const-to-json.el
 style-alist.json
+# Compiled file
+sane-perl-mode.elc
 
