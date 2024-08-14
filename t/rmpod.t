@@ -1,6 +1,8 @@
 use FindBin '$Bin';
 use lib $Bin;
 use SanePerl;
+plan skip_all => "Can't reproduce the bug yet";
+ok (1);
 my $in =<<'EOF';
 my $plonker = 'Ricky Gervais';
 

@@ -1019,6 +1019,7 @@ Should contain exactly one group.")
 Should contain exactly one group.")
 
 (defconst sane-perl-keyword-rex "[a-zA-Z_][a-zA-Z_0-9:']*")
+(defconst sane-perl-label-rex "[a-zA-Z_][a-zA-Z0-9_]*:[^:]")
 
 ;;; Perl core keywords and regular expressions
 ;; The following code allows Emacs to load different
@@ -1227,7 +1228,8 @@ extends are shown like builtin functions."
          "\\|"
          sane-perl--tags-sub-regexp "\\>[^\n]+::"
          "\\|"
-         "[a-zA-Z_][a-zA-Z_0-9:]*(\C-?[^\n]+::" ; XSUB?
+         sane-perl-keyword-rex
+	 "(\C-?[^\n]+::" ; XSUB?
          "\\|"
          "[ \t]*BOOT:\C-?[^\n]+::"                 ; BOOT section
          "\\)")))
@@ -1431,7 +1433,9 @@ the last)."
   (concat				; Assume n groups before this...
    "\\("				; n+1=name-group
      sane-perl-white-and-comment-rex	; n+2=pre-name
-     "\\(::[a-zA-Z_0-9:']+\\|[a-zA-Z_'][a-zA-Z_0-9:']*\\)" ; n+3=name
+     "\\(::[a-zA-Z_0-9:']+\\|"
+     sane-perl-keyword-rex
+     "\\)" ; n+3=name
    "\\)"				; END n+1=name-group
    (if named "" "?")
    "\\("				; n+4=proto-group
@@ -2546,7 +2550,7 @@ Return the amount the indentation changed by."
 	  (t
 	   (skip-chars-forward " \t")
 	   (if (listp indent) (setq indent (car indent)))
-	   (cond ((and (looking-at "[A-Za-z_][A-Za-z_0-9]*:[^:]")
+	   (cond ((and (looking-at sane-perl-label-rex)
 		       (not (looking-at "[smy]:\\|tr:")))
 		  (and (> indent 0)
 		       (setq indent (max sane-perl-min-label-indent
@@ -2579,7 +2583,7 @@ Return the amount the indentation changed by."
 	     '(?w ?_))
        (progn
 	 (backward-sexp)
-	 (looking-at "[a-zA-Z_][a-zA-Z0-9_]*:[^:]"))))
+	 (looking-at sane-perl-label-rex))))
 
 (defun sane-perl-get-state (&optional parse-start start-state)
   "Return list (START STATE DEPTH PRESTART),
@@ -3096,7 +3100,7 @@ and closing parentheses and brackets."
 		 ;; If line starts with label, calculate label indentation
 		 (if (save-excursion
 		       (beginning-of-line)
-		       (looking-at "[ \t]*[a-zA-Z_][a-zA-Z_0-9]*:[^:]"))
+		       (looking-at (concat "[ \t]*" sane-perl-label-rex)))
 		     (if (> (current-indentation) sane-perl-min-label-indent)
 			 (- (current-indentation) sane-perl-label-offset)
 		       ;; Do not move `parse-data', this should
