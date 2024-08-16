@@ -1018,8 +1018,10 @@ Should contain exactly one group.")
 "Regular expression to match whitespace with interspersed comments.
 Should contain exactly one group.")
 
-(defconst sane-perl-keyword-rex "[a-zA-Z_][a-zA-Z_0-9:']*")
-(defconst sane-perl-label-rex "[a-zA-Z_][a-zA-Z0-9_]*:[^:]")
+(defconst sane-perl-keyword-rex "[a-zA-Z_][a-zA-Z_0-9:']*"
+  "Regular expression to match a Perl keyword")
+(defconst sane-perl-label-rex "[a-zA-Z_][a-zA-Z0-9_]*:[^:]"
+  "Regular expression which matches the labels used in goto and next statements")
 
 ;;; Perl core keywords and regular expressions
 ;; The following code allows Emacs to load different
